@@ -4,20 +4,30 @@
 <head>
   <title>fmk</title>
 
+  <link rel="stylesheet" href="lib/boostrap/css/bootstrap.css">
+
   <link rel="stylesheet" href="resources/css/fmk.css">
   <link rel="icon" type="image/ico" href="resources/images/favicon.ico">
 </head>
 
 <body>
 
+<div ng-view></div>
+
+{{ 'HEADLINE' | translate }}
+<p translate>HEADLINE</p>
+
 <script src="lib/jquery/jquery-2.1.0.js"></script>
 <script src="lib/angular/angular.js"></script>
 <script src="lib/angular/angular-route.js"></script>
 <script src="lib/angular/angular-sanitize.js"></script>
+<script src="lib/angular/angular-translate.js"></script>
 <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
 
-<script src="js/fmk.js"></script>
-<script src="js/controller/Home.js"></script>
+<script src="fmk/fmk.js"></script>
+<script src="fmk/controller/Home.js"></script>
+<script src="fmk/controller/Login.js"></script>
+<script src="fmk/controller/Navigation.js"></script>
 
 </body>
 </html>
