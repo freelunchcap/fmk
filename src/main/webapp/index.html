@@ -12,10 +12,8 @@
 
 <body>
 
+<div ng-controller="Message"></div>
 <div ng-view></div>
-
-{{ 'HEADLINE' | translate }}
-<p translate>HEADLINE</p>
 
 <script src="lib/jquery/jquery-2.1.0.js"></script>
 <script src="lib/angular/angular.js"></script>
@@ -24,10 +22,17 @@
 <script src="lib/angular/angular-translate.js"></script>
 <script src="lib/ui-bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
 
+<script src="muhe/lng-chs.js"></script>
+<script src="muhe/startHttp.js"></script>
+
+<script src="fmk/muhe_override.js"></script>
+<script src="fmk/i18n.js"></script>
 <script src="fmk/fmk.js"></script>
 <script src="fmk/controller/Home.js"></script>
 <script src="fmk/controller/Login.js"></script>
+<script src="fmk/controller/Message.js"></script>
 <script src="fmk/controller/Navigation.js"></script>
+<script src="fmk/service/Game.js"></script>
 
 </body>
 </html>
