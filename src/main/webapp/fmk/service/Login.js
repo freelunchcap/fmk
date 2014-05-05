@@ -5,18 +5,20 @@ fmk.factory('Login', function(Game) {
 
     passportLogin: function(callback) {
       var token = Game.getToken();
-      Game.post(LOGIN_PHP, 'passportLogin', {
-        time: token.timestamp,
-        key: token.key,
-        Udid: '',
+      var params = {
         Password: token.U_ID,
-        Devicetoken: '',
+        IDFA: getIDFA(token.userName),
+        time: token.timestamp,
+        newguide: token.G_TYPE,
+        ppgamename: 'CARD-IPHONE-CHS',
+        UDid: '',
+        key: token.key,
         UserName: token.userName,
         Origin: ''
-      }, callback);
+      };
 
+      Game.post(LOGIN_PHP, 'passportLogin', params, callback);
     }
-
   }
 
 });

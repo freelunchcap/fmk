@@ -82,6 +82,6 @@ function createRawRequest(action, params) {
 }
 
 function postRequest(server, service, action, params, cb) {
-  var url = server + '/' + service + '?pvc=' + ver_client + '&pvb=' + ver_build;
+  var url = server + service + '?pvc=' + encodeURIComponent(ver_client) + '&pvb=' + encodeURIComponent(ver_build);
   $.post(url, encryptRequest(createRawRequest(action, params)), cb, 'text');
 }
