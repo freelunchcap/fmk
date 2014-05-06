@@ -1,4 +1,4 @@
-LOGIN_PHP = "login.php";
+LOGIN_PHP = 'login.php';
 
 fmk.factory('Login', function(Game) {
   return {

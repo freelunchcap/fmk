@@ -1,4 +1,6 @@
-LOGIN_PHP = "maze.php";
+MAZE_PHP = 'maze.php';
+MAZE_MANUAL_BATTLE = 1;
+MAZE_AUTO_BATTLE = 0;
 
 fmk.factory('Maze', function(Game) {
   return {
@@ -10,7 +12,7 @@ fmk.factory('Maze', function(Game) {
         Layer: layer,
         ItemIndex: itemIndex
       };
-      Game.post(LOGIN_PHP, 'Battle', params, callback);
+      Game.post(MAZE_PHP, 'Battle', params, callback);
     },
 
     info: function(mapStageId, layer, callback) {
@@ -18,21 +20,21 @@ fmk.factory('Maze', function(Game) {
         MapStageId: mapStageId,
         Layer: layer
       };
-      Game.post(LOGIN_PHP, 'Info', params, callback);
+      Game.post(MAZE_PHP, 'Info', params, callback);
     },
 
     show: function(mapStageId, callback) {
       var params = {
         MapStageId: mapStageId
       };
-      Game.post(LOGIN_PHP, 'Show', params, callback);
+      Game.post(MAZE_PHP, 'Show', params, callback);
     },
 
     reset: function(mapStageId, callback) {
       var params = {
         MapStageId: mapStageId
       };
-      Game.post(LOGIN_PHP, 'reset', params, callback);
+      Game.post(MAZE_PHP, 'Reset', params, callback);
     }
   }
 

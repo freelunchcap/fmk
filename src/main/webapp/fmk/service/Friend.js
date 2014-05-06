@@ -1,4 +1,4 @@
-LOGIN_PHP = 'friend.php';
+FRIEND_PHP = 'friend.php';
 AGREE = 'agree';
 REJECT = 'reject';
 
@@ -8,13 +8,13 @@ fmk.factory('Friend', function(Game) {
     getFriends: function(callback) {
       var params = {
       };
-      Game.post(LOGIN_PHP, 'GetFriends', params, callback);
+      Game.post(FRIEND_PHP, 'GetFriends', params, callback);
     },
 
     getFriendApplys: function(callback) {
       var params = {
       };
-      Game.post(LOGIN_PHP, 'GetFriendApplys', params, callback);
+      Game.post(FRIEND_PHP, 'GetFriendApplys', params, callback);
     },
 
     disposeFriendApply: function(type, fid, callback) {
@@ -22,7 +22,7 @@ fmk.factory('Friend', function(Game) {
         type: type,
         Fid: fid
       };
-      Game.post(LOGIN_PHP, 'DisposeFriendApply', params, callback);
+      Game.post(FRIEND_PHP, 'DisposeFriendApply', params, callback);
     }
 
   }

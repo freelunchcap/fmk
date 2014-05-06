@@ -1,4 +1,4 @@
-LOGIN_PHP = "fenergy.php";
+FENERGY_PHP = 'fenergy.php';
 
 fmk.factory('FEnergy', function(Game) {
   return {
@@ -7,14 +7,14 @@ fmk.factory('FEnergy', function(Game) {
       var params = {
         Fid: fid
       };
-      Game.post(LOGIN_PHP, 'SendFEnergy', params, callback);
+      Game.post(FENERGY_PHP, 'SendFEnergy', params, callback);
     },
 
     getFEnergy: function(fid, callback) {
       var params = {
         Fid: fid
       };
-      Game.post(LOGIN_PHP, 'GetFEnergy', params, callback);
+      Game.post(FENERGY_PHP, 'GetFEnergy', params, callback);
     }
 
   }
