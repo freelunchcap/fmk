@@ -1,0 +1,9 @@
+div.console-logger table {
+  table-layout: fixed;
+}
+
+div.console-logger td {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -2,7 +2,7 @@ CbSlot =  '_-()+15ebf9a59893a34809c3573b7051f678';
 CbSlotkey = 'ncn';
 CbSlotvalue = '100';
 
-fmk.factory('Game', function() {
+fmk.factory('Game', function(Log) {
   var seq;
 
   function stringToByteArray(str) {
@@ -99,8 +99,26 @@ fmk.factory('Game', function() {
       return token;
     },
 
-    post: function(service, action, params, callback) {
-      postRequest(token.GS_IP, service, action, params, callback);
+    post: function(service, action, params, callback, message) {
+      var request = service + '?';
+      if(action)
+        request += 'do=' + action;
+      var paramPairs = [];
+      $.each(params, function(key, value) {
+        paramPairs.push(key + '=' + value);
+      });
+      request += paramPairs.join('&');
+
+      var logIndex = Log.info(message, request);
+      postRequest(token.GS_IP, service, action, params, function(response) {
+        response = JSON.parse(response);
+        Log.amend(logIndex, {
+          response: response.data,
+          error: response.status != 1
+        });
+        if(callback)
+          callback(response.data);
+      });
     }
 
   }

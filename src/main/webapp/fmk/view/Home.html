@@ -1,19 +1,27 @@
 <div class="home">
 
-  <tabset>
-    <tab>
-      <tab-heading>
-        {{'MAZE' | translate}}
-      </tab-heading>
-    </tab>
+  <div class="row">
+    <div class="col-md-2">
 
-    <tab>
-      <tab-heading>
-        {{'FRIENDS' | translate}}
-      </tab-heading>
-      <a class="btn btn-primary" ng-click="list()">list</a>
-    </tab>
+    </div><div class="col-md-5">
+      <tabset>
+        <tab>
+          <tab-heading>
+            {{'MAZE' | translate}}
+          </tab-heading>
+        </tab>
 
-  </tabset>
+        <tab>
+          <tab-heading>
+            {{'FRIENDS' | translate}}
+          </tab-heading>
+          <a class="btn btn-primary" ng-click="list()">list</a>
+        </tab>
+
+      </tabset>
+    </div><div class="col-md-5">
+      <console-logger logs="logs"></console-logger>
+    </div>
+  </div>
 
 </div>

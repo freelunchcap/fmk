@@ -1,0 +1,20 @@
+<div class="console-logger">
+  <table class="table table-condensed table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>{{'LOG' | translate}}</th>
+      <th>{{'REQUEST' | translate}}</th>
+      <th>{{'RESPONSE' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="(index, log) in logs">
+      <td>{{index}}</td>
+      <td>{{log.message}}</td>
+      <td>{{log.request}}</td>
+      <td>{{log.response}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
