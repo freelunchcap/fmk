@@ -1,4 +1,4 @@
-USER_PHP = 'boss.php';
+USER_PHP = 'user.php';
 
 fmk.factory('User', function(Game) {
   return {
@@ -9,38 +9,38 @@ fmk.factory('User', function(Game) {
         InviteCode: inviteCode,
         NickName: nickName
       };
-      Game.post(BOSS_PHP, 'EditNickName', params, callback);
+      Game.post(USER_PHP, 'EditNickName', params, callback);
     },
 
     editFresh: function(freshStep, callback) {
       var params = {
         FreshStep: freshStep
       };
-      Game.post(BOSS_PHP, 'EditFresh', params, callback);
+      Game.post(USER_PHP, 'EditFresh', params, callback);
     },
 
     getUserSalary: function(callback) {
       var params = {
       };
-      Game.post(BOSS_PHP, 'GetUserSalary', params, callback);
+      Game.post(USER_PHP, 'GetUserSalary', params, callback);
     },
 
     awardSalary: function(callback) {
       var params = {
       };
-      Game.post(BOSS_PHP, 'AwardSalary', params, callback);
+      Game.post(USER_PHP, 'AwardSalary', params, callback);
     },
 
     getUserinfo: function(callback) {
       var params = {
       };
-      Game.post(BOSS_PHP, 'GetUserinfo', params, callback);
+      Game.post(USER_PHP, 'GetUserinfo', params, callback);
     },
 
     getStatus: function(callback) {
       var params = {
       };
-      Game.post(BOSS_PHP, 'GetStatus', params, callback);
+      Game.post(USER_PHP, 'GetStatus', params, callback);
     }
   }
 
