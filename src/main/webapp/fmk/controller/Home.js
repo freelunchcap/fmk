@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal',
-  function($scope, $modal) {
+fmk.controller('Home', ['$scope', '$modal', 'Friend',
+  function($scope, $modal, Friend) {
 
     function openLogin() {
       $modal.open({
@@ -11,6 +11,10 @@ fmk.controller('Home', ['$scope', '$modal',
         }
       });
     }
+
+    $scope.list = function() {
+      Friend.getFriends();
+    };
 
     openLogin();
   }
