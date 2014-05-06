@@ -2,7 +2,7 @@ MAPSTAGE_PHP = 'mapstage.php';
 MAPSTAGE_MANUAL_BATTLE = 1;
 MAPSTAGE_AUTO_BATTLE = 0;
 
-fmk.factory('Rune', function(Game) {
+fmk.factory('Mapstage', function(Game) {
   return {
 
     getUserMapStages: function(callback) {
