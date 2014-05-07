@@ -1,3 +1,11 @@
+div.log-detail textarea{
+  resize: none;
+}
+
+div.log-detail textarea[readonly] {
+  cursor: auto;
+}
+
 div.log-detail textarea#log-request {
   height: 200px
 }

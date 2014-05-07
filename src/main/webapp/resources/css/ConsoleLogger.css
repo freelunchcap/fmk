@@ -9,6 +9,11 @@ div.console-logger td {
   cursor: pointer;
 }
 
+div.console-logger tr > td {
+  line-height: 10px;
+  font-size: 10px;
+}
+
 div.console-logger tr.log-error > td {
   color: #b94a48;
   background-color: #f2dede;
