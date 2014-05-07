@@ -14,12 +14,27 @@ div.console-logger tr.log-error > td {
   background-color: #f2dede;
 }
 
+div.console-logger tr.log-error:hover > td {
+  color: #b90300;
+  background-color: #f2cbcb;
+}
+
 div.console-logger tr.log-pending > td  {
   color: #c09853;
   background-color: #f3edd2;
 }
 
+div.console-logger tr.log-pending:hover > td  {
+  color: #c07a00;
+  background-color: #f3e7af;
+}
+
 div.console-logger tr.log-success > td  {
   color: #468847;
   background-color: #dff0d8;
+}
+
+div.console-logger tr.log-success:hover > td  {
+  color: #008802;
+  background-color: #cef0c0;
 }
