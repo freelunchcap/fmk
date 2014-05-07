@@ -1,0 +1,17 @@
+<div class="log-detail">
+  <div class="modal-header">
+    <h3>{{log.message}}</h3>
+  </div>
+  <div class="modal-body">
+    <form role="form">
+      <div class="form-group">
+        <label for="log-request">{{'REQUEST' | translate}}</label>
+        <textarea class="form-control" id="log-request" readonly>{{log.request}}</textarea>
+      </div>
+      <div class="form-group">
+        <label for="log-response">{{'RESPONSE' | translate}}</label>
+        <textarea class="form-control" id="log-response" readonly>{{log.response | json}}</textarea>
+      </div>
+    </form>
+  </div>
+</div>

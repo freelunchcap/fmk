@@ -5,10 +5,7 @@ fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Log',
       $modal.open({
         templateUrl: 'fmk/view/Login.html',
         controller: 'Login',
-        backdrop: 'static',
-        resolve: {
-          token: $scope.token
-        }
+        backdrop: 'static'
       });
     }
 

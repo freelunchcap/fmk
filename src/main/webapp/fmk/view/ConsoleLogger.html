@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(index, log) in logs">
+    <tr ng-repeat="(index, log) in logs" ng-click="view(log)">
       <td>{{index}}</td>
       <td>{{log.message}}</td>
       <td>{{log.request}}</td>

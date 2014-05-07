@@ -1,0 +1,7 @@
+div.log-detail textarea#log-request {
+  height: 200px
+}
+
+div.log-detail textarea#log-response {
+  height: 400px
+}
