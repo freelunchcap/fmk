@@ -1,6 +1,6 @@
 FENERGY_PHP = 'fenergy.php';
 
-fmk.factory('FEnergy', function(Game) {
+fmk.factory('Fenergy', function(Game) {
   return {
 
     sendFEnergy: function(fid, callback) {

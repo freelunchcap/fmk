@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Log',
-  function($scope, $modal, Friend, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Fenergy', 'Log',
+  function($scope, $modal, Friend, Fenergy, Log) {
 
     function openLogin() {
       $modal.open({
@@ -9,16 +9,33 @@ fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Log',
       });
     }
 
-    $scope.list = function() {
-      Friend.getFriends();
-    };
-
     $scope.accept = function() {
       Friend.disposeFriendApply(FRIEND_AGREE, 1);
     };
 
     $scope.logs = [];
     Log.linkLogs($scope.logs);
+
+    $scope.friends = [];
+    $scope.list = function() {
+      Friend.getFriends(function(response) {
+        $scope.friends = response.Friends;
+      });
+    };
+    $scope.claimEnergy = function(fid) {
+      Fenergy.getFEnergy(fid, function () {
+        $.grep($scope.friends, function(friend) {
+          return friend.Uid == fid;
+        })[0].FEnergySurplus = 0;
+      });
+    };
+    $scope.sendEnergy = function(fid) {
+      Fenergy.sendFEnergy(fid, function () {
+        $.grep($scope.friends, function(friend) {
+          return friend.Uid == fid;
+        })[0].FEnergySend = 0;
+      });
+    };
 
     openLogin();
   }
