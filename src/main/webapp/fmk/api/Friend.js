@@ -1,6 +1,6 @@
 FRIEND_PHP = 'friend.php';
-AGREE = 'agree';
-REJECT = 'reject';
+FRIEND_AGREE = 'agree';
+FRIEND_REJECT = 'reject';
 
 fmk.factory('Friend', function(Game) {
   return {

@@ -85,7 +85,7 @@ fmk.factory('Game', function($http, Log) {
       method: 'POST',
       url: url,
       data: $.param(encryptRequest(createRawRequest(action, params))),
-      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).success(callback);
   }
 
@@ -101,21 +101,19 @@ fmk.factory('Game', function($http, Log) {
       return token;
     },
 
-    post: function(service, action, params, callback, message) {
-      var request = service + '?';
-      if(action)
-        request += 'do=' + action;
-      var paramPairs = [];
-      $.each(params, function(key, value) {
-        paramPairs.push(key + '=' + value);
+    post: function(service, action, params, callback, log) {
+      var logIndex = Log.log({
+        service: service,
+        action: action,
+        params: params,
+        log: log,
+        status: -1
       });
-      request += paramPairs.join('&');
-
-      var logIndex = Log.info(message, request);
       postRequest(token.GS_IP, service, action, params, function(response) {
         Log.amend(logIndex, {
           response: response.data,
-          error: response.status != 1
+          status: response.status,
+          message: response.message
         });
         if(callback)
           callback(response.data);

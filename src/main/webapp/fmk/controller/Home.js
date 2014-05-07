@@ -13,6 +13,10 @@ fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Log',
       Friend.getFriends();
     };
 
+    $scope.accept = function() {
+      Friend.disposeFriendApply(FRIEND_AGREE, 1);
+    };
+
     $scope.logs = [];
     Log.linkLogs($scope.logs);
 

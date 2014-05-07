@@ -6,43 +6,25 @@ fmk.factory('Log', function() {
 
     linkLogs: function(logs) {
       logger = {
-        log: function(message, request, response, error) {
-          logs.push({
-            message: message || '',
-            request: request || '',
-            response: response || '',
-            error: error || false
-          });
+        log: function(log) {
+          logs.push(log);
           return logs.length - 1;
         },
-        amend: function(index, data) {
-          var log = logs[index];
-          if(log)
-            $.each(log, function (key) {
-              if(data[key] !== undefined)
-                log[key] = data[key];
-            });
-          return log;
+        amend: function(index, log) {
+          return $.extend(logs[index], log);
         }
       }
     },
 
-    info: function(message, request, response) {
+    log: function(log) {
       if(logger)
-        return logger.log(message, request, response, false);
-      console.log(message, request, response);
+        return logger.log(log);
+      console.error(JSON.stringify(log));
       return -1;
     },
 
-    error: function(message, request, response) {
-      if(logger)
-        return logger.log(message, request, response, true);
-      console.error(message, request, response);
-      return -1;
-    },
-
-    amend: function(index, data) {
-      logger.amend(index, data);
+    amend: function(index, log) {
+      logger.amend(index, log);
     }
 
   }

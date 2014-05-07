@@ -1,19 +1,21 @@
 <div class="console-logger">
-  <table class="table table-condensed table-striped">
+  <table class="table table-condensed table-striped table-hover">
     <thead>
     <tr>
       <th>#</th>
       <th>{{'LOG' | translate}}</th>
-      <th>{{'REQUEST' | translate}}</th>
-      <th>{{'RESPONSE' | translate}}</th>
+      <th>{{'SERVICE' | translate}}</th>
+      <th>{{'ACTION' | translate}}</th>
+      <th>{{'STATUS' | translate}}</th>
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(index, log) in logs" ng-click="view(log)">
+    <tr ng-repeat="(index, log) in logs" ng-click="view(log)" ng-class="{error: log.status == 0}">
       <td>{{index}}</td>
-      <td>{{log.message}}</td>
-      <td>{{log.request}}</td>
-      <td>{{log.response}}</td>
+      <td>{{log.log}}</td>
+      <td>{{log.service}}</td>
+      <td>{{log.action}}</td>
+      <td ng-class="{pending: log.status == -1, success: log.status == 1}">{{getStatus(log)}}</td>
     </tr>
     </tbody>
   </table>

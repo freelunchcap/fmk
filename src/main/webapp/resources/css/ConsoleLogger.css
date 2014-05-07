@@ -8,3 +8,15 @@ div.console-logger td {
   overflow: hidden;
   cursor: pointer;
 }
+
+div.console-logger .error {
+  color: red;
+}
+
+div.console-logger .pending {
+  color: yellow;
+}
+
+div.console-logger .success {
+  color: green;
+}
