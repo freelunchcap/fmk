@@ -10,12 +10,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="(index, log) in logs" ng-click="view(log)" ng-class="{error: log.status == 0}">
+    <tr ng-repeat="(index, log) in logs" ng-click="view(log)"
+        ng-class="{'log-error': log.status == 0, 'log-pending': log.status == -1, 'log-success': log.status == 1}">
       <td>{{index}}</td>
       <td>{{log.log}}</td>
       <td>{{log.service}}</td>
       <td>{{log.action}}</td>
-      <td ng-class="{pending: log.status == -1, success: log.status == 1}">{{getStatus(log)}}</td>
+      <td>{{getStatus(log)}}</td>
     </tr>
     </tbody>
   </table>

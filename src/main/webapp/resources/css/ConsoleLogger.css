@@ -9,14 +9,17 @@ div.console-logger td {
   cursor: pointer;
 }
 
-div.console-logger .error {
-  color: red;
+div.console-logger tr.log-error > td {
+  color: #b94a48;
+  background-color: #f2dede;
 }
 
-div.console-logger .pending {
-  color: yellow;
+div.console-logger tr.log-pending > td  {
+  color: #c09853;
+  background-color: #f3edd2;
 }
 
-div.console-logger .success {
-  color: green;
+div.console-logger tr.log-success > td  {
+  color: #468847;
+  background-color: #dff0d8;
 }
