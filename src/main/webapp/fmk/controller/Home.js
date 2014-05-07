@@ -22,18 +22,19 @@ fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Fenergy', 'Log',
         $scope.friends = response.Friends;
       });
     };
+    $scope.findFriend = function(fid) {
+      return $.grep($scope.friends, function(friend) {
+        return friend.Uid == fid;
+      })[0];
+    };
     $scope.claimEnergy = function(fid) {
       Fenergy.getFEnergy(fid, function () {
-        $.grep($scope.friends, function(friend) {
-          return friend.Uid == fid;
-        })[0].FEnergySurplus = 0;
+        $scope.findFriend(fid).FEnergySurplus = 0;
       });
     };
     $scope.sendEnergy = function(fid) {
       Fenergy.sendFEnergy(fid, function () {
-        $.grep($scope.friends, function(friend) {
-          return friend.Uid == fid;
-        })[0].FEnergySend = 0;
+        $scope.findFriend(fid).FEnergySend = 0;
       });
     };
 
