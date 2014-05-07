@@ -2,7 +2,7 @@ CbSlot =  '_-()+15ebf9a59893a34809c3573b7051f678';
 CbSlotkey = 'ncn';
 CbSlotvalue = '100';
 
-fmk.factory('Game', function(Log) {
+fmk.factory('Game', function($http, Log) {
   var seq;
 
   function stringToByteArray(str) {
@@ -45,10 +45,6 @@ fmk.factory('Game', function(Log) {
     return salt + btoa(str);
   }
 
-  function decryptRequest(req) {
-    return decompressStr(decodeBase64(req.z));
-  }
-
   function getSeq() {
     if(seq === undefined) {
       seq = Math.floor(Math.random() * 10000);
@@ -84,7 +80,13 @@ fmk.factory('Game', function(Log) {
 
   function postRequest(server, service, action, params, callback) {
     var url = server + service + '?pvc=' + encodeURIComponent(ver_client) + '&pvb=' + encodeURIComponent(ver_build);
-    $.post(url, encryptRequest(createRawRequest(action, params)), callback, 'text');
+
+    $http({
+      method: 'POST',
+      url: url,
+      data: $.param(encryptRequest(createRawRequest(action, params))),
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    }).success(callback);
   }
 
   var token;
@@ -111,7 +113,6 @@ fmk.factory('Game', function(Log) {
 
       var logIndex = Log.info(message, request);
       postRequest(token.GS_IP, service, action, params, function(response) {
-        response = JSON.parse(response);
         Log.amend(logIndex, {
           response: response.data,
           error: response.status != 1
