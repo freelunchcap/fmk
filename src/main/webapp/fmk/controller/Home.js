@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Fenergy', 'Log',
-  function($scope, $modal, Friend, Fenergy, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'Mapstage', 'Friend', 'Fenergy', 'Log',
+  function($scope, $modal, Mapstage, Friend, Fenergy, Log) {
 
     function openLogin() {
       $modal.open({
@@ -9,8 +9,8 @@ fmk.controller('Home', ['$scope', '$modal', 'Friend', 'Fenergy', 'Log',
       });
     }
 
-    $scope.accept = function() {
-      Friend.disposeFriendApply(FRIEND_AGREE, 1);
+    $scope.map = function() {
+      Mapstage.getMapStageALL();
     };
 
     $scope.logs = [];

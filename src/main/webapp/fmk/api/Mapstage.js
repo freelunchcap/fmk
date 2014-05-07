@@ -36,7 +36,7 @@ fmk.factory('Mapstage', function(Game) {
     getMapStageALL: function(callback) {
       var params = {
       };
-      Game.post(MAPSTAGE_PHP, 'GetMapStageALL', params, callback);
+      Game.post(MAPSTAGE_PHP, 'GetMapStageALL&stageNum=' + max_stageNum, params, callback);
     }
 
 
