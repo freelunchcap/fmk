@@ -1,4 +1,8 @@
-div.log-detail textarea{
+div.log-detail-modal > div.modal-dialog {
+  width: 800px;
+}
+
+div.log-detail textarea {
   resize: none;
 }
 
