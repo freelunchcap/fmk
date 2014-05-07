@@ -6,7 +6,7 @@ fmk.config(['$routeProvider', '$translateProvider', function ($routeProvider, $t
     $translateProvider.translations(lang, translation);
   });
 
-  $translateProvider.preferredLanguage(getLang());
+  $translateProvider.preferredLanguage(navigator.language);
 
   $routeProvider.when('/home', {
     templateUrl: 'fmk/view/Home.html',

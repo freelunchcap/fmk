@@ -27,7 +27,7 @@
                 <th class="col-md-2">{{'LAST_LOGIN' | translate}}</th>
                 <th class="col-md-1">{{'RANK' | translate}}</th>
                 <th class="col-md-3">{{'LEGION' | translate}}</th>
-                <th class="col-md-2">{{'ACTION' | translate}}</th>
+                <th class="col-md-2">{{'ENERGY' | translate}}</th>
               </tr>
               </thead>
               <tbody>
@@ -39,8 +39,8 @@
                 <td>{{friend.Rank}}</td>
                 <td>{{friend.LegionName}}</td>
                 <td>
-                  <a class="btn btn-xs btn-danger" ng-click="claimEnergy(friend.Uid)" ng-disabled="friend.FEnergySurplus == 0">{{'CLAIM' | translate}}</a>
-                  <a class="btn btn-xs btn-success" ng-click="sendEnergy(friend.Uid)" ng-disabled="friend.FEnergySend == 0">{{'SEND' | translate}}</a>
+                  <a class="btn btn-xs btn-success" ng-click="claimEnergy(friend.Uid)" ng-disabled="friend.FEnergySurplus == 0">{{'CLAIM' | translate}}</a>
+                  <a class="btn btn-xs btn-danger" ng-click="sendEnergy(friend.Uid)" ng-disabled="friend.FEnergySend == 0">{{'SEND' | translate}}</a>
                 </td>
               </tr>
               </tbody>
