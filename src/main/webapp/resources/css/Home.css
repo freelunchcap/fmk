@@ -1,3 +1,12 @@
 div.home {
   overflow-x: hidden;
 }
+
+div.home tr > td {
+  line-height: 12px;
+  font-size: 12px;
+}
+
+div.home tr > td a {
+  padding: 1px;
+}

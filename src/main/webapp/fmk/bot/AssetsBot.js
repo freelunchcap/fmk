@@ -62,6 +62,10 @@ fmk.factory('AssetsBot', function(Card, Rune, $cookies) {
         });
       } else
         callback(runeDefs);
+    },
+
+    getMapStageDefs: function(callback, ensure) {
+
     }
 
   };
