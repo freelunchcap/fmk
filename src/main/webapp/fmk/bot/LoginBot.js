@@ -9,16 +9,8 @@ fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, Storage) {
 
   return {
 
-    getLastLoginRecord: function() {
-      var lastLogin = null;
-      $.each(loginRecords, function(index, account) {
-        if(lastLogin == null)
-          lastLogin = account;
-        else if(account.timestamp > lastLogin.timestamp) {
-          lastLogin = account;
-        }
-      });
-      return lastLogin;
+    getLoginRecords: function() {
+      return loginRecords;
     },
 
     login: function(username, password, callback) {

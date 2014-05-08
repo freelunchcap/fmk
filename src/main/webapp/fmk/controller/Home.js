@@ -1,20 +1,37 @@
 fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'Log',
   function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, Log) {
 
-    function showLoginModal() {
-      $modal.open({
+    $scope.historyLogins = LoginBot.getLoginRecords();
+    function showLoginModal(callback) {
+      var loginModal = $modal.open({
         templateUrl: 'fmk/view/Login.html',
         controller: 'LoginModal',
         backdrop: 'static'
       });
+      loginModal.result.then(callback);
+    }
+    function setCurrentLogin(currentLogin) {
+      $scope.currentLogin = currentLogin;
     }
     function autoLogin() {
-      var lastLogin = LoginBot.getLastLoginRecord();
+      var lastLogin = null;
+      $.each($scope.historyLogins, function(index, account) {
+        if(lastLogin == null)
+          lastLogin = account;
+        else if(account.timestamp > lastLogin.timestamp) {
+          lastLogin = account;
+        }
+      });
       if(lastLogin != null)
-        LoginBot.login(lastLogin.username, lastLogin.password);
+        LoginBot.login(lastLogin.username, lastLogin.password, setCurrentLogin);
       else
-        showLoginModal();
+        showLoginModal(setCurrentLogin);
     }
+    $scope.$watch('currentLogin', function(newValue, oldValue) {
+      if(newValue != oldValue) {
+        alert(newValue.username);
+      }
+    });
 
     $scope.user = function() {
     };
