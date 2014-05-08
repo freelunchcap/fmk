@@ -34,26 +34,12 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
     $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = runeDefs;
   }
 
-  function saveMapstageDefs(mapList) {
+  function saveMapstageDefs(mapstageList) {
     mapstageDefs = {};
-    $.each(mapList, function(mapIndex, mapstageList) {
-      var mapPos = mapIndex + 1;
-      $.each(mapstageList, function(mapstageIndex, mapstage) {
-        var mapstagePos = mapstageIndex + 1;
-        var map = mapstageDefs[mapPos];
-        if(!map) {
-          map = {};
-          mapstageDefs[mapPos] = map;
-        }
-        map[mapstagePos] = mapstage;
-        var mapstageId = parseInt(mapstage.MapStageDetailId);
-        if(!map.min || map.min > mapstageId)
-          map.min = mapstageId;
-        if(!map.max || map.max < mapstageId)
-          map.max = mapstageId;
-      });
+    $.each(mapstageList, function(index, mapstage) {
+      mapstageDefs[mapstage.MapStageId] = mapstage;
     });
-    $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = runeDefs;
+    $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = mapstageDefs;
   }
 
   return {
@@ -93,8 +79,8 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
 
     getMapstageDefs: function(callback) {
       if(!mapstageDefs) {
-        MapstageApi.getMapStageALL(function(mapList) {
-          saveMapstageDefs(mapList);
+        MapstageApi.getMapStageALL(function(mapstageList) {
+          saveMapstageDefs(mapstageList);
           if(callback)
             callback(mapstageDefs);
         });

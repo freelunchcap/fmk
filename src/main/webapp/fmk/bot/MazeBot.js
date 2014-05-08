@@ -87,26 +87,16 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, $cookies) {
     getMazeRequirements: function(refresh, callback) {
       if(refresh || !mazeRequirements) {
         mazeRequirements = {};
-        AssetsBot.getMapstageDefs(function(mapstageDef) {
-          $.each(mapstageDef, function(mapPos, map) {
-            var foundMaze = false;
-            var bossMapstageId = -1;
-            $.each(map, function(mapstagePos, mapstage) {
-              var type = parseInt(mapstage.Type);
-              var id = parseInt(mapstage.MapStageDetailId);
-              switch(type) {
-                case 3:
-                  foundMaze = true;
-                  break;
-                case 2:
-                  bossMapstageId = id;
-                  break;
-              }
-              return !foundMaze || bossMapstageId == -1;
-            });
-            if(foundMaze)
-              mazeRequirements[mapPos] = bossMapstageId;
+        AssetsBot.getMapstageDefs(function(mapstageDefs) {
+          $.each(mapstageDefs, function(mapstagePos, mapstage) {
+            if(mapstage.MazeCount > 0) {
+              mazeRequirements[mapstagePos] = $.grep(mapstage.MapStageDetails, function (mapstageDetail) {
+                return mapstageDetail.Type == 2;
+              })[0].MapStageDetailId;
+            }
           });
+          if(callback)
+            callback(mazeRequirements);
         });
       } else if(callback)
         callback(mazeRequirements);

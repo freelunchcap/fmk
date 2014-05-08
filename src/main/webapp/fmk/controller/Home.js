@@ -18,7 +18,9 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
     };
 
     $scope.maze = function() {
-      MazeBot.fetchMazes();
+      MazeBot.fetchMazes(false, function(mazes) {
+        alert(mazes);
+      });
     };
 
     $scope.logs = [];
