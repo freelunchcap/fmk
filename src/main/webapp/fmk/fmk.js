@@ -1,4 +1,4 @@
-var fmk = angular.module('fmk', ['ngCookies', 'ngRoute', 'ngSanitize', 'ui.bootstrap', 'pascalprecht.translate']);
+var fmk = angular.module('fmk', ['ngRoute', 'ngSanitize', 'ui.bootstrap', 'pascalprecht.translate']);
 
 fmk.config(['$routeProvider', '$translateProvider', function ($routeProvider, $translateProvider) {
 
