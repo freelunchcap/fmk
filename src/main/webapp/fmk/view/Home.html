@@ -2,29 +2,34 @@
 
   <div class="row">
     <div class="col-md-2">
-      <select ng-model="targetAccount"
-              ng-options="login.username group by login.server for login in historyLogins"></select>
-      <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetLogin)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
-      <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'NEW_ACCOUNT' | translate}}</a>
+      <div class="pull-right">
+        <div>
+          <select ng-model="targetAccount"
+                  ng-options="login.username group by login.server for login in historyLogins"></select>
+          <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetLogin)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
+        </div>
+        <div>
+          <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'OTHER_ACCOUNT' | translate}}</a>
+        </div>
+        <tools-panel></tools-panel>
+      </div>
     </div>
     <div class="col-md-5">
 
       <tabset>
 
-        <tab select="user()">
+        <tab>
           <tab-heading>
             {{'USER' | translate}}
           </tab-heading>
           <user-tab></user-tab>
         </tab>
 
-        <tab>
+        <tab select="loadMazes()">
           <tab-heading>
             {{'MAZE' | translate}}
           </tab-heading>
-          <a class="btn btn-primary" ng-click="map()">map</a>
-          <a class="btn btn-primary" ng-click="card()">card</a>
-          <a class="btn btn-primary" ng-click="maze()">maze</a>
+          <maze-tab mazes="mazes" userinfo="userinfo"></maze-tab>
         </tab>
 
         <tab class="friends">

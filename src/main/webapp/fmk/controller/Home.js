@@ -1,18 +1,21 @@
-fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'Log',
-  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'UserBot', 'Log',
+  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, UserBot, Log) {
 
     $scope.historyLogins = LoginBot.getLoginRecords();
     function showLoginModal(callback) {
       var loginModal = $modal.open({
-        templateUrl: 'fmk/view/Login.html',
+        templateUrl: 'fmk/view/LoginModal.html',
         controller: 'LoginModal',
-        backdrop: 'static'
+        backdrop: $scope.currentAccount == null ? 'static' : true
       });
       loginModal.result.then(callback);
     }
     function setCurrentAccount(account) {
       $scope.currentAccount = account;
       $scope.targetAccount = account;
+      UserBot.getUserinfo(true, function(userinfo) {
+        $scope.userinfo = userinfo;
+      });
     }
     function autoLogin() {
       var lastLogin = null;
@@ -35,21 +38,13 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
       showLoginModal(setCurrentAccount);
     };
 
-    $scope.user = function() {
-    };
-
-    $scope.card = function () {
-      CardApi.getAllCard();
-    };
-
-    $scope.map = function() {
-      MapstageApi.getMapStageALL();
-    };
-
-    $scope.maze = function() {
-      MazeBot.fetchMazes(false, function(mazes) {
+    $scope.loadMazes = function() {
+      MazeBot.getAvailableMazes(false, function(mazes) {
+        $scope.mazes = mazes;
       });
     };
+
+
 
     $scope.logs = [];
     Log.linkLogs($scope.logs);

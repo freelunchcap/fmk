@@ -1,0 +1,20 @@
+<div class="maze-tab">
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td ng-repeat="(mapstagePos, available) in mazes">
+        <div>
+          <label>
+            <input type="checkbox">{{'ATTACK' | translate}}
+          </label>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

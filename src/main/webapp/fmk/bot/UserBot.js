@@ -35,11 +35,11 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Storage,
           if(regularUpdate)
             ub.scheduleNextUpdate();
           savedUserinfo = userinfo;
-          callback(userinfo);
+          if(callback)
+            callback(userinfo);
         });
-      } else {
+      } else if(callback)
         callback(savedUserinfo);
-      }
     },
 
     cancelNextUpdate: function() {

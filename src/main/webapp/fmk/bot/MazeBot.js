@@ -106,7 +106,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, Storage) {
         callback(mazeRequirements);
     },
 
-    fetchMazes: function(refresh, callback) {
+    getAvailableMazes: function(refresh, callback) {
       UserBot.getUserMapstages(refresh, function(userMapstages) {
         mb.getMazeRequirements(false, function(mazeRequirements) {
           var mazes = {};
