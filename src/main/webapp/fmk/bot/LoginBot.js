@@ -29,8 +29,10 @@ fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, Storage) {
           });
           if(existingRecord.length == 0)
             loginRecords.push(newRecord);
-          else
+          else {
             existingRecord[0].timestamp = newRecord.timestamp;
+            newRecord = existingRecord[0];
+          }
 
           saveLoginRecords();
           if(callback)
