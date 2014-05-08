@@ -1,5 +1,15 @@
-fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'MazeBot', 'Log',
-  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, MazeBot, Log) {
+ACCOUNTS = "accounts";
+
+fmk.controller('Home', ['$scope', '$modal', '$cookies', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'MazeBot', 'Log',
+  function($scope, $modal, $cookies, CardApi, FenergyApi, FriendApi, MapstageApi, MazeBot, Log) {
+
+    var accounts = $cookies[ACCOUNTS];
+    function activateAccount() {
+      $.each(accounts, function(index, account) {
+
+      });
+    }
+
 
     function openLogin() {
       $modal.open({
