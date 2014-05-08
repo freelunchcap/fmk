@@ -3,17 +3,15 @@
     <thead>
     <tr>
       <th class="col-md-1">#</th>
-      <th class="col-md-3">{{'LOG' | translate}}</th>
-      <th class="col-md-3">{{'SERVICE' | translate}}</th>
-      <th class="col-md-3">{{'ACTION' | translate}}</th>
-      <th class="col-md-2">{{'STATUS' | translate}}</th>
+      <th class="col-md-4">{{'SERVICE' | translate}}</th>
+      <th class="col-md-4">{{'ACTION' | translate}}</th>
+      <th class="col-md-3">{{'STATUS' | translate}}</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="(index, log) in logs" ng-click="view(log)"
         ng-class="{'log-error': log.status == 0, 'log-pending': log.status == -1, 'log-success': log.status == 1}">
       <td>{{index}}</td>
-      <td>{{log.log}}</td>
       <td>{{log.service}}</td>
       <td>{{log.action}}</td>
       <td>{{getStatus(log)}}</td>

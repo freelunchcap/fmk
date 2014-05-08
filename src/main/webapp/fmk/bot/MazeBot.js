@@ -4,7 +4,7 @@ MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
 MAZE_BOT_UPSTATIR = 4;
 
-fmk.factory('MazeBot', function(MazeApi) {
+fmk.factory('MazeBot', function(MazeApi, MapstageApi, AssetsBot) {
 
   var mb = {
 
@@ -78,6 +78,12 @@ fmk.factory('MazeBot', function(MazeApi) {
         MazeApi.show(mapStageId, function(mazeStatus) {
           doClearMaze(mazeStatus, callback);
         });
+    },
+
+    fetchMazes: function(callback) {
+      MapstageApi.getUserMapStages(function(userMapstages) {
+
+      })
     }
 
   };

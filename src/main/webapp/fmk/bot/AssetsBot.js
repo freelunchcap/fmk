@@ -1,14 +1,16 @@
 ASSETS_BOT_CARD_DEFINITIONS = 'card_definitions';
 ASSETS_BOT_SKILL_DEFINITIONS = 'skill_definitions';
 ASSETS_BOT_RUNE_DEFINITIONS = 'rune_definitions';
+ASSETS_BOT_MAPSTAGE_DEFINITIONS = 'mapstage_definitions';
 
-fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
+fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
 
   var cardDefs = $cookies[ASSETS_BOT_CARD_DEFINITIONS];
   var skillDefs = $cookies[ASSETS_BOT_SKILL_DEFINITIONS];
   var runeDefs = $cookies[ASSETS_BOT_RUNE_DEFINITIONS];
+  var mapstageDefs = $cookies[ASSETS_BOT_MAPSTAGE_DEFINITIONS];
 
-  function saveCardListAsCardDefs(cardList) {
+  function saveCardDefs(cardList) {
     cardDefs = {};
     $.each(cardList.Cards, function(index, card) {
       cardDefs[card.CardId] = card;
@@ -16,7 +18,7 @@ fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
     $cookies[ASSETS_BOT_CARD_DEFINITIONS] = cardDefs;
   }
 
-  function saveSkillListAsSkillDefs(skillList) {
+  function saveSkillDefs(skillList) {
     skillDefs = {};
     $.each(skillList.Skills, function(index, skill) {
       skillDefs[skill.SkillId] = skill;
@@ -24,10 +26,32 @@ fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
     $cookies[ASSETS_BOT_SKILL_DEFINITIONS] = skillDefs;
   }
 
-  function saveRuneListAsRuneDefs(runeList) {
+  function saveRuneDefs(runeList) {
     runeDefs = {};
     $.each(runeList.Runes, function(index, rune) {
       runeDefs[rune.RuneId] = rune;
+    });
+    $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = runeDefs;
+  }
+
+  function saveMapstageDefs(mapList) {
+    mapstageDefs = {};
+    $.each(mapList, function(mapIndex, mapstageList) {
+      var mapPos = mapIndex + 1;
+      $.each(mapstageList, function(mapstageIndex, mapstage) {
+        var mapstagePos = mapstageIndex + 1;
+        var map = mapstageDefs[mapPos];
+        if(!map) {
+          map = {};
+          mapstageDefs[mapPos] = map;
+        }
+        map[mapstagePos] = mapstage;
+        var mapstageId = parseInt(mapstage.MapStageDetailId);
+        if(!map.min || map.min > mapstageId)
+          map.min = mapstageId;
+        if(!map.max || map.max < mapstageId)
+          map.max = mapstageId;
+      });
     });
     $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = runeDefs;
   }
@@ -37,8 +61,9 @@ fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
     getCardDefs: function(callback, ensure) {
       if(!cardDefs || ensure && !cardDefs[ensure]) {
         CardApi.getAllCard(function(cardList) {
-          saveCardListAsCardDefs(cardList);
-          callback(cardDefs);
+          saveCardDefs(cardList);
+          if(callback)
+            callback(cardDefs);
         });
       } else
         callback(cardDefs);
@@ -47,25 +72,34 @@ fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
     getSkillDefs: function(callback, ensure) {
       if(!skillDefs || ensure && !skillDefs[ensure]) {
         CardApi.getAllSkill(function(skillList) {
-          saveSkillListAsSkillDefs(skillList);
-          callback(skillDefs);
+          saveSkillDefs(skillList);
+          if(callback)
+            callback(skillDefs);
         });
-      } else
+      } else if(callback)
         callback(skillDefs);
     },
 
     getRuneDefs: function(callback, ensure) {
       if(!runeDefs || ensure && !runeDefs[ensure]) {
         RuneApi.getAllRune(function(runeList) {
-          saveRuneListAsRuneDefs(runeList);
-          callback(runeDefs);
+          saveRuneDefs(runeList);
+          if(callback)
+            callback(runeDefs);
         });
-      } else
+      } else if(callback)
         callback(runeDefs);
     },
 
-    getMapStageDefs: function(callback, ensure) {
-
+    getMapstageDefs: function(callback) {
+      if(!mapstageDefs) {
+        MapstageApi.getMapStageALL(function(mapList) {
+          saveMapstageDefs(mapList);
+          if(callback)
+            callback(mapstageDefs);
+        });
+      } else if(callback)
+        callback(mapstageDefs);
     }
 
   };

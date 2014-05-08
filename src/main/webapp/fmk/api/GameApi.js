@@ -101,12 +101,11 @@ fmk.factory('GameApi', function($http, Log) {
       return token;
     },
 
-    post: function(service, action, params, callback, log) {
+    post: function(service, action, params, callback) {
       var logIndex = Log.log({
         service: service,
         action: action,
         params: params,
-        log: log,
         status: -1
       });
       postRequest(token.GS_IP, service, action, params, function(response) {

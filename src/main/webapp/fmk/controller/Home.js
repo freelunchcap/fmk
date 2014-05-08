@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'Log',
-  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'MazeBot', 'Log',
+  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, MazeBot, Log) {
 
     function openLogin() {
       $modal.open({
@@ -15,6 +15,10 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
 
     $scope.map = function() {
       MapstageApi.getMapStageALL();
+    };
+
+    $scope.maze = function() {
+      MazeBot.fetchMazes();
     };
 
     $scope.logs = [];
