@@ -6,11 +6,11 @@ MAZE_BOT_UPSTATIR = 4;
 
 MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
 
-fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, Cookies) {
+fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, Storage) {
 
-  var mazeRequirements = Cookies.getObject(MAZE_BOT_MAZE_REQUIREMENTS);
+  var mazeRequirements = Storage.getObject(MAZE_BOT_MAZE_REQUIREMENTS);
   function saveMazeRequirements() {
-    Cookies.setObject(MAZE_BOT_MAZE_REQUIREMENTS, mazeRequirements);
+    Storage.setObject(MAZE_BOT_MAZE_REQUIREMENTS, mazeRequirements);
   }
 
   var mb = {

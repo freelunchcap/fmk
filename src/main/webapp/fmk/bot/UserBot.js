@@ -1,10 +1,10 @@
 USER_BOT_USER_MAPSTAGES = 'user_mapstages';
 
-fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Cookies, $timeout) {
+fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Storage, $timeout) {
 
-  var allUserMapstages = Cookies.getObject(USER_BOT_USER_MAPSTAGES) || {};
+  var allUserMapstages = Storage.getObject(USER_BOT_USER_MAPSTAGES) || {};
   function saveAllUserMapStages() {
-    Cookies.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
+    Storage.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
   }
 
   var savedUserinfo;

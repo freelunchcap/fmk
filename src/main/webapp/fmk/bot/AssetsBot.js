@@ -3,19 +3,19 @@ ASSETS_BOT_SKILL_DEFINITIONS = 'skill_definitions';
 ASSETS_BOT_RUNE_DEFINITIONS = 'rune_definitions';
 ASSETS_BOT_MAPSTAGE_DEFINITIONS = 'mapstage_definitions';
 
-fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Cookies) {
+fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Storage) {
 
-  var cardDefs = Cookies.getObject(ASSETS_BOT_CARD_DEFINITIONS);
-  var skillDefs = Cookies.getObject(ASSETS_BOT_SKILL_DEFINITIONS);
-  var runeDefs = Cookies.getObject(ASSETS_BOT_RUNE_DEFINITIONS);
-  var mapstageDefs = Cookies.getObject(ASSETS_BOT_MAPSTAGE_DEFINITIONS);
+  var cardDefs = Storage.getObject(ASSETS_BOT_CARD_DEFINITIONS);
+  var skillDefs = Storage.getObject(ASSETS_BOT_SKILL_DEFINITIONS);
+  var runeDefs = Storage.getObject(ASSETS_BOT_RUNE_DEFINITIONS);
+  var mapstageDefs = Storage.getObject(ASSETS_BOT_MAPSTAGE_DEFINITIONS);
 
   function saveCardDefs(cardList) {
     cardDefs = {};
     $.each(cardList.Cards, function(index, card) {
       cardDefs[card.CardId] = card;
     });
-    Cookies.setObject(ASSETS_BOT_CARD_DEFINITIONS, cardDefs);
+    Storage.setObject(ASSETS_BOT_CARD_DEFINITIONS, cardDefs);
   }
 
   function saveSkillDefs(skillList) {
@@ -23,7 +23,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Cookies) {
     $.each(skillList.Skills, function(index, skill) {
       skillDefs[skill.SkillId] = skill;
     });
-    Cookies.setObject(ASSETS_BOT_SKILL_DEFINITIONS, skillDefs);
+    Storage.setObject(ASSETS_BOT_SKILL_DEFINITIONS, skillDefs);
   }
 
   function saveRuneDefs(runeList) {
@@ -31,7 +31,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Cookies) {
     $.each(runeList.Runes, function(index, rune) {
       runeDefs[rune.RuneId] = rune;
     });
-    Cookies.setObject(ASSETS_BOT_RUNE_DEFINITIONS, runeDefs);
+    Storage.setObject(ASSETS_BOT_RUNE_DEFINITIONS, runeDefs);
   }
 
   function saveMapstageDefs(mapstageList) {
@@ -39,7 +39,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Cookies) {
     $.each(mapstageList, function(index, mapstage) {
       mapstageDefs[mapstage.MapStageId] = mapstage;
     });
-    Cookies.setObject(ASSETS_BOT_RUNE_DEFINITIONS, mapstageDefs);
+    Storage.setObject(ASSETS_BOT_RUNE_DEFINITIONS, mapstageDefs);
   }
 
   return {

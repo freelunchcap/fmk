@@ -1,13 +1,13 @@
-fmk.factory('Cookies', function($cookies) {
+fmk.factory('Storage', function() {
 
   return {
 
     getString: function(key) {
-      return $cookies[key];
+      return window.localStorage[key];
     },
 
     getObject: function(key) {
-      var str = $cookies[key];
+      var str = window.localStorage[key];
       if(str == null)
         return str;
       else
@@ -15,11 +15,11 @@ fmk.factory('Cookies', function($cookies) {
     },
 
     setString: function(key, value) {
-      $cookies[key] = value;
+      window.localStorage[key] = value;
     },
 
     setObject: function(key, value) {
-      $cookies[key] = JSON.stringify(value);
+      window.localStorage[key] = JSON.stringify(value);
     }
 
   }

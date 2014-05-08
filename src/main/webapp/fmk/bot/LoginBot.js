@@ -1,10 +1,10 @@
 LOGIN_BOT_LOGIN_RECORDS = "login_records";
 
-fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, Cookies) {
+fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, Storage) {
 
-  var loginRecords = Cookies.getObject(LOGIN_BOT_LOGIN_RECORDS) || [];
+  var loginRecords = Storage.getObject(LOGIN_BOT_LOGIN_RECORDS) || [];
   function saveLoginRecords() {
-    Cookies.setObject(LOGIN_BOT_LOGIN_RECORDS, loginRecords);
+    Storage.setObject(LOGIN_BOT_LOGIN_RECORDS, loginRecords);
   }
 
   return {
