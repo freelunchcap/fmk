@@ -10,8 +10,9 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
       });
       loginModal.result.then(callback);
     }
-    function setCurrentLogin(currentLogin) {
-      $scope.currentLogin = currentLogin;
+    function setCurrentAccount(account) {
+      $scope.currentAccount = account;
+      $scope.targetAccount = account;
     }
     function autoLogin() {
       var lastLogin = null;
@@ -23,15 +24,16 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
         }
       });
       if(lastLogin != null)
-        LoginBot.login(lastLogin.username, lastLogin.password, setCurrentLogin);
+        $scope.switchAccount(lastLogin);
       else
-        showLoginModal(setCurrentLogin);
+        $scope.useDifferentAccount();
     }
-    $scope.$watch('currentLogin', function(newValue, oldValue) {
-      if(newValue != oldValue) {
-        alert(newValue.username);
-      }
-    });
+    $scope.switchAccount = function(login) {
+      LoginBot.login(login.username, login.password, setCurrentAccount);
+    };
+    $scope.useDifferentAccount = function() {
+      showLoginModal(setCurrentAccount);
+    };
 
     $scope.user = function() {
     };

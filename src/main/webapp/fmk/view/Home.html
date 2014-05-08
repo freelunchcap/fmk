@@ -2,8 +2,10 @@
 
   <div class="row">
     <div class="col-md-2">
-      <select ng-model="currentLogin"
+      <select ng-model="targetAccount"
               ng-options="login.username group by login.server for login in historyLogins"></select>
+      <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetLogin)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
+      <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'NEW_ACCOUNT' | translate}}</a>
     </div>
     <div class="col-md-5">
 
