@@ -9,6 +9,9 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
       });
     }
 
+    $scope.user = function() {
+    };
+
     $scope.card = function () {
       CardApi.getAllCard();
     };
@@ -19,7 +22,6 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
 
     $scope.maze = function() {
       MazeBot.fetchMazes(false, function(mazes) {
-        alert(mazes);
       });
     };
 

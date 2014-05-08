@@ -3,8 +3,18 @@
   <div class="row">
     <div class="col-md-2">
 
-    </div><div class="col-md-5">
+    </div>
+    <div class="col-md-5">
+
       <tabset>
+
+        <tab select="user()">
+          <tab-heading>
+            {{'USER' | translate}}
+          </tab-heading>
+          <user-tab></user-tab>
+        </tab>
+
         <tab>
           <tab-heading>
             {{'MAZE' | translate}}
@@ -70,7 +80,8 @@
         </tab>
 
       </tabset>
-    </div><div class="col-md-5">
+    </div>
+    <div class="col-md-5">
       <console-logger logs="logs"></console-logger>
     </div>
   </div>
