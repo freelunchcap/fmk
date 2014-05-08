@@ -2,7 +2,7 @@ CbSlot =  '_-()+15ebf9a59893a34809c3573b7051f678';
 CbSlotkey = 'ncn';
 CbSlotvalue = '100';
 
-fmk.factory('GameApi', function($http, Log) {
+fmk.factory('GameApi', function($http, LogService) {
   var seq;
 
   function stringToByteArray(str) {
@@ -17,18 +17,8 @@ fmk.factory('GameApi', function($http, Log) {
     return String.fromCharCode.apply(null, data);
   }
 
-  function decompressStr(str) {
-    return byteArrayToString((new Zlib.Inflate(stringToByteArray(str))).decompress());
-  }
-
   function compressStr(str) {
     return byteArrayToString((new Zlib.Deflate(stringToByteArray(str))).compress());
-  }
-
-  function decodeBase64(str) {
-    var extraSaltSize = parseInt(str.charAt(5));
-    var realStr = str.substr(6 + extraSaltSize);
-    return atob(realStr);
   }
 
   function encodeBase64(str) {
@@ -102,14 +92,14 @@ fmk.factory('GameApi', function($http, Log) {
     },
 
     post: function(service, action, params, callback) {
-      var logIndex = Log.log({
+      var logIndex = LogService.log({
         service: service,
         action: action,
         params: params,
         status: -1
       });
       postRequest(token.GS_IP, service, action, params, function(response) {
-        Log.amend(logIndex, {
+        LogService.amend(logIndex, {
           response: response.data,
           status: response.status,
           message: response.message

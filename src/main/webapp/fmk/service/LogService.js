@@ -1,4 +1,4 @@
-fmk.factory('Log', function() {
+fmk.factory('LogService', function() {
 
   var logger;
 

@@ -1,10 +1,10 @@
 USER_BOT_USER_MAPSTAGES = 'user_mapstages';
 
-fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Storage, $timeout) {
+fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageService, $timeout) {
 
-  var allUserMapstages = Storage.getObject(USER_BOT_USER_MAPSTAGES) || {};
+  var allUserMapstages = StorageService.getObject(USER_BOT_USER_MAPSTAGES) || {};
   function saveAllUserMapStages() {
-    Storage.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
+    StorageService.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
   }
 
   var savedUserinfo;
@@ -52,7 +52,7 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Storage,
     scheduleNextUpdate: function() {
       updatePromise = $timeout(function() {
         ub.getUserinfo(true);
-      }, 60000);
+      }, 1200000);
     },
 
     stopRegularUpdate: function() {

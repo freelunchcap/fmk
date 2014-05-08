@@ -1,4 +1,7 @@
 <div class="maze-tab">
+  <div>
+    <a class="btn btn-primary" ng-click="saveSettings()">{{'SAVE_SETTINGS' | translate}}</a>
+  </div>
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -7,10 +10,10 @@
     </thead>
     <tbody>
     <tr>
-      <td ng-repeat="(mapstagePos, available) in mazes">
+      <td ng-repeat="(mapPos, available) in mazes">
         <div>
           <label>
-            <input type="checkbox">{{'ATTACK' | translate}}
+            <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
           </label>
         </div>
       </td>

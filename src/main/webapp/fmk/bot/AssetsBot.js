@@ -3,19 +3,19 @@ ASSETS_BOT_SKILL_DEFINITIONS = 'skill_definitions';
 ASSETS_BOT_RUNE_DEFINITIONS = 'rune_definitions';
 ASSETS_BOT_MAPSTAGE_DEFINITIONS = 'mapstage_definitions';
 
-fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Storage) {
+fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, StorageService) {
 
-  var cardDefs = Storage.getObject(ASSETS_BOT_CARD_DEFINITIONS);
-  var skillDefs = Storage.getObject(ASSETS_BOT_SKILL_DEFINITIONS);
-  var runeDefs = Storage.getObject(ASSETS_BOT_RUNE_DEFINITIONS);
-  var mapstageDefs = Storage.getObject(ASSETS_BOT_MAPSTAGE_DEFINITIONS);
+  var cardDefs = StorageService.getObject(ASSETS_BOT_CARD_DEFINITIONS);
+  var skillDefs = StorageService.getObject(ASSETS_BOT_SKILL_DEFINITIONS);
+  var runeDefs = StorageService.getObject(ASSETS_BOT_RUNE_DEFINITIONS);
+  var mapstageDefs = StorageService.getObject(ASSETS_BOT_MAPSTAGE_DEFINITIONS);
 
   function saveCardDefs(cardList) {
     cardDefs = {};
     $.each(cardList.Cards, function(index, card) {
       cardDefs[card.CardId] = card;
     });
-    Storage.setObject(ASSETS_BOT_CARD_DEFINITIONS, cardDefs);
+    StorageService.setObject(ASSETS_BOT_CARD_DEFINITIONS, cardDefs);
   }
 
   function saveSkillDefs(skillList) {
@@ -23,7 +23,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Storage) {
     $.each(skillList.Skills, function(index, skill) {
       skillDefs[skill.SkillId] = skill;
     });
-    Storage.setObject(ASSETS_BOT_SKILL_DEFINITIONS, skillDefs);
+    StorageService.setObject(ASSETS_BOT_SKILL_DEFINITIONS, skillDefs);
   }
 
   function saveRuneDefs(runeList) {
@@ -31,7 +31,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Storage) {
     $.each(runeList.Runes, function(index, rune) {
       runeDefs[rune.RuneId] = rune;
     });
-    Storage.setObject(ASSETS_BOT_RUNE_DEFINITIONS, runeDefs);
+    StorageService.setObject(ASSETS_BOT_RUNE_DEFINITIONS, runeDefs);
   }
 
   function saveMapstageDefs(mapstageList) {
@@ -39,7 +39,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Storage) {
     $.each(mapstageList, function(index, mapstage) {
       mapstageDefs[mapstage.MapStageId] = mapstage;
     });
-    Storage.setObject(ASSETS_BOT_RUNE_DEFINITIONS, mapstageDefs);
+    StorageService.setObject(ASSETS_BOT_RUNE_DEFINITIONS, mapstageDefs);
   }
 
   return {

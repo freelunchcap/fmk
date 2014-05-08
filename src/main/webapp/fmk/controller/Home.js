@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'UserBot', 'Log',
-  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, UserBot, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'UserBot', 'LogService', 'ProfileService',
+  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, UserBot, LogService, ProfileService) {
 
     $scope.historyLogins = LoginBot.getLoginRecords();
     function showLoginModal(callback) {
@@ -13,6 +13,7 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
     function setCurrentAccount(account) {
       $scope.currentAccount = account;
       $scope.targetAccount = account;
+      $scope.profile = ProfileService.getProfile();
       UserBot.getUserinfo(true, function(userinfo) {
         $scope.userinfo = userinfo;
       });
@@ -47,7 +48,7 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
 
 
     $scope.logs = [];
-    Log.linkLogs($scope.logs);
+    LogService.linkLogs($scope.logs);
 
     $scope.friends = [];
     $scope.list = function() {

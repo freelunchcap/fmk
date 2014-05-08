@@ -1,14 +1,35 @@
-fmk.directive('mazeTab', function ($modal) {
+MAZE_PROFILE = 'maze_profile';
+
+fmk.directive('mazeTab', function ($modal, ProfileService) {
   return {
     restrict: 'E',
     scope: {
       mazes: '=',
-      userinfo: '='
+      userinfo: '=',
+      profile: '='
     },
     templateUrl: 'fmk/view/MazeTab.html',
 
     controller: function($scope) {
 
+      $scope.saveSettings = function() {
+        ProfileService.saveProfile();
+      }
+
+    },
+
+    link: function() {
+      ProfileService.setDefaultProfile(MAZE_PROFILE, {
+        attack: {
+          2: false,
+          3: false,
+          4: false,
+          5: false,
+          6: true,
+          7: true,
+          8: true
+        }
+      });
     }
 
   }

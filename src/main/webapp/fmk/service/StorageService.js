@@ -1,4 +1,4 @@
-fmk.factory('Storage', function() {
+fmk.factory('StorageService', function() {
 
   return {
 
