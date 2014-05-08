@@ -17,15 +17,15 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, Cookies,
 
     getUserMapstages: function(refresh, callback) {
       var token = GameApi.getToken();
-      if(refresh || !allUserMapstages[token.UserName]) {
+      if(refresh || !allUserMapstages[token.userName]) {
         MapstageApi.getUserMapStages(function(userMapstages) {
-          allUserMapstages[token.UserName] = userMapstages;
+          allUserMapstages[token.userName] = userMapstages;
           saveAllUserMapStages();
           if(callback)
             callback(userMapstages);
         });
       } else if(callback)
-        callback(allUserMapstages[token.UserName]);
+        callback(allUserMapstages[token.userName]);
     },
 
     getUserinfo: function(refresh, callback) {
