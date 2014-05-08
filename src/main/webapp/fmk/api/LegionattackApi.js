@@ -1,12 +1,12 @@
 LEGIONATTACK_PHP = 'legionattack.php';
 
-fmk.factory('Legionattack', function(Game) {
+fmk.factory('LegionattackApi', function(GameApi) {
   return {
 
     info: function(callback) {
       var params = {
       };
-      Game.post(LEGIONATTACK_PHP, 'info', params, callback);
+      GameApi.post(LEGIONATTACK_PHP, 'info', params, callback);
     }
 
   }

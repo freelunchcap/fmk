@@ -1,6 +1,6 @@
 STRENG_PHP = 'streng.php';
 
-fmk.factory('Streng', function(Game) {
+fmk.factory('StrengApi', function(GameApi) {
   return {
 
     card: function(userCardId1, userCardId2, callback) {
@@ -8,7 +8,7 @@ fmk.factory('Streng', function(Game) {
         UserCardId1: userCardId1,
         UserCardId2: userCardId2
       };
-      Game.post(STRENG_PHP, 'Card', params, callback);
+      GameApi.post(STRENG_PHP, 'Card', params, callback);
     }
 
   }

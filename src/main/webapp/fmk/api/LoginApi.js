@@ -1,10 +1,10 @@
 LOGIN_PHP = 'login.php';
 
-fmk.factory('Login', function(Game) {
+fmk.factory('LoginApi', function(GameApi) {
   return {
 
     passportLogin: function(callback) {
-      var token = Game.getToken();
+      var token = GameApi.getToken();
       var params = {
         Password: token.U_ID,
         IDFA: getIDFA(token.userName),
@@ -17,7 +17,7 @@ fmk.factory('Login', function(Game) {
         Origin: ''
       };
 
-      Game.post(LOGIN_PHP, 'passportLogin', params, callback);
+      GameApi.post(LOGIN_PHP, 'passportLogin', params, callback);
     }
   }
 

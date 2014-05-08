@@ -4,12 +4,12 @@ MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
 MAZE_BOT_UPSTATIR = 4;
 
-fmk.factory('MazeBot', function(Maze) {
+fmk.factory('MazeBot', function(MazeApi) {
 
   var mb = {
 
     clearItem: function(mapStageId, layer, itemIndex, layerStatus, callback) {
-      Maze.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
+      MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
         if(replay.Win) {
           switch(layerStatus.Map.Items[itemIndex]) {
             case MAZE_BOT_BOX:
@@ -57,7 +57,7 @@ fmk.factory('MazeBot', function(Maze) {
       if(layerStatus)
         doClearLayer(layerStatus, callback);
       else
-        Maze.info(mapStageId, layer, function(layerStatus) {
+        MazeApi.info(mapStageId, layer, function(layerStatus) {
           doClearLayer(layerStatus, callback);
         });
     },
@@ -75,7 +75,7 @@ fmk.factory('MazeBot', function(Maze) {
       if(mazeStatus)
         doClearMaze(mazeStatus, callback);
       else
-        Maze.show(mapStageId, function(mazeStatus) {
+        MazeApi.show(mapStageId, function(mazeStatus) {
           doClearMaze(mazeStatus, callback);
         });
     }

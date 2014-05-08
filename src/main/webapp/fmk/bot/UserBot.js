@@ -1,4 +1,4 @@
-fmk.factory('UserBot', function(User, $timeout) {
+fmk.factory('UserBot', function(UserApi, $timeout) {
 
   var savedUserinfo;
   var updatePromise;
@@ -9,7 +9,7 @@ fmk.factory('UserBot', function(User, $timeout) {
     getUserinfo: function(refresh, callback) {
       if(!savedUserinfo || refresh) {
         ub.cancelNextUpdate();
-        User.getUserinfo(function(userinfo) {
+        UserApi.getUserinfo(function(userinfo) {
           if(regularUpdate)
             ub.scheduleNextUpdate();
           savedUserinfo = userinfo;

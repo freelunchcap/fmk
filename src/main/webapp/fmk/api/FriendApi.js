@@ -2,19 +2,19 @@ FRIEND_PHP = 'friend.php';
 FRIEND_AGREE = 'agree';
 FRIEND_REJECT = 'reject';
 
-fmk.factory('Friend', function(Game) {
+fmk.factory('FriendApi', function(GameApi) {
   return {
 
     getFriends: function(callback) {
       var params = {
       };
-      Game.post(FRIEND_PHP, 'GetFriends', params, callback);
+      GameApi.post(FRIEND_PHP, 'GetFriends', params, callback);
     },
 
     getFriendApplys: function(callback) {
       var params = {
       };
-      Game.post(FRIEND_PHP, 'GetFriendApplys', params, callback);
+      GameApi.post(FRIEND_PHP, 'GetFriendApplys', params, callback);
     },
 
     disposeFriendApply: function(type, fid, callback) {
@@ -22,7 +22,7 @@ fmk.factory('Friend', function(Game) {
         type: type,
         Fid: fid
       };
-      Game.post(FRIEND_PHP, 'DisposeFriendApply', params, callback);
+      GameApi.post(FRIEND_PHP, 'DisposeFriendApply', params, callback);
     }
 
   }

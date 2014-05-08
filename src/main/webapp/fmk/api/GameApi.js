@@ -2,7 +2,7 @@ CbSlot =  '_-()+15ebf9a59893a34809c3573b7051f678';
 CbSlotkey = 'ncn';
 CbSlotvalue = '100';
 
-fmk.factory('Game', function($http, Log) {
+fmk.factory('GameApi', function($http, Log) {
   var seq;
 
   function stringToByteArray(str) {

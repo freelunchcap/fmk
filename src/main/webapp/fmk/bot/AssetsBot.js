@@ -2,7 +2,7 @@ ASSETS_BOT_CARD_DEFINITIONS = 'card_definitions';
 ASSETS_BOT_SKILL_DEFINITIONS = 'skill_definitions';
 ASSETS_BOT_RUNE_DEFINITIONS = 'rune_definitions';
 
-fmk.factory('AssetsBot', function(Card, Rune, $cookies) {
+fmk.factory('AssetsBot', function(CardApi, RuneApi, $cookies) {
 
   var cardDefs = $cookies[ASSETS_BOT_CARD_DEFINITIONS];
   var skillDefs = $cookies[ASSETS_BOT_SKILL_DEFINITIONS];
@@ -36,7 +36,7 @@ fmk.factory('AssetsBot', function(Card, Rune, $cookies) {
 
     getCardDefs: function(callback, ensure) {
       if(!cardDefs || ensure && !cardDefs[ensure]) {
-        Card.getAllCard(function(cardList) {
+        CardApi.getAllCard(function(cardList) {
           saveCardListAsCardDefs(cardList);
           callback(cardDefs);
         });
@@ -46,7 +46,7 @@ fmk.factory('AssetsBot', function(Card, Rune, $cookies) {
 
     getSkillDefs: function(callback, ensure) {
       if(!skillDefs || ensure && !skillDefs[ensure]) {
-        Card.getAllSkill(function(skillList) {
+        CardApi.getAllSkill(function(skillList) {
           saveSkillListAsSkillDefs(skillList);
           callback(skillDefs);
         });
@@ -56,7 +56,7 @@ fmk.factory('AssetsBot', function(Card, Rune, $cookies) {
 
     getRuneDefs: function(callback, ensure) {
       if(!runeDefs || ensure && !runeDefs[ensure]) {
-        Rune.getAllRune(function(runeList) {
+        RuneApi.getAllRune(function(runeList) {
           saveRuneListAsRuneDefs(runeList);
           callback(runeDefs);
         });

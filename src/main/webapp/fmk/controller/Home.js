@@ -1,5 +1,5 @@
-fmk.controller('Home', ['$scope', '$modal', 'Mapstage', 'Friend', 'Fenergy', 'Log',
-  function($scope, $modal, Mapstage, Friend, Fenergy, Log) {
+fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'Log',
+  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, Log) {
 
     function openLogin() {
       $modal.open({
@@ -9,8 +9,12 @@ fmk.controller('Home', ['$scope', '$modal', 'Mapstage', 'Friend', 'Fenergy', 'Lo
       });
     }
 
+    $scope.card = function () {
+      CardApi.getAllCard();
+    };
+
     $scope.map = function() {
-      Mapstage.getMapStageALL();
+      MapstageApi.getMapStageALL();
     };
 
     $scope.logs = [];
@@ -18,7 +22,7 @@ fmk.controller('Home', ['$scope', '$modal', 'Mapstage', 'Friend', 'Fenergy', 'Lo
 
     $scope.friends = [];
     $scope.list = function() {
-      Friend.getFriends(function(response) {
+      FriendApi.getFriends(function(response) {
         $scope.friends = response.Friends;
       });
     };
@@ -28,12 +32,12 @@ fmk.controller('Home', ['$scope', '$modal', 'Mapstage', 'Friend', 'Fenergy', 'Lo
       })[0];
     };
     $scope.claimEnergy = function(fid) {
-      Fenergy.getFEnergy(fid, function () {
+      FenergyApi.getFEnergy(fid, function () {
         $scope.findFriend(fid).FEnergySurplus = 0;
       });
     };
     $scope.sendEnergy = function(fid) {
-      Fenergy.sendFEnergy(fid, function () {
+      FenergyApi.sendFEnergy(fid, function () {
         $scope.findFriend(fid).FEnergySend = 0;
       });
     };
