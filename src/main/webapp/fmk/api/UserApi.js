@@ -1,6 +1,6 @@
 USER_PHP = 'user.php';
 
-fmk.factory('User', function(GameApi) {
+fmk.factory('UserApi', function(GameApi) {
   return {
 
     editNickName: function(sex, inviteCode, nickName, callback) {

@@ -4,7 +4,11 @@ MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
 MAZE_BOT_UPSTATIR = 4;
 
-fmk.factory('MazeBot', function(MazeApi, MapstageApi, AssetsBot) {
+MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
+
+fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, $cookies) {
+
+  var mazeRequirements = $cookies[MAZE_BOT_MAZE_REQUIREMENTS];
 
   var mb = {
 
@@ -80,10 +84,46 @@ fmk.factory('MazeBot', function(MazeApi, MapstageApi, AssetsBot) {
         });
     },
 
-    fetchMazes: function(callback) {
-      MapstageApi.getUserMapStages(function(userMapstages) {
+    getMazeRequirements: function(refresh, callback) {
+      if(refresh || !mazeRequirements) {
+        mazeRequirements = {};
+        AssetsBot.getMapstageDefs(function(mapstageDef) {
+          $.each(mapstageDef, function(mapPos, map) {
+            var foundMaze = false;
+            var bossMapstageId = -1;
+            $.each(map, function(mapstagePos, mapstage) {
+              var type = parseInt(mapstage.Type);
+              var id = parseInt(mapstage.MapStageDetailId);
+              switch(type) {
+                case 3:
+                  foundMaze = true;
+                  break;
+                case 2:
+                  bossMapstageId = id;
+                  break;
+              }
+              return !foundMaze || bossMapstageId == -1;
+            });
+            if(foundMaze)
+              mazeRequirements[mapPos] = bossMapstageId;
+          });
+        });
+      } else if(callback)
+        callback(mazeRequirements);
+    },
 
-      })
+    fetchMazes: function(refresh, callback) {
+      UserBot.getUserMapstages(refresh, function(userMapstages) {
+        mb.getMazeRequirements(false, function(mazeRequirements) {
+          var mazes = {};
+          $.each(mazeRequirements, function(mapPos, bossMapstageId) {
+            var userBossMapstage = userMapstages[bossMapstageId];
+            mazes[mapPos] = userBossMapstage != null ? userBossMapstage.FinishedStage > 0 : false;
+          });
+          if(callback)
+            callback(mazes);
+        });
+      });
     }
 
   };
