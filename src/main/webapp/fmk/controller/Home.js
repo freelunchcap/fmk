@@ -1,22 +1,19 @@
-ACCOUNTS = "accounts";
+fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'Log',
+  function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, Log) {
 
-fmk.controller('Home', ['$scope', '$modal', '$cookies', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'MazeBot', 'Log',
-  function($scope, $modal, $cookies, CardApi, FenergyApi, FriendApi, MapstageApi, MazeBot, Log) {
-
-    var accounts = $cookies[ACCOUNTS];
-    function activateAccount() {
-      $.each(accounts, function(index, account) {
-
-      });
-    }
-
-
-    function openLogin() {
+    function showLoginModal() {
       $modal.open({
         templateUrl: 'fmk/view/Login.html',
-        controller: 'Login',
+        controller: 'LoginModal',
         backdrop: 'static'
       });
+    }
+    function autoLogin() {
+      var lastLogin = LoginBot.getLastLoginRecord();
+      if(lastLogin != null)
+        LoginBot.login(lastLogin.username, lastLogin.password);
+      else
+        showLoginModal();
     }
 
     $scope.user = function() {
@@ -60,6 +57,6 @@ fmk.controller('Home', ['$scope', '$modal', '$cookies', 'CardApi', 'FenergyApi',
       });
     };
 
-    openLogin();
+    autoLogin();
   }
 ]);

@@ -6,9 +6,12 @@ MAZE_BOT_UPSTATIR = 4;
 
 MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
 
-fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, $cookies) {
+fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, Cookies) {
 
-  var mazeRequirements = $cookies[MAZE_BOT_MAZE_REQUIREMENTS];
+  var mazeRequirements = Cookies.getObject(MAZE_BOT_MAZE_REQUIREMENTS);
+  function saveMazeRequirements() {
+    Cookies.setObject(MAZE_BOT_MAZE_REQUIREMENTS, mazeRequirements);
+  }
 
   var mb = {
 
@@ -95,6 +98,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, $cookies) {
               })[0].MapStageDetailId;
             }
           });
+          saveMazeRequirements();
           if(callback)
             callback(mazeRequirements);
         });

@@ -3,19 +3,19 @@ ASSETS_BOT_SKILL_DEFINITIONS = 'skill_definitions';
 ASSETS_BOT_RUNE_DEFINITIONS = 'rune_definitions';
 ASSETS_BOT_MAPSTAGE_DEFINITIONS = 'mapstage_definitions';
 
-fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
+fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, Cookies) {
 
-  var cardDefs = $cookies[ASSETS_BOT_CARD_DEFINITIONS];
-  var skillDefs = $cookies[ASSETS_BOT_SKILL_DEFINITIONS];
-  var runeDefs = $cookies[ASSETS_BOT_RUNE_DEFINITIONS];
-  var mapstageDefs = $cookies[ASSETS_BOT_MAPSTAGE_DEFINITIONS];
+  var cardDefs = Cookies.getObject(ASSETS_BOT_CARD_DEFINITIONS);
+  var skillDefs = Cookies.getObject(ASSETS_BOT_SKILL_DEFINITIONS);
+  var runeDefs = Cookies.getObject(ASSETS_BOT_RUNE_DEFINITIONS);
+  var mapstageDefs = Cookies.getObject(ASSETS_BOT_MAPSTAGE_DEFINITIONS);
 
   function saveCardDefs(cardList) {
     cardDefs = {};
     $.each(cardList.Cards, function(index, card) {
       cardDefs[card.CardId] = card;
     });
-    $cookies[ASSETS_BOT_CARD_DEFINITIONS] = cardDefs;
+    Cookies.setObject(ASSETS_BOT_CARD_DEFINITIONS, cardDefs);
   }
 
   function saveSkillDefs(skillList) {
@@ -23,7 +23,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
     $.each(skillList.Skills, function(index, skill) {
       skillDefs[skill.SkillId] = skill;
     });
-    $cookies[ASSETS_BOT_SKILL_DEFINITIONS] = skillDefs;
+    Cookies.setObject(ASSETS_BOT_SKILL_DEFINITIONS, skillDefs);
   }
 
   function saveRuneDefs(runeList) {
@@ -31,7 +31,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
     $.each(runeList.Runes, function(index, rune) {
       runeDefs[rune.RuneId] = rune;
     });
-    $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = runeDefs;
+    Cookies.setObject(ASSETS_BOT_RUNE_DEFINITIONS, runeDefs);
   }
 
   function saveMapstageDefs(mapstageList) {
@@ -39,7 +39,7 @@ fmk.factory('AssetsBot', function(CardApi, MapstageApi, RuneApi, $cookies) {
     $.each(mapstageList, function(index, mapstage) {
       mapstageDefs[mapstage.MapStageId] = mapstage;
     });
-    $cookies[ASSETS_BOT_RUNE_DEFINITIONS] = mapstageDefs;
+    Cookies.setObject(ASSETS_BOT_RUNE_DEFINITIONS, mapstageDefs);
   }
 
   return {
