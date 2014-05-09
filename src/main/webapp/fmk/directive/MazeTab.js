@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, ProfileService) {
+fmk.directive('mazeTab', function ($modal, MazeBot, ProfileService) {
   return {
     restrict: 'E',
     scope: {
@@ -11,6 +11,10 @@ fmk.directive('mazeTab', function ($modal, ProfileService) {
     templateUrl: 'fmk/view/MazeTab.html',
 
     controller: function($scope) {
+
+      $scope.start = function() {
+        MazeBot.clearMazes($scope.profile);
+      };
 
       $scope.saveSettings = function() {
         ProfileService.saveProfile();

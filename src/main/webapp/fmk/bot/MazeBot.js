@@ -2,7 +2,7 @@ MAZE_BOT_EMPTY = 1;
 MAZE_BOT_BOX = 2;
 MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
-MAZE_BOT_UPSTATIR = 4;
+MAZE_BOT_UPSTATIR = 5;
 
 MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
 
@@ -28,10 +28,11 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
               layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
               break;
             case MAZE_BOT_UPSTATIR:
-              layerStatus.Map.IsFinish = 1;
+              layerStatus.Map.IsFinish = true;
               break;
           }
-          callback(layerStatus);
+          if(callback)
+            callback(layerStatus);
         }
       });
     },
@@ -45,7 +46,8 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
             mazeStatus.Clear = 1;
           else
             mazeStatus.Layer++;
-          callback(mazeStatus);
+          if(callback)
+            callback(mazeStatus);
         } else {
           var nextItemIndex = null;
           $.each(layerStatus.Map.Items, function(itemIndex, itemType) {
@@ -55,7 +57,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
               nextItemIndex = itemIndex;
             }
           });
-          mb.clearItem(mapStageId, layer, nextItemIndex, function(layerStatus) {
+          mb.clearItem(mapStageId, layer, nextItemIndex, layerStatus, function(layerStatus) {
             mb.clearLayer(mapStageId, layer, mazeStatus, callback, layerStatus);
           });
         }
@@ -69,12 +71,24 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
         });
     },
 
+    resetMaze: function(mapStageId, callback) {
+      MazeApi.reset(mapStageId, function() {
+        MazeApi.show(mapStageId, callback);
+      });
+    },
+
     clearMaze: function(mapStageId, callback, mazeStatus) {
       function doClearMaze(mazeStatus, callback) {
-        if(mazeStatus.Clear)
-          callback(mazeStatus);
+        if(mazeStatus.Clear) {
+          if(mazeStatus.FreeReset == 1) {
+            mb.resetMaze(mapStageId, function(mazeStatus) {
+              mb.clearMaze(mapStageId, callback, mazeStatus);
+            });
+          } else
+            callback(mazeStatus);
+        }
         else
-          mb.clearLayer(mapStageId, mazeStatus.Layer, function(mazeStatus) {
+          mb.clearLayer(mapStageId, mazeStatus.Layer, mazeStatus, function(mazeStatus) {
             mb.clearMaze(mapStageId, callback, mazeStatus);
           });
       }
@@ -85,6 +99,35 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
         MazeApi.show(mapStageId, function(mazeStatus) {
           doClearMaze(mazeStatus, callback);
         });
+    },
+
+    clearMazes: function(mazeProfile, callback) {
+      var toAttack = [];
+      $.each(mazeProfile.attack, function(mapStageId, attack) {
+        if(attack)
+          toAttack.push(mapStageId);
+      });
+      toAttack.sort();
+      toAttack.reverse();
+
+      var mazeStatuses = {};
+
+      function attackNext() {
+        if(toAttack.length == 0) {
+          if(callback)
+            callback(mazeStatuses);
+          return;
+        }
+
+        var next = toAttack[0];
+        toAttack = toAttack.slice(1, toAttack.length);
+        mb.clearMaze(next, function(mazeStatus) {
+          mazeStatuses[next] =  mazeStatus;
+          attackNext();
+        });
+      }
+
+      attackNext();
     },
 
     getMazeRequirements: function(refresh, callback) {

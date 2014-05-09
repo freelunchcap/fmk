@@ -104,7 +104,7 @@ fmk.factory('GameApi', function($http, LogService) {
           status: response.status,
           message: response.message
         });
-        if(callback)
+        if(response.status == 1 && callback)
           callback(response.data);
       });
     }
