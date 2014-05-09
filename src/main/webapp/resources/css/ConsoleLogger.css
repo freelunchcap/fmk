@@ -1,3 +1,13 @@
+div.console-logger {
+  height: 100%;
+  padding: 10px;
+}
+
+div.console-logger div.table-container {
+  height: 100%;
+  overflow-y: auto;
+}
+
 div.console-logger table {
   table-layout: fixed;
 }

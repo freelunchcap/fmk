@@ -1,5 +1,6 @@
 html,
-body {
+body,
+div[ng-view] {
   height: 100%;
 }
 
