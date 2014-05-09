@@ -19,21 +19,21 @@ fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi'
       });
     }
     function autoLogin() {
-      var lastLogin = null;
+      var previousLoginAccount = null;
       $.each($scope.historyLogins, function(index, account) {
-        if(lastLogin == null)
-          lastLogin = account;
-        else if(account.timestamp > lastLogin.timestamp) {
-          lastLogin = account;
+        if(previousLoginAccount == null)
+          previousLoginAccount = account;
+        else if(account.timestamp > previousLoginAccount.timestamp) {
+          previousLoginAccount = account;
         }
       });
-      if(lastLogin != null)
-        $scope.switchAccount(lastLogin);
+      if(previousLoginAccount != null)
+        $scope.switchAccount(previousLoginAccount);
       else
         $scope.useDifferentAccount();
     }
-    $scope.switchAccount = function(login) {
-      LoginBot.login(login.username, login.password, setCurrentAccount);
+    $scope.switchAccount = function(account) {
+      LoginBot.login(account.username, account.password, setCurrentAccount);
     };
     $scope.useDifferentAccount = function() {
       showLoginModal(setCurrentAccount);
