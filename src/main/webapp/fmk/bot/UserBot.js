@@ -52,7 +52,7 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
     scheduleNextUpdate: function() {
       updatePromise = $timeout(function() {
         ub.getUserinfo(true);
-      }, 1200000);
+      }, 300000);
     },
 
     stopRegularUpdate: function() {

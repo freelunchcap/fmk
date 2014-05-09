@@ -24,27 +24,37 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
         }
       }
 
-      MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
-        if(replay.Win) {
-          switch(layerStatus.Map.Items[itemIndex]) {
-            case MAZE_BOT_BOX:
-              layerStatus.RemainBoxNum--;
-              layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
-              checkFinish();
-              break;
-            case MAZE_BOT_MONSTER:
-              layerStatus.RemainMonsterNum--;
-              layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
-              checkFinish();
-              break;
-            case MAZE_BOT_UPSTATIR:
-              layerStatus.Map.IsFinish = true;
-              break;
+      function doBattle(userinfo) {
+        MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
+          userinfo.Energy -= 2;
+          if(replay.Win) {
+            switch(layerStatus.Map.Items[itemIndex]) {
+              case MAZE_BOT_BOX:
+                layerStatus.RemainBoxNum--;
+                layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
+                checkFinish();
+                break;
+              case MAZE_BOT_MONSTER:
+                layerStatus.RemainMonsterNum--;
+                layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
+                checkFinish();
+                break;
+              case MAZE_BOT_UPSTATIR:
+                layerStatus.Map.IsFinish = true;
+                break;
+            }
+            if(callback)
+              callback(layerStatus);
           }
-          if(callback)
-            callback(layerStatus);
-        }
+        });
+      }
+
+      UserBot.getUserinfo(false, function(userinfo) {
+        if(userinfo.Energy >= 2)
+          doBattle(userinfo);
       });
+
+
     },
 
     clearLayer: function(mapStageId, layer, mazeStatus, callback, layerStatus) {
