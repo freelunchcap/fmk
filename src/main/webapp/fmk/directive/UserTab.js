@@ -1,4 +1,7 @@
+USER = 'user';
+
 fmk.directive('userTab', function ($modal) {
+
   return {
     restrict: 'E',
     scope: {

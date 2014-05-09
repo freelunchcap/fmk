@@ -1,82 +1,25 @@
 <div class="home">
 
   <div class="row row-main">
-    <div class="col-md-2">
-      <div class="pull-right">
-        <div>
-          <div class="row">
-            <div class="col-md-4" class="col">
-              {{'NICKNAME' | translate}}
-            </div>
-            <div class="col-md-8">
-              {{userinfo.NickName}}
-            </div>
-          </div>
-          <div>
-            <div class="progress">
-              <div class="progress-bar progress-bar-warning"
-                   role="progressbar"
-                   aria-valuenow="{{userinfo.Exp}}"
-                   aria-valuemin="{{userinfo.PrevExp}}"
-                   aria-valuemax="{{userinfo.NextExp}}" style="width: 60%">
-                <span>LV: {{userinfo.Level}}</span>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="col-md-4" class="col">
-              {{'COINS' | translate}}
-            </div>
-            <div class="col-md-8">
-              {{userinfo.Coins}}
-            </div>
-          </div>
-          <div>
-            <div class="col-md-4" class="col">
-              {{'CASH' | translate}}
-            </div>
-            <div class="col-md-8">
-              {{userinfo.Cash}}
-            </div>
-          </div>
-          <div>
-            <div class="col-md-4" class="col">
-              {{'TICKET' | translate}}
-            </div>
-            <div class="col-md-8">
-              {{userinfo.Ticket}}
-            </div>
-          </div>
-
-          <select ng-model="targetAccount"
-                  ng-options="login.username group by login.server for login in historyLogins"></select>
-          <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetAccount)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
-        </div>
-        <div>
-          <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'OTHER_ACCOUNT' | translate}}</a>
-        </div>
+    <div class="col-md-3">
+      <div>
+        <account-panel></account-panel>
         <tools-panel></tools-panel>
       </div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-6">
 
       <tabset>
 
-        <tab>
-          <tab-heading>
-            {{'USER' | translate}}
-          </tab-heading>
-          <user-tab></user-tab>
+        <tab active="tabs.user" heading="{{'USER' | translate}}">
+          <user-tab tabs="tabs"></user-tab>
         </tab>
 
-        <tab select="loadMazes()">
-          <tab-heading>
-            {{'MAZE' | translate}}
-          </tab-heading>
-          <maze-tab mazes="mazes" userinfo="userinfo" profile="profile.maze_profile"></maze-tab>
+        <tab active="tabs.maze" heading="{{'MAZE' | translate}}">
+          <maze-tab tabs="tabs"></maze-tab>
         </tab>
 
-        <tab class="friends">
+        <tab active="tabs.friends">
           <tab-heading>
             {{'FRIENDS' | translate}}
           </tab-heading>
@@ -113,19 +56,19 @@
           </div>
         </tab>
 
-        <tab>
+        <tab active="tabs.counter_attacks">
           <tab-heading>
             {{'COUNTER_ATTACKS' | translate}}
           </tab-heading>
         </tab>
 
-        <tab>
+        <tab active="tabs.dungeon">
           <tab-heading>
             {{'DUNGEON' | translate}}
           </tab-heading>
         </tab>
 
-        <tab>
+        <tab active="tabs.arena">
           <tab-heading>
             {{'ARENA' | translate}}
           </tab-heading>
@@ -133,7 +76,7 @@
 
       </tabset>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-3">
       <console-logger logs="logs"></console-logger>
     </div>
   </div>

@@ -8,6 +8,12 @@ div.home div.row-main > div {
   height: 100%
 }
 
+div.home div.row-main {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 div.home tr > td {
   line-height: 12px;
   font-size: 12px;

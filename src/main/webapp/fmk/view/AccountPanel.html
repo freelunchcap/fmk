@@ -1,0 +1,46 @@
+<div class="account-panel">
+  <div>
+    <div class="row">
+      <div class="col-md-4" class="col">
+        {{userinfo.NickName}}
+      </div>
+      <div class="col-md-8">
+        LV: {{userinfo.Level}}
+      </div>
+    </div>
+    <div>
+      <progressbar class="progress-striped" value="(userinfo.Exp - userinfo.PrevExp)/(userinfo.NextExp - userinfo.PrevExp) * 100" type="success">{{userinfo.Exp - userinfo.PrevExp}}/{{userinfo.NextExp - userinfo.PrevExp}}</progressbar>
+    </div>
+    <div>
+      <div class="col-md-4" class="col">
+        {{'COINS' | translate}}
+      </div>
+      <div class="col-md-8">
+        {{userinfo.Coins}}
+      </div>
+    </div>
+    <div>
+      <div class="col-md-4" class="col">
+        {{'CASH' | translate}}
+      </div>
+      <div class="col-md-8">
+        {{userinfo.Cash}}
+      </div>
+    </div>
+    <div>
+      <div class="col-md-4" class="col">
+        {{'TICKET' | translate}}
+      </div>
+      <div class="col-md-8">
+        {{userinfo.Ticket}}
+      </div>
+    </div>
+
+    <select ng-model="targetAccount"
+            ng-options="login.username group by login.server for login in historyLogins"></select>
+    <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetAccount)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
+  </div>
+  <div>
+    <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'OTHER_ACCOUNT' | translate}}</a>
+  </div>
+</div>
