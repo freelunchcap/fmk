@@ -1,42 +1,44 @@
-LOGIN_BOT_LOGIN_RECORDS = "login_records";
+LOGIN_BOT_ACCOUNTS = "accounts";
 
 fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, StorageService) {
 
-  var loginRecords = StorageService.getObject(LOGIN_BOT_LOGIN_RECORDS) || [];
-  function saveLoginRecords() {
-    StorageService.setObject(LOGIN_BOT_LOGIN_RECORDS, loginRecords);
+  var accounts = StorageService.getObject(LOGIN_BOT_ACCOUNTS) || [];
+  function saveAccounts() {
+    StorageService.setObject(LOGIN_BOT_ACCOUNTS, accounts);
   }
 
   return {
 
-    getLoginRecords: function() {
-      return loginRecords;
+    getAccounts: function() {
+      return accounts;
     },
 
     login: function(username, password, callback) {
       WebApi.login(username, password, function(token) {
         GameApi.setToken(token);
         LoginApi.passportLogin(function() {
-          var newRecord = {
-            username: username,
-            password: password,
-            server: token.GS_DESC,
-            timestamp: new Date().getTime()
-          };
-
-          var existingRecord = $.grep(loginRecords, function(record) {
-            return record.username = newRecord.username;
+          var previousRecord = $.grep(accounts, function(record) {
+            return record.username == username;
           });
-          if(existingRecord.length == 0)
-            loginRecords.push(newRecord);
+
+          var account;
+          if(previousRecord.length == 0) {
+            account = {
+              username: username,
+              password: password,
+              server: token.GS_DESC,
+              timestamp: new Date().getTime()
+            };
+            accounts.push(account);
+          }
           else {
-            existingRecord[0].timestamp = newRecord.timestamp;
-            newRecord = existingRecord[0];
+            previousRecord[0].timestamp = newRecord.timestamp;
+            account = previousRecord[0];
           }
 
-          saveLoginRecords();
+          saveAccounts();
           if(callback)
-            callback(newRecord);
+            callback(account);
         });
       });
     }

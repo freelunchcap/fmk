@@ -1,7 +1,7 @@
 fmk.controller('Home', ['$scope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'UserBot', 'LogService', 'ProfileService',
   function($scope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, UserBot, LogService, ProfileService) {
 
-    $scope.historyLogins = LoginBot.getLoginRecords();
+    $scope.historyLogins = LoginBot.getAccounts();
     function showLoginModal(callback) {
       var loginModal = $modal.open({
         templateUrl: 'fmk/view/LoginModal.html',

@@ -24,7 +24,7 @@ fmk.factory('LogService', function() {
     },
 
     amend: function(index, log) {
-      logger.amend(index, log);
+      logger.amend(index, $.extend(true, {}, log));
     }
 
   }
