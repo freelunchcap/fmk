@@ -4,6 +4,50 @@
     <div class="col-md-2">
       <div class="pull-right">
         <div>
+          <div class="row">
+            <div class="col-md-4" class="col">
+              {{'NICKNAME' | translate}}
+            </div>
+            <div class="col-md-8">
+              {{userinfo.NickName}}
+            </div>
+          </div>
+          <div>
+            <div class="progress">
+              <div class="progress-bar progress-bar-warning"
+                   role="progressbar"
+                   aria-valuenow="{{userinfo.Exp}}"
+                   aria-valuemin="{{userinfo.PrevExp}}"
+                   aria-valuemax="{{userinfo.NextExp}}" style="width: 60%">
+                <span>LV: {{userinfo.Level}}</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="col-md-4" class="col">
+              {{'COINS' | translate}}
+            </div>
+            <div class="col-md-8">
+              {{userinfo.Coins}}
+            </div>
+          </div>
+          <div>
+            <div class="col-md-4" class="col">
+              {{'CASH' | translate}}
+            </div>
+            <div class="col-md-8">
+              {{userinfo.Cash}}
+            </div>
+          </div>
+          <div>
+            <div class="col-md-4" class="col">
+              {{'TICKET' | translate}}
+            </div>
+            <div class="col-md-8">
+              {{userinfo.Ticket}}
+            </div>
+          </div>
+
           <select ng-model="targetAccount"
                   ng-options="login.username group by login.server for login in historyLogins"></select>
           <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetAccount)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
