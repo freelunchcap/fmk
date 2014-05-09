@@ -16,16 +16,26 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
   var mb = {
 
     clearItem: function(mapStageId, layer, itemIndex, layerStatus, callback) {
+      function checkFinish() {
+        if(layerStatus.Layer == layerStatus.TotalLayer
+          && layerStatus.RemainBoxNum == 0
+          && layerStatus.RemainMonsterNum == 0) {
+          layerStatus.Map.IsFinish = true;
+        }
+      }
+
       MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
         if(replay.Win) {
           switch(layerStatus.Map.Items[itemIndex]) {
             case MAZE_BOT_BOX:
               layerStatus.RemainBoxNum--;
               layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
+              checkFinish();
               break;
             case MAZE_BOT_MONSTER:
               layerStatus.RemainMonsterNum--;
               layerStatus.Map.Items[itemIndex] = MAZE_BOT_EMPTY;
+              checkFinish();
               break;
             case MAZE_BOT_UPSTATIR:
               layerStatus.Map.IsFinish = true;

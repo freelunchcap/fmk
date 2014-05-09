@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, MazeBot, ProfileService) {
+fmk.directive('mazeTab', function ($modal, MazeApi, MazeBot, ProfileService) {
   return {
     restrict: 'E',
     scope: {
@@ -18,6 +18,10 @@ fmk.directive('mazeTab', function ($modal, MazeBot, ProfileService) {
 
       $scope.saveSettings = function() {
         ProfileService.saveProfile();
+      };
+
+      $scope.test = function() {
+        MazeApi.info(7, 5);
       }
 
     },

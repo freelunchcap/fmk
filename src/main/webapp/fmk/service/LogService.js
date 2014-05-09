@@ -18,7 +18,7 @@ fmk.factory('LogService', function() {
 
     log: function(log) {
       if(logger)
-        return logger.log(log);
+        return logger.log($.extend(true, {}, log));
       console.error(JSON.stringify(log));
       return -1;
     },

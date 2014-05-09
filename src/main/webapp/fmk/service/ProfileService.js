@@ -12,7 +12,7 @@ fmk.factory('ProfileService', function(GameApi, StorageService) {
     var username = GameApi.getToken().userName;
     var profile = profiles[username];
     if(profile == null) {
-      profile = jQuery.extend(true, {}, defaultProfile);
+      profile = $.extend(true, {}, defaultProfile);
       profiles[username] = profile;
     }
     return profile;
