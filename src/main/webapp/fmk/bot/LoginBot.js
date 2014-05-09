@@ -22,17 +22,18 @@ fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, StorageService) {
           });
 
           var account;
+          var timestamp = new Date().getTime();
           if(previousRecord.length == 0) {
             account = {
               username: username,
               password: password,
               server: token.GS_DESC,
-              timestamp: new Date().getTime()
+              timestamp: timestamp
             };
             accounts.push(account);
           }
           else {
-            previousRecord[0].timestamp = newRecord.timestamp;
+            previousRecord[0].timestamp = timestamp;
             account = previousRecord[0];
           }
 
