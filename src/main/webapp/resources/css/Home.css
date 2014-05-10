@@ -14,6 +14,17 @@ div.home div.row-main {
   margin-right: auto;
 }
 
+div.home div.left-panel {
+  background: #f3edd2;
+  color: #805100;
+}
+
+div.home div.left-panel div.progress,
+div.home div.left-panel select {
+  border: 1px solid #c09853;
+}
+
+
 div.home tr > td {
   line-height: 12px;
   font-size: 12px;

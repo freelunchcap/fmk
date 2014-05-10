@@ -1,3 +1,7 @@
+div.account-panel h3.name {
+  float: right;
+}
+
 div.account-panel div.switch-account select {
   line-height: 33px;
   height: 33px;
