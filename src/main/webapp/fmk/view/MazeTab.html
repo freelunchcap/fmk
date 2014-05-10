@@ -26,9 +26,8 @@
   <table class="table">
     <thead>
     <tr>
-      <th class="col-md-1">{{'MAZE' | translate}}</th>
-      <th class="col-md-1">{{'LAYER' | translate}}</th>
-      <th class="col-md-2">{{'ENEMY' | translate}}</th>
+      <th class="col-md-2">{{'MAZE' | translate}}</th>
+      <th class="col-md-2">{{'LAYER' | translate}}</th>
       <th class="col-md-2">{{'EXP' | translate}}</th>
       <th class="col-md-2">{{'COINS' | translate}}</th>
       <th class="col-md-4">{{'AWARDS' | translate}}</th>
@@ -36,9 +35,8 @@
     </thead>
     <tbody>
     <tr ng-repeat="battle in battles">
-      <td>{{battle.maze}}</td>
+      <td>{{battle.maze}}<span class="label label-success" ng-show="battle.clear">{{'CLEAR' | translate}}</span></td>
       <td>{{battle.layer}}</td>
-      <td>{{battle.enemy}}</td>
       <td>{{battle.exp}}</td>
       <td>{{battle.coins}}</td>
       <td>

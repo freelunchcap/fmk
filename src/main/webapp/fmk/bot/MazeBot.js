@@ -26,22 +26,40 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
       function doBattle(userinfo) {
         MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
+          var coins = replay.ExtData.Award.Coins;
+          if(replay.ExtData.Clear)
+            coins += replay.ExtData.Clear.Coins;
+
           var awards = [];
-          if(replay.ExtData.Award.CardId)
-            awards.push(replay.ExtData.Award.CardId);
-          if(replay.ExtData.Award.SecondDropCard) {
-            $.each(replay.ExtData.Award.SecondDropCard, function(index, card) {
-              awards.push(card.CardId);
-            })
+          if(replay.ExtData.Award) {
+            if(replay.ExtData.Award.CardId)
+              awards.push(replay.ExtData.Award.CardId);
+            if(replay.ExtData.Award.SecondDropCard) {
+              $.each(replay.ExtData.Award.SecondDropCard, function(index, card) {
+                awards.push(card.CardId);
+              })
+            }
           }
+          if(replay.ExtData.Clear) {
+            if(replay.ExtData.Clear.CardId)
+              awards.push(replay.ExtData.Clear.CardId);
+            if(replay.ExtData.Clear.SecondDropCard) {
+              $.each(replay.ExtData.Clear.SecondDropCard, function(index, card) {
+                awards.push(card.CardId);
+              })
+            }
+          }
+
+
           battles.push({
             maze: mapStageId,
             layer: layer,
             enemy: replay.DefendPlayer.NickName,
             exp: replay.ExtData.Award.Exp,
-            coins: replay.ExtData.Award.Coins,
+            coins: coins,
             awards: awards,
-            win: replay.Win == 1
+            win: replay.Win == 1,
+            clear: replay.ExtData.Clear && replay.ExtData.Clear.IsClear == 1
           });
           userinfo.Energy -= 2;
           userinfo.Coins += replay.ExtData.Award.Coins;

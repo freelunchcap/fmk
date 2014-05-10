@@ -23,3 +23,8 @@ div.progress-bar-danger > span {
   color: #f2dede;
   text-shadow: 1px 1px #b94a48;
 }
+
+span.label {
+  margin-left: 2px;
+  margin-right: 2px;
+}
