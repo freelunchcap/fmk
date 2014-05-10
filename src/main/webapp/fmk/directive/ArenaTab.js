@@ -5,6 +5,7 @@ fmk.directive('arenaTab', function () {
   return {
     restrict: 'E',
     scope: {
+      tabs: '='
     },
     templateUrl: 'fmk/view/ArenaTab.html',
 

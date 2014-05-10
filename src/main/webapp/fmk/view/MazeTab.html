@@ -1,54 +1,58 @@
 <div class="maze-tab" ng-hide="outdated">
-  <div>
-    <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
-    <a class="btn btn-primary" ng-click="saveSettings()">{{'SAVE_SETTINGS' | translate}}</a>
-  </div>
-  <div class=""></div>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td ng-repeat="(mapPos, available) in mazes">
-        <div>
-          <label>
-            <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
-          </label>
-        </div>
-      </td>
-    </tr>
-    </tbody>
-  </table>
 
-  <table class="table">
-    <thead>
-    <tr>
-      <th class="col-md-2">{{'MAZE' | translate}}</th>
-      <th class="col-md-2">{{'LAYER' | translate}}</th>
-      <th class="col-md-2">{{'EXP' | translate}}</th>
-      <th class="col-md-2">{{'COINS' | translate}}</th>
-      <th class="col-md-4">{{'AWARDS' | translate}}</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="battle in battles">
-      <td>{{battle.maze}}<span class="label label-success" ng-show="battle.clear">{{'CLEAR' | translate}}</span></td>
-      <td>{{battle.layer}}</td>
-      <td>{{battle.exp}}</td>
-      <td>{{battle.coins}}</td>
-      <td>
+  <div class="config-panel">
+    <div class="toolbar">
+      <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
+      <a class="btn btn-primary" ng-click="saveSettings()">{{'SAVE_SETTINGS' | translate}}</a>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td ng-repeat="(mapPos, available) in mazes">
+          <div>
+            <label>
+              <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
+            </label>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="status-panel">
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="col-md-2">{{'MAZE' | translate}}</th>
+        <th class="col-md-2">{{'LAYER' | translate}}</th>
+        <th class="col-md-2">{{'EXP' | translate}}</th>
+        <th class="col-md-2">{{'COINS' | translate}}</th>
+        <th class="col-md-4">{{'AWARDS' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="battle in battles">
+        <td>{{battle.maze}}<span class="label label-success" ng-show="battle.clear">{{'CLEAR' | translate}}</span></td>
+        <td>{{battle.layer}}</td>
+        <td>{{battle.exp}}</td>
+        <td>{{battle.coins}}</td>
+        <td>
         <span class="label"
-              ng-repeat="award in battle.awards"
+              ng-repeat="award in battle.awards track by $index"
               ng-click="showCardDetails(award)"
               ng-class="{'label-default': cardDefs[award].Color < 3, 'label-info': cardDefs[award].Color == 3, 'label-warning': cardDefs[award].Color == 4,  'label-danger': cardDefs[award].Color == 5}">
           {{cardDefs[award].CardName}}
         </span>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>

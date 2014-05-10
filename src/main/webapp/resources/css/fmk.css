@@ -28,3 +28,34 @@ span.label {
   margin-left: 2px;
   margin-right: 2px;
 }
+
+
+
+
+
+div.config-panel {
+  background-color: #e3f0f7;
+  border: 1px solid #8ba2ad;
+  border-radius: 4px;
+  padding: 10px;
+  color: #3a87ad;
+  margin: 10px;
+}
+
+div.config-panel > div.toolbar {
+  float: right;
+  padding: 5px 5px 10px 0;
+}
+
+div.config-panel table.table,
+div.config-panel table.table > thead > tr > th ,
+div.config-panel table.table > tbody > tr > td {
+  border: 1px solid #8ba2ad;
+}
+
+div.status-panel {
+  background-color: #f9f9f9;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 10px;
+}

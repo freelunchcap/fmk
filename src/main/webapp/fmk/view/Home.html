@@ -56,17 +56,15 @@
           </div>
         </tab>
 
-        <tab active="tabs.counter_attacks">
-          <tab-heading>
-            {{'COUNTER_ATTACKS' | translate}}
-          </tab-heading>
+        <tab active="tabs.counter_attacks" heading="{{'COUNTER_ATTACKS' | translate}}">
         </tab>
 
         <tab active="tabs.dungeon" heading="{{'DUNGEON' | translate}}">
-          <dungeon-tab></dungeon-tab>
+          <dungeon-tab tabs="tabs"></dungeon-tab>
         </tab>
 
         <tab active="tabs.arena" heading="{{'ARENA' | translate}}">
+          <arena-tab tabs="tabs"></arena-tab>
         </tab>
 
       </tabset>
