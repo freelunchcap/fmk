@@ -1,0 +1,10 @@
+div.account-panel div.switch-account select {
+  line-height: 33px;
+  height: 33px;
+  width: 200px;
+  float: right;
+}
+
+div.account-panel div.switch-account a {
+  float: left;
+}

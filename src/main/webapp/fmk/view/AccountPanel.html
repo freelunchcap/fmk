@@ -37,11 +37,18 @@
       </div>
     </div>
 
-    <select ng-model="targetAccount"
-            ng-options="login.username group by login.server for login in historyLogins"></select>
-    <a class="btn btn-primary btn-xs" ng-click="switchAccount(targetAccount)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
+    <div class="row switch-account">
+      <div class="col-md-8">
+        <select ng-model="targetAccount"
+                ng-options="login.username group by login.server for login in historyLogins"></select>
+      </div>
+      <div class="col-md-4">
+        <a class="btn btn-primary" ng-click="switchAccount(targetAccount)" ng-disabled="targetAccount == currentAccount">{{'SWITCH' | translate}}</a>
+      </div>
+    </div>
+
   </div>
   <div>
-    <a class="btn btn-success btn-xs" ng-click="useDifferentAccount()">{{'OTHER_ACCOUNT' | translate}}</a>
+    <a class="btn btn-success" ng-click="useDifferentAccount()">{{'OTHER_ACCOUNT' | translate}}</a>
   </div>
 </div>
