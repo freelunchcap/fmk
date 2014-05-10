@@ -27,6 +27,8 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
       function doBattle(userinfo) {
         MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
           userinfo.Energy -= 2;
+          userinfo.Coins += replay.ExtData.Award.Coins;
+          userinfo.Exp += replay.ExtData.Award.Exp;
           if(replay.Win) {
             switch(layerStatus.Map.Items[itemIndex]) {
               case MAZE_BOT_BOX:
@@ -43,7 +45,12 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
                 layerStatus.Map.IsFinish = true;
                 break;
             }
-            if(callback)
+            if(userinfo.Exp > userinfo.NextExp)
+              UserBot.getUserinfo(true, function() {
+                if(callback)
+                  callback(layerStatus);
+              });
+            else if(callback)
               callback(layerStatus);
           }
         });
