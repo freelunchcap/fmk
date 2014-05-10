@@ -36,12 +36,19 @@
     </thead>
     <tbody>
     <tr ng-repeat="battle in battles">
-      <td>{{battle.maze}}</th>
-      <td>{{battle.layer}}</th>
-      <td>{{battle.enemy}}</th>
-      <td>{{battle.exp}}</th>
-      <td>{{battle.coins}}</th>
-      <td>{{battle.awards}}</th>
+      <td>{{battle.maze}}</td>
+      <td>{{battle.layer}}</td>
+      <td>{{battle.enemy}}</td>
+      <td>{{battle.exp}}</td>
+      <td>{{battle.coins}}</td>
+      <td>
+        <span class="label"
+              ng-repeat="award in battle.awards"
+              ng-click="showCardDetails(award)"
+              ng-class="{'label-default': cardDefs[award].Color < 3, 'label-info': cardDefs[award].Color == 3, 'label-warning': cardDefs[award].Color == 4,  'label-danger': cardDefs[award].Color == 5}">
+          {{cardDefs[award].CardName}}
+        </span>
+      </td>
     </tr>
     </tbody>
   </table>

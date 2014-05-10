@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, MazeApi, AssetsBot, MazeBot, UserBot, ProfileService) {
+fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot, UserBot, ProfileService) {
 
   return {
     restrict: 'E',
