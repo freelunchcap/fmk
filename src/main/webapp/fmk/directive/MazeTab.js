@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, MazeApi, MazeBot, UserBot, ProfileService) {
+fmk.directive('mazeTab', function ($modal, MazeApi, AssetsBot, MazeBot, UserBot, ProfileService) {
 
   return {
     restrict: 'E',
@@ -11,29 +11,33 @@ fmk.directive('mazeTab', function ($modal, MazeApi, MazeBot, UserBot, ProfileSer
 
     controller: function($scope) {
 
-      $scope.start = function() {
-        MazeBot.clearMazes($scope.profile);
-      };
-
       $scope.saveSettings = function() {
         ProfileService.saveProfile();
       };
 
-      $scope.test = function() {
-        MazeApi.info(7, 5);
+      $scope.clearBattles = function() {
+        $scope.battles = [];
       };
 
+      $scope.start = function() {
+        $scope.clearBattles();
+        MazeBot.clearMazes($scope.profile, $scope.battles);
+      };
 
       $scope.outdated = true;
 
       function reload() {
-        UserBot.getUserinfo(false, function(userinfo) {
-          $scope.userinfo = userinfo;
-          MazeBot.getAvailableMazes(false, function(mazes) {
-            $scope.mazes = mazes;
-            $scope.profile = ProfileService.getProfile()[MAZE_PROFILE];
-            $scope.outdated = false;
-          })
+        $scope.battles = [];
+        AssetsBot.getCardDefs(function(cardDefs) {
+          $scope.cardDefs = cardDefs;
+          UserBot.getUserinfo(false, function(userinfo) {
+            $scope.userinfo = userinfo;
+            MazeBot.getAvailableMazes(false, function(mazes) {
+              $scope.mazes = mazes;
+              $scope.profile = ProfileService.getProfile()[MAZE_PROFILE];
+              $scope.outdated = false;
+            })
+          });
         });
       }
 

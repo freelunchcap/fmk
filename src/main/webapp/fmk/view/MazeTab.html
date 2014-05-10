@@ -2,8 +2,8 @@
   <div>
     <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
     <a class="btn btn-primary" ng-click="saveSettings()">{{'SAVE_SETTINGS' | translate}}</a>
-    <a class="btn btn-primary" ng-click="test()">{{'TEST' | translate}}</a>
   </div>
+  <div class=""></div>
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -22,4 +22,28 @@
     </tr>
     </tbody>
   </table>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="col-md-1">{{'MAZE' | translate}}</th>
+      <th class="col-md-1">{{'LAYER' | translate}}</th>
+      <th class="col-md-2">{{'ENEMY' | translate}}</th>
+      <th class="col-md-2">{{'EXP' | translate}}</th>
+      <th class="col-md-2">{{'COINS' | translate}}</th>
+      <th class="col-md-4">{{'AWARDS' | translate}}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="battle in battles">
+      <td>{{battle.maze}}</th>
+      <td>{{battle.layer}}</th>
+      <td>{{battle.enemy}}</th>
+      <td>{{battle.exp}}</th>
+      <td>{{battle.coins}}</th>
+      <td>{{battle.awards}}</th>
+    </tr>
+    </tbody>
+  </table>
+
 </div>

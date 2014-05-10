@@ -15,7 +15,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
   var mb = {
 
-    clearItem: function(mapStageId, layer, itemIndex, layerStatus, callback) {
+    clearItem: function(mapStageId, layer, itemIndex, layerStatus, battles, callback) {
       function checkFinish() {
         if(layerStatus.Layer == layerStatus.TotalLayer
           && layerStatus.RemainBoxNum == 0
@@ -26,6 +26,23 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
       function doBattle(userinfo) {
         MazeApi.battle(MAZE_AUTO_BATTLE, mapStageId, layer, itemIndex, function(replay) {
+          var awards = [];
+          if(replay.ExtData.Award.CardId)
+            awards.push(replay.ExtData.Award.CardId);
+          if(replay.ExtData.Award.SecondDropCard) {
+            $.each(replay.ExtData.Award.SecondDropCard, function(index, card) {
+              awards.push(card.CardId);
+            })
+          }
+          battles.push({
+            maze: mapStageId,
+            layer: layer,
+            enemy: replay.DefendPlayer.NickName,
+            exp: replay.ExtData.Award.Exp,
+            coins: replay.ExtData.Award.Coins,
+            awards: awards,
+            win: replay.Win == 1
+          });
           userinfo.Energy -= 2;
           userinfo.Coins += replay.ExtData.Award.Coins;
           userinfo.Exp += replay.ExtData.Award.Exp;
@@ -64,7 +81,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
     },
 
-    clearLayer: function(mapStageId, layer, mazeStatus, callback, layerStatus) {
+    clearLayer: function(mapStageId, layer, mazeStatus, battles, callback, layerStatus) {
       function doClearLayer(layerStatus, callback) {
         if(layerStatus.Map.IsFinish
           && layerStatus.RemainBoxNum == 0
@@ -84,8 +101,8 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
               nextItemIndex = itemIndex;
             }
           });
-          mb.clearItem(mapStageId, layer, nextItemIndex, layerStatus, function(layerStatus) {
-            mb.clearLayer(mapStageId, layer, mazeStatus, callback, layerStatus);
+          mb.clearItem(mapStageId, layer, nextItemIndex, layerStatus, battles, function(layerStatus) {
+            mb.clearLayer(mapStageId, layer, mazeStatus, battles, callback, layerStatus);
           });
         }
       }
@@ -104,19 +121,19 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
       });
     },
 
-    clearMaze: function(mapStageId, callback, mazeStatus) {
+    clearMaze: function(mapStageId, battles, callback, mazeStatus) {
       function doClearMaze(mazeStatus, callback) {
         if(mazeStatus.Clear) {
           if(mazeStatus.FreeReset == 1) {
             mb.resetMaze(mapStageId, function(mazeStatus) {
-              mb.clearMaze(mapStageId, callback, mazeStatus);
+              mb.clearMaze(mapStageId, battles, callback, mazeStatus);
             });
           } else
             callback(mazeStatus);
         }
         else
-          mb.clearLayer(mapStageId, mazeStatus.Layer, mazeStatus, function(mazeStatus) {
-            mb.clearMaze(mapStageId, callback, mazeStatus);
+          mb.clearLayer(mapStageId, mazeStatus.Layer, mazeStatus, battles, function(mazeStatus) {
+            mb.clearMaze(mapStageId, battles, callback, mazeStatus);
           });
       }
 
@@ -128,7 +145,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
         });
     },
 
-    clearMazes: function(mazeProfile, callback) {
+    clearMazes: function(mazeProfile, battles, callback) {
       var toAttack = [];
       $.each(mazeProfile.attack, function(mapStageId, attack) {
         if(attack)
@@ -148,7 +165,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
         var next = toAttack[0];
         toAttack = toAttack.slice(1, toAttack.length);
-        mb.clearMaze(next, function(mazeStatus) {
+        mb.clearMaze(next, battles, function(mazeStatus) {
           mazeStatuses[next] =  mazeStatus;
           attackNext();
         });
