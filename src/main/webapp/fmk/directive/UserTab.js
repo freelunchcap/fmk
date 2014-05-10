@@ -1,5 +1,3 @@
-USER = 'user';
-
 fmk.directive('userTab', function ($modal) {
 
   return {
