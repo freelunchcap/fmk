@@ -1,30 +1,28 @@
 fmk.factory('LogService', function() {
 
-  var logger;
+  var loggers = [];
+  var logs = [];
 
   return {
 
-    linkLogs: function(logs) {
-      logger = {
-        log: function(log) {
-          logs.push(log);
-          return logs.length - 1;
-        },
-        amend: function(index, log) {
-          return $.extend(logs[index], log);
-        }
-      }
+    register: function(logger) {
+      loggers.push(logger);
+      return logs;
     },
 
-    log: function(log) {
-      if(logger)
-        return logger.log($.extend(true, {}, log));
-      console.error(JSON.stringify(log));
-      return -1;
+    log: function(log, callback) {
+      logs.push($.extend(true, {}, log));
+      if(callback)
+        callback(logs.length - 1);
+      $.each(loggers, function(index, logger) {
+        logger.notify();
+      });
     },
 
-    amend: function(index, log) {
-      logger.amend(index, $.extend(true, {}, log));
+    amend: function(index, log, callback) {
+      $.extend(logs[index], $.extend(true, {}, log));
+      if(callback)
+        callback(logs[index]);
     }
 
   }

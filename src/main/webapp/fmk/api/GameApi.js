@@ -92,20 +92,21 @@ fmk.factory('GameApi', function($http, LogService) {
     },
 
     post: function(service, action, params, callback) {
-      var logIndex = LogService.log({
+      LogService.log({
         service: service,
         action: action,
         params: params,
         status: -1
-      });
-      postRequest(token.GS_IP, service, action, params, function(response) {
-        LogService.amend(logIndex, {
-          response: response.data,
-          status: response.status,
-          message: response.message
+      }, function(logIndex) {
+        postRequest(token.GS_IP, service, action, params, function(response) {
+          LogService.amend(logIndex, {
+            response: response.data,
+            status: response.status,
+            message: response.message
+          });
+          if(response.status == 1 && callback)
+            callback(response.data);
         });
-        if(response.status == 1 && callback)
-          callback(response.data);
       });
     }
 

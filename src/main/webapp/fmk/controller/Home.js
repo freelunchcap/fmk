@@ -18,9 +18,6 @@ fmk.controller('Home', ['$scope', '$rootScope', '$modal', 'CardApi', 'FenergyApi
       });
     };
 
-    $scope.logs = [];
-    LogService.linkLogs($scope.logs);
-
     $scope.friends = [];
     $scope.list = function() {
       FriendApi.getFriends(function(response) {
