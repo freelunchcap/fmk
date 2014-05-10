@@ -9,7 +9,8 @@
       </div>
     </div>
     <div>
-      <progressbar class="progress-striped" value="(userinfo.Exp - userinfo.PrevExp)/(userinfo.NextExp - userinfo.PrevExp) * 100" type="success">{{userinfo.Exp - userinfo.PrevExp}}/{{userinfo.NextExp - userinfo.PrevExp}}</progressbar>
+      <progressbar class="progress-striped" value="(userinfo.Exp - userinfo.PrevExp)/(userinfo.NextExp - userinfo.PrevExp) * 100" type="success">{{'EXP' | translate}}: {{userinfo.Exp - userinfo.PrevExp}}/{{userinfo.NextExp - userinfo.PrevExp}}</progressbar>
+      <progressbar class="progress-striped" value="(userinfo.Energy/userinfo.EnergyMax) * 100">{{'ENERGY' | translate}}: {{userinfo.Energy}}/{{userinfo.EnergyMax}}</progressbar>
     </div>
     <div>
       <div class="col-md-4" class="col">

@@ -7,3 +7,19 @@ div[ng-view] {
 a {
   cursor: pointer;
 }
+
+div.progress-bar > span {
+  color: #d9edf7;
+  text-shadow: 1px 1px #3a87ad;
+  white-space: nowrap;
+}
+
+div.progress-bar-success > span {
+  color: #dff0d8;
+  text-shadow: 1px 1px #468847;
+}
+
+div.progress-bar-danger > span {
+  color: #f2dede;
+  text-shadow: 1px 1px #b94a48;
+}
