@@ -1,0 +1,13 @@
+div.notification {
+  padding: 10px;
+  cursor: pointer;
+}
+
+div.notification:hover {
+  opacity: 1 !important;
+}
+
+div.notification h4 {
+  margin-bottom: 5px;
+}
+

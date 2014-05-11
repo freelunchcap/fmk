@@ -12,11 +12,13 @@
   <link rel="stylesheet" href="resources/css/Home.css">
   <link rel="stylesheet" href="resources/css/LogDetail.css">
   <link rel="stylesheet" href="resources/css/MazeTab.css">
+  <link rel="stylesheet" href="resources/css/Notification.css">
   <link rel="icon" type="image/ico" href="resources/images/favicon.ico">
 </head>
 
 <body>
 
+<div ng-controller="Notification"></div>
 <div ng-view></div>
 
 <script src="lib/jquery/jquery-2.1.0.js"></script>
@@ -39,7 +41,7 @@
 <script src="fmk/controller/Home.js"></script>
 <script src="fmk/controller/LogDetailModal.js"></script>
 <script src="fmk/controller/LoginModal.js"></script>
-<script src="fmk/controller/Navigation.js"></script>
+<script src="fmk/controller/Notification.js"></script>
 
 <script src="fmk/api/ArenaApi.js"></script>
 <script src="fmk/api/BossApi.js"></script>
@@ -73,6 +75,7 @@
 <script src="fmk/directive/UserTab.js"></script>
 
 <script src="fmk/service/StorageService.js"></script>
+<script src="fmk/service/NotificationService.js"></script>
 <script src="fmk/service/ProfileService.js"></script>
 <script src="fmk/service/LogService.js"></script>
 

@@ -24,6 +24,10 @@ div.progress-bar-danger > span {
   text-shadow: 1px 1px #b94a48;
 }
 
+div.alert {
+  padding: 5px;
+}
+
 span.label {
   margin-left: 2px;
   margin-right: 2px;
