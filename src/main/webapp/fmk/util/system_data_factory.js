@@ -1,4 +1,4 @@
 function getIDFA(key) {
   var val = md5(key);
-  return val.substring(0, 8) + '-' + val.substr(8, 12) + '-' + val.substr(12, 16) + '-' + val.substr(16, 20) + '-' + val.substr(20, 32);
+  return val.substring(0, 8) + '-' + val.substring(8, 12) + '-' + val.substring(12, 16) + '-' + val.substring(16, 20) + '-' + val.substring(20, 32);
 }
