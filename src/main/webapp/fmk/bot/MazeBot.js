@@ -61,9 +61,9 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
             win: replay.Win == 1,
             clear: replay.ExtData.Clear && replay.ExtData.Clear.IsClear == 1
           });
-          userinfo.Energy -= 2;
-          userinfo.Coins += replay.ExtData.Award.Coins;
-          userinfo.Exp += replay.ExtData.Award.Exp;
+          userinfo.Energy = parseInt(userinfo.Energy) - 2;
+          userinfo.Coins = parseInt(userinfo.Coins) + parseInt(replay.ExtData.Award.Coins);
+          userinfo.Exp = parseInt(userinfo.Exp) + parseInt(replay.ExtData.Award.Exp);
           if(replay.Win) {
             switch(layerStatus.Map.Items[itemIndex]) {
               case MAZE_BOT_BOX:

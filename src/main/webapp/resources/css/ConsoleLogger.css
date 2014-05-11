@@ -1,6 +1,8 @@
 div.console-logger {
   height: 100%;
   padding: 10px 0;
+  position: fixed;
+  max-width: 370px;
 }
 
 div.console-logger div.table-container {
