@@ -1,6 +1,6 @@
 FRIENDS_PROFILE = 'friends_profile';
 
-fmk.directive('friendsTab', function (FriendApi, FenergyApi) {
+fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -11,10 +11,28 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi) {
 
     controller: function($scope) {
 
+      $scope.saveSettings = function() {
+        ProfileService.saveProfile(function() {
+          NotificationService.success($filter('translate')('MAZE'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+        });
+      };
+
+      $scope.showConfigOptions = function() {
+        $scope.configOptionsHidden = false;
+      };
+
+      $scope.hideConfigOptions = function() {
+        $scope.configOptionsHidden = true;
+      };
+
+
       $scope.friends = [];
-      $scope.list = function() {
+      $scope.refresh = function(callback) {
+        $scope.friends = [];
         FriendApi.getFriends(function(response) {
           $scope.friends = response.Friends;
+          if(callback)
+            callback($scope.friends);
         });
       };
       $scope.findFriend = function(fid) {
@@ -37,7 +55,12 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi) {
       $scope.outdated = true;
 
       function reload() {
-        $scope.outdated = false;
+        $scope.refresh(function() {
+          ProfileService.getProfile(function(profiles) {
+            $scope.profile = profiles[FRIENDS_PROFILE];
+            $scope.outdated = false;
+          });
+        });
       }
 
       $scope.$on(HOME_SWITCH_USER, function() {
@@ -50,7 +73,16 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi) {
         if(newValue && $scope.outdated)
           reload();
       });
+    },
+
+    link: function() {
+      ProfileService.setDefaultProfile(FRIENDS_PROFILE, {
+        returnSender: true,
+        favourRecentOnline: true,
+        favourHighRank: true
+      });
     }
+
 
   }
 });

@@ -1,7 +1,43 @@
 <div class="friends-tab">
-  <a class="btn btn-primary" ng-click="list()">list</a>
 
-  <div class="friends-list">
+  <div class="config-panel">
+    <div class="toolbar">
+      <div class="config-button">
+        <a class="btn btn-primary" ng-click="showConfigOptions()" ng-show="configOptionsHidden">{{'SHOW_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="hideConfigOptions()" ng-hide="configOptionsHidden">{{'HIDE_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="saveSettings()" ng-hide="configOptionsHidden">{{'SAVE_SETTINGS' | translate}}</a>
+      </div>
+      <div class="start-button">
+        <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
+      </div>
+    </div>
+    <div class="config-options" collapse="configOptionsHidden">
+      <form>
+        <ul>
+          <li>
+            <label>
+              <input ng-model="profile.returnSender" type="checkbox">{{'IMMEDIATELY_RETURN_ENERGY_TO_SENDER' | translate}}
+            </label>
+          </li>
+          <li>
+            <label>
+              <input ng-model="profile.favourRecentOnline" type="checkbox">{{'FAVOUR_RECENT_ONLINE_PLAYERS' | translate}}
+            </label>
+          </li>
+          <li>
+            <label>
+              <input ng-model="profile.favourHighRank" type="checkbox">{{'FAVOUR_HIGH_RANK_PLAYERS' | translate}}
+            </label>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  <div class="status-panel">
+    <div class="toolbar">
+      <a class="btn btn-default" ng-click="refresh()">{{'REFRESH' | translate}}</a>
+    </div>
     <table class="table table-condensed">
       <thead>
       <tr>

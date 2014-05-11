@@ -44,8 +44,10 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
             $scope.userinfo = userinfo;
             MazeBot.getAvailableMazes(false, function(mazes) {
               $scope.mazes = mazes;
-              $scope.profile = ProfileService.getProfile()[MAZE_PROFILE];
-              $scope.outdated = false;
+              ProfileService.getProfile(function(profiles) {
+                $scope.profile = profiles[MAZE_PROFILE];
+                $scope.outdated = false;
+              });
             })
           });
         });
