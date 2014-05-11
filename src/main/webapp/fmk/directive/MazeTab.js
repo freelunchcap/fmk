@@ -74,7 +74,10 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
           6: true,
           7: true,
           8: true
-        }
+        },
+        interval: 180,
+        autoRun: true,
+        maxReset: 0
       });
     }
 

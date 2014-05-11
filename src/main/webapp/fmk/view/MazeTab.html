@@ -12,32 +12,43 @@
       </div>
     </div>
     <div class="config-options" collapse="configOptionsHidden">
-      <table class="table table-bordered">
-        <thead>
-        <tr>
-          <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td ng-repeat="(mapPos, available) in mazes">
-            <div>
-              <label>
-                <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
-              </label>
-            </div>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <form>
+        <table class="table table-bordered">
+          <thead>
+          <tr>
+            <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td ng-repeat="(mapPos, available) in mazes">
+              <div>
+                <label>
+                  <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
+                </label>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ul>
+          <li>
+            <label>
+              {{'EVERY' | translate}}<input ng-model="profile.interval" type="number" min="10" max="1440">{{'MINUTES' | translate}}
+            </label>
+            <label>
+              <input ng-model="profile.autoRun" type="checkbox">{{'RUN_AUTOMATICALLY' | translate}}
+            </label>
+          </li>
+          <li>
+            <label>
+              {{'SPEND_AT_MOST' | translate}}<input ng-model="profile.maxReset" type="number" min="0" max="400">{{'CRYSTALS_TO_RESET_MAZE' | translate}}
+            </label>
+          </li>
+        </ul>
+      </form>
     </div>
 
-    <!--<form class="">-->
-
-    <!--</form>-->
-    <!--<div>-->
-      <!--{{'EVERY' | translate}}-->
-    <!--</div>-->
   </div>
 
   <div class="status-panel">
