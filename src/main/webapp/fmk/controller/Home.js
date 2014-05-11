@@ -12,33 +12,5 @@ fmk.controller('Home', ['$scope', '$rootScope', '$modal', 'CardApi', 'FenergyApi
       arena: false
     };
 
-    $scope.loadMazes = function() {
-      MazeBot.getAvailableMazes(false, function(mazes) {
-        $scope.mazes = mazes;
-      });
-    };
-
-    $scope.friends = [];
-    $scope.list = function() {
-      FriendApi.getFriends(function(response) {
-        $scope.friends = response.Friends;
-      });
-    };
-    $scope.findFriend = function(fid) {
-      return $.grep($scope.friends, function(friend) {
-        return friend.Uid == fid;
-      })[0];
-    };
-    $scope.claimEnergy = function(fid) {
-      FenergyApi.getFEnergy(fid, function () {
-        $scope.findFriend(fid).FEnergySurplus = 0;
-      });
-    };
-    $scope.sendEnergy = function(fid) {
-      FenergyApi.sendFEnergy(fid, function () {
-        $scope.findFriend(fid).FEnergySend = 0;
-      });
-    };
-
   }
 ]);
