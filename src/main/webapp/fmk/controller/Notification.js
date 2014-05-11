@@ -16,7 +16,7 @@ fmk.controller('Notification', ['$timeout', 'NotificationService',
         right: '20px',
         bottom: bottom + 'px'
       });
-      notification.animate({bottom: '+=20', opacity: 0.8}, 400);
+      notification.animate({bottom: '+=20', opacity: 0.85}, 400);
     }
 
     function fade(notification) {
@@ -55,7 +55,7 @@ fmk.controller('Notification', ['$timeout', 'NotificationService',
       notification.css('opacity', 0);
       notification.addClass(cls[type]);
       var close = $('<button type="button" class="close">&times;</button>');
-      close.click(function() {
+      notification.click(function() {
         fade(notification);
       });
       notification.append(close);
