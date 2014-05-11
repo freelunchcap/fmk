@@ -48,6 +48,10 @@ fieldset[disabled] .btn {
   opacity: .50;
 }
 
+span.delete {
+  color: #b94a48;
+}
+
 
 
 
