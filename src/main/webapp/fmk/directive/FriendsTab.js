@@ -77,6 +77,7 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
 
     link: function() {
       ProfileService.setDefaultProfile(FRIENDS_PROFILE, {
+        autoRun: true,
         returnSender: true,
         favourRecentOnline: true,
         favourHighRank: true

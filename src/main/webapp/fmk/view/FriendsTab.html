@@ -16,6 +16,14 @@
         <ul>
           <li>
             <label>
+              {{'EVERY' | translate}}<input ng-model="profile.interval" type="number" min="10" max="1440">{{'MINUTES' | translate}}
+            </label>
+            <label>
+              <input ng-model="profile.autoRun" type="checkbox">{{'RUN_AUTOMATICALLY' | translate}}
+            </label>
+          </li>
+          <li>
+            <label>
               <input ng-model="profile.returnSender" type="checkbox">{{'IMMEDIATELY_RETURN_ENERGY_TO_SENDER' | translate}}
             </label>
           </li>
