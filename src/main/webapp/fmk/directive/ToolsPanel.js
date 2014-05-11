@@ -6,7 +6,11 @@ fmk.directive('toolsPanel', function ($modal) {
     templateUrl: 'fmk/view/ToolsPanel.html',
 
     controller: function($scope) {
-      $scope.showShop = function() {
+      $scope.shop = function() {
+
+      };
+
+      $scope.enchant = function() {
 
       }
     }

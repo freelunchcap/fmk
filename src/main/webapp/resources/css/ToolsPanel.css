@@ -1,0 +1,8 @@
+div.tools-panel {
+  margin: 20px;
+}
+
+div.tools-panel div.tools-list > a {
+  display: block;
+  margin: 10px;
+}

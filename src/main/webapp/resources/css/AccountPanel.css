@@ -2,13 +2,22 @@ div.account-panel h3.name {
   float: right;
 }
 
-div.account-panel div.switch-account select {
+div.account-panel div.target-account {
+  margin-left: 40px;
+}
+
+div.account-panel div.target-account select {
   line-height: 33px;
   height: 33px;
-  width: 200px;
+  width: 100%;
   float: right;
 }
 
 div.account-panel div.switch-account a {
   float: left;
+}
+
+div.account-panel div.other-account a {
+  display: block;
+  margin: 10px;
 }

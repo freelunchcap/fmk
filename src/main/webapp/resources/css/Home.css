@@ -17,6 +17,21 @@ div.home div.row-main {
 div.home div.left-panel {
   background: #f3edd2;
   color: #805100;
+  height: 100%;
+  padding: 20px;
+}
+
+div.home div.left-panel a.btn-primary {
+   background-color: #d9b16c;
+   border-color: #c09853;
+ }
+
+div.home div.left-panel a.btn-primary:hover,
+div.home div.left-panel a.btn-primary:focus,
+div.home div.left-panel a.btn-primary:active,
+div.home div.left-panel a.btn-primary.active {
+  background-color: #bf9750;
+  border-color: #917340;
 }
 
 div.home div.left-panel div.progress,
