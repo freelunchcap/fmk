@@ -5,8 +5,10 @@ fmk.factory('ProfileService', function(GameApi, StorageService) {
   var defaultProfile = {};
 
   var profiles = StorageService.getObject(PROFILES) || {};
-  function saveProfiles() {
+  function saveProfiles(callback) {
     StorageService.setObject(PROFILES, profiles);
+    if(callback)
+      callback();
   }
   function getProfile() {
     var username = GameApi.getToken().userName;
@@ -28,8 +30,8 @@ fmk.factory('ProfileService', function(GameApi, StorageService) {
       return getProfile();
     },
 
-    saveProfile: function() {
-      saveProfiles();
+    saveProfile: function(callback) {
+      saveProfiles(callback);
     }
 
   }

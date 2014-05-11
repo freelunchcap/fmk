@@ -47,8 +47,15 @@ div.config-panel {
 }
 
 div.config-panel > div.toolbar {
-  float: right;
   padding: 5px 5px 10px 0;
+}
+
+div.config-panel > div.toolbar > div {
+  display: inline-block;
+}
+
+div.config-panel > div.toolbar > div.start-button {
+  float: right;
 }
 
 div.config-panel table.table,

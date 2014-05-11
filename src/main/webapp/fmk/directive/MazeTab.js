@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot, UserBot, ProfileService) {
+fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot, UserBot, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -12,7 +12,17 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
     controller: function($scope) {
 
       $scope.saveSettings = function() {
-        ProfileService.saveProfile();
+        ProfileService.saveProfile(function() {
+          NotificationService.success($filter('translate')('MAZE'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+        });
+      };
+
+      $scope.showConfigOptions = function() {
+        $scope.configOptionsHidden = false;
+      };
+
+      $scope.hideConfigOptions = function() {
+        $scope.configOptionsHidden = true;
       };
 
       $scope.clearBattles = function() {

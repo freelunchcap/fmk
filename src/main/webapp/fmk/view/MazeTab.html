@@ -2,27 +2,42 @@
 
   <div class="config-panel">
     <div class="toolbar">
-      <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
-      <a class="btn btn-primary" ng-click="saveSettings()">{{'SAVE_SETTINGS' | translate}}</a>
+      <div class="config-button">
+        <a class="btn btn-primary" ng-click="showConfigOptions()" ng-show="configOptionsHidden">{{'SHOW_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="hideConfigOptions()" ng-hide="configOptionsHidden">{{'HIDE_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="saveSettings()" ng-hide="configOptionsHidden">{{'SAVE_SETTINGS' | translate}}</a>
+      </div>
+      <div class="start-button">
+        <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
+      </div>
     </div>
-    <table class="table table-bordered">
-      <thead>
-      <tr>
-        <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td ng-repeat="(mapPos, available) in mazes">
-          <div>
-            <label>
-              <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
-            </label>
-          </div>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <div class="config-options" collapse="configOptionsHidden">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td ng-repeat="(mapPos, available) in mazes">
+            <div>
+              <label>
+                <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
+              </label>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!--<form class="">-->
+
+    <!--</form>-->
+    <!--<div>-->
+      <!--{{'EVERY' | translate}}-->
+    <!--</div>-->
   </div>
 
   <div class="status-panel">
