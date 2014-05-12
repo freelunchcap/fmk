@@ -1,6 +1,6 @@
 FRIENDS_PROFILE = 'friends_profile';
 
-fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService, ProfileService) {
+fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -24,6 +24,11 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
       $scope.hideConfigOptions = function() {
         $scope.configOptionsHidden = true;
       };
+      $scope.start = function() {
+        FriendsBot.run($scope.friends, function() {
+          $scope.refresh();
+        });
+      };
 
 
       $scope.friends = [];
@@ -35,20 +40,12 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
             callback($scope.friends);
         });
       };
-      $scope.findFriend = function(fid) {
-        return $.grep($scope.friends, function(friend) {
-          return friend.Uid == fid;
-        })[0];
-      };
+
       $scope.claimEnergy = function(fid) {
-        FenergyApi.getFEnergy(fid, function () {
-          $scope.findFriend(fid).FEnergySurplus = 0;
-        });
+        FriendsBot.claimEnergy(fid, $scope.friends);
       };
       $scope.sendEnergy = function(fid) {
-        FenergyApi.sendFEnergy(fid, function () {
-          $scope.findFriend(fid).FEnergySend = 0;
-        });
+        FriendsBot.sendEnergy(fid, $scope.friends);
       };
 
 
@@ -80,8 +77,7 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
         interval: 360,
         autoRun: true,
         returnSender: true,
-        favourRecentOnline: true,
-        favourHighRank: false
+        favour: 'recentOnline'
       });
     }
 

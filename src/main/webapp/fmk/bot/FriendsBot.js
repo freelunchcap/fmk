@@ -1,6 +1,31 @@
-fmk.factory('FriendsBot', function(FriendsApi, FenergyApi, ProfileService) {
+fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
+
+  function findFriend(fid, friendList) {
+    return $.grep(friendList, function(friend) {
+      return friend.Uid == fid;
+    })[0];
+  }
+
+  function claimEnergy(fid, friendList, success, failure) {
+    FenergyApi.getFEnergy(fid, function () {
+      if(friendList)
+        findFriend(fid, friendList).FEnergySurplus = 0;
+      if(success)
+        success();
+    }, failure);
+  }
+
+  function sendEnergy(fid, friendList, success, failure) {
+    FenergyApi.sendFEnergy(fid, function () {
+      if(friendList)
+        findFriend(fid, friendList).FEnergySend = 0;
+      if(success)
+        success();
+    }, failure);
+  }
 
   function claimAndSend(friendList, callback) {
+    friendList = friendList.slice();
     ProfileService.getProfile(function(profile) {
       var friendsProfile = profile[FRIENDS_PROFILE];
       var toClaim = [];
@@ -12,14 +37,6 @@ fmk.factory('FriendsBot', function(FriendsApi, FenergyApi, ProfileService) {
             toSend.push(friend);
         }
       });
-
-      function claimNext(callback) {
-        if(toClaim.length > 0) {
-          var next = toClaim[0];
-          toClaim = toClaim.slice(1, toClaim.length);
-          FenergyApi.getFEnergy(next.Uid, claimNext, callback);
-        }
-      }
 
       if(friendsProfile.favourRecentOnline)
         friendList.sort(function(f1, f2) {
@@ -34,15 +51,24 @@ fmk.factory('FriendsBot', function(FriendsApi, FenergyApi, ProfileService) {
           toSend.push(friend);
       });
 
+      function claimNext() {
+        if(toClaim.length > 0) {
+          var next = toClaim[0];
+          toClaim = toClaim.slice(1, toClaim.length);
+          claimEnergy(next.Uid, friendList, claimNext, sendNext);
+        } else
+          sendNext();
+      }
       function sendNext() {
         if(toSend.length > 0) {
           var next = toSend[0];
           toSend = toSend.slice(1, toSend.length);
-          FenergyApi.sendFEnergy(next.Uid, sendNext, callback);
-        }
+          sendEnergy(next.Uid, friendList, sendNext, callback);
+        } else if(callback)
+          callback();
       }
 
-      claimNext(sendNext);
+      claimNext();
     });
   }
 
@@ -56,6 +82,14 @@ fmk.factory('FriendsBot', function(FriendsApi, FenergyApi, ProfileService) {
         });
       } else
         claimAndSend(friendList, callback);
+    },
+
+    claimEnergy: function(fid, friendList, success, failure) {
+      claimEnergy(fid, friendList, success, failure);
+    },
+
+    sendEnergy: function(fid, friendList, success, failure) {
+      sendEnergy(fid, friendList, success, failure);
     }
 
   }
