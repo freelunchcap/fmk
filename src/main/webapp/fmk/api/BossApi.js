@@ -3,40 +3,40 @@ BOSS_PHP = 'boss.php';
 fmk.factory('BossApi', function(GameApi) {
   return {
 
-    getBoss: function(callback) {
+    getBoss: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'GetBoss', params, callback);
+      GameApi.post(BOSS_PHP, 'GetBoss', params, success);
     },
 
-    fight: function(callback) {
+    fight: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'Fight', params, callback);
+      GameApi.post(BOSS_PHP, 'Fight', params, success);
     },
 
-    getFightData: function(callback) {
+    getFightData: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'GetFightData', params, callback);
+      GameApi.post(BOSS_PHP, 'GetFightData', params, success);
     },
 
-    getRanks: function(callback) {
+    getRanks: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'GetRanks', params, callback);
+      GameApi.post(BOSS_PHP, 'GetRanks', params, success);
     },
 
-    buyTime: function(callback) {
+    buyTime: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'BuyTime', params, callback);
+      GameApi.post(BOSS_PHP, 'BuyTime', params, success);
     },
 
-    getStatus: function(callback) {
+    getStatus: function(success) {
       var params = {
       };
-      GameApi.post(BOSS_PHP, 'GetStatus', params, callback);
+      GameApi.post(BOSS_PHP, 'GetStatus', params, success);
     }
   }
 

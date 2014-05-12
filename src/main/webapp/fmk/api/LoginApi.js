@@ -3,7 +3,7 @@ LOGIN_PHP = 'login.php';
 fmk.factory('LoginApi', function(GameApi) {
   return {
 
-    passportLogin: function(callback) {
+    passportLogin: function(success) {
       var token = GameApi.getToken();
       var params = {
         Password: token.U_ID,
@@ -17,7 +17,7 @@ fmk.factory('LoginApi', function(GameApi) {
         Origin: ''
       };
 
-      GameApi.post(LOGIN_PHP, 'passportLogin', params, callback);
+      GameApi.post(LOGIN_PHP, 'passportLogin', params, success);
     }
   }
 

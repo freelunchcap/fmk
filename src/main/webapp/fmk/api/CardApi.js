@@ -3,37 +3,37 @@ CARD_PHP = 'card.php';
 fmk.factory('CardApi', function(GameApi) {
   return {
 
-    getUserCards: function(callback) {
+    getUserCards: function(success) {
       var params = {
       };
-      GameApi.post(CARD_PHP, 'GetUserCards', params, callback);
+      GameApi.post(CARD_PHP, 'GetUserCards', params, success);
     },
 
-    getCardGroup: function(callback) {
+    getCardGroup: function(success) {
       var params = {
       };
-      GameApi.post(CARD_PHP, 'GetCardGroup', params, callback);
+      GameApi.post(CARD_PHP, 'GetCardGroup', params, success);
     },
 
-    setCardGroup: function(cards, runes, groupId, callback) {
+    setCardGroup: function(cards, runes, groupId, success) {
       var params = {
         Cards: cards,
         Runes: runes,
         GroupId: groupId
       };
-      GameApi.post(CARD_PHP, 'SetCardGroup', params, callback);
+      GameApi.post(CARD_PHP, 'SetCardGroup', params, success);
     },
 
-    getAllSkill: function(callback) {
+    getAllSkill: function(success) {
       var params = {
       };
-      GameApi.post(CARD_PHP, 'GetAllSkill', params, callback);
+      GameApi.post(CARD_PHP, 'GetAllSkill', params, success);
     },
 
-    getAllCard: function(callback) {
+    getAllCard: function(success) {
       var params = {
       };
-      GameApi.post(CARD_PHP, 'getAllCard', params, callback);
+      GameApi.post(CARD_PHP, 'getAllCard', params, success);
     }
   }
 

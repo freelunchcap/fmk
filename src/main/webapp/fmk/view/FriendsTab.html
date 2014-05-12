@@ -29,12 +29,8 @@
           </li>
           <li>
             <label>
-              <input ng-model="profile.favourRecentOnline" type="checkbox">{{'FAVOUR_RECENT_ONLINE_PLAYERS' | translate}}
-            </label>
-          </li>
-          <li>
-            <label>
-              <input ng-model="profile.favourHighRank" type="checkbox">{{'FAVOUR_HIGH_RANK_PLAYERS' | translate}}
+              <input ng-model="profile.favourRecentOnline" type="radio" name="priority">{{'FAVOUR_RECENT_ONLINE_PLAYERS' | translate}}
+              <input ng-model="profile.favourHighRank" type="radio" name="priority">{{'FAVOUR_HIGH_RANK_PLAYERS' | translate}}
             </label>
           </li>
         </ul>

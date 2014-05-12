@@ -1,7 +1,7 @@
 fmk.factory('WebApi', function(GameApi, LoginApi) {
   return {
 
-    login: function(username, password, callback) {
+    login: function(username, password, success) {
       var request = {
         userName: username,
         userPassword: password,
@@ -12,8 +12,8 @@ fmk.factory('WebApi', function(GameApi, LoginApi) {
         var json = eval('(' + response + ')');
         if(json.returnCode == '0') {
           var token = $.parseJSON(response).returnObjs;
-          if(callback)
-            callback(token);
+          if(success)
+            success(token);
         } else {
           $log.error(LNG.ERROR_CODE[json.returnCode] || response);
         }

@@ -3,12 +3,12 @@ STRENG_PHP = 'streng.php';
 fmk.factory('StrengApi', function(GameApi) {
   return {
 
-    card: function(userCardId1, userCardId2, callback) {
+    card: function(userCardId1, userCardId2, success) {
       var params = {
         UserCardId1: userCardId1,
         UserCardId2: userCardId2
       };
-      GameApi.post(STRENG_PHP, 'Card', params, callback);
+      GameApi.post(STRENG_PHP, 'Card', params, success);
     }
 
   }

@@ -3,16 +3,16 @@ DUNGEON_PHP = 'dungeon.php';
 fmk.factory('DungeonApi', function(GameApi) {
   return {
 
-    getUserDungeon: function(callback) {
+    getUserDungeon: function(success) {
       var params = {
       };
-      GameApi.post(DUNGEON_PHP, 'GetUserDungeon', params, callback);
+      GameApi.post(DUNGEON_PHP, 'GetUserDungeon', params, success);
     },
 
-    sweep: function(callback) {
+    sweep: function(success) {
       var params = {
       };
-      GameApi.post(DUNGEON_PHP, 'Sweep', params, callback);
+      GameApi.post(DUNGEON_PHP, 'Sweep', params, success);
     }
 
   }

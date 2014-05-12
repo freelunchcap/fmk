@@ -91,7 +91,7 @@ fmk.factory('GameApi', function($http, LogService) {
       return token;
     },
 
-    post: function(service, action, params, callback) {
+    post: function(service, action, params, success, failure) {
       LogService.log({
         service: service,
         action: action,
@@ -104,8 +104,13 @@ fmk.factory('GameApi', function($http, LogService) {
             status: response.status,
             message: response.message
           });
-          if(response.status == 1 && callback)
-            callback(response.data);
+          if(response.status == 1) {
+            if(success)
+              success(response.data);
+          } else {
+            if(failure)
+              failure(response.message);
+          }
         });
       });
     }

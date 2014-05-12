@@ -56,8 +56,8 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
 
       function reload() {
         $scope.refresh(function() {
-          ProfileService.getProfile(function(profiles) {
-            $scope.profile = profiles[FRIENDS_PROFILE];
+          ProfileService.getProfile(function(profile) {
+            $scope.profile = profile[FRIENDS_PROFILE];
             $scope.outdated = false;
           });
         });
@@ -81,7 +81,7 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, NotificationService
         autoRun: true,
         returnSender: true,
         favourRecentOnline: true,
-        favourHighRank: true
+        favourHighRank: false
       });
     }
 
