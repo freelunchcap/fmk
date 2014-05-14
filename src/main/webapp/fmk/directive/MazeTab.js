@@ -31,34 +31,26 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
 
       $scope.start = function() {
         $scope.clearBattles();
-        MazeBot.clearMazes($scope.profile, $scope.battles);
+        MazeBot.run(function() {
+        }, $scope.battles);
       };
 
       $scope.outdated = true;
-
       function reload() {
-        $scope.battles = [];
-        AssetsBot.getCardDefs(function(cardDefs) {
-          $scope.cardDefs = cardDefs;
-          UserBot.getUserinfo(function(userinfo) {
-            $scope.userinfo = userinfo;
-            MazeBot.getAvailableMazes(false, function(mazes) {
-              $scope.mazes = mazes;
-              ProfileService.getProfile(function(profiles) {
-                $scope.profile = profiles[MAZE_PROFILE];
-                $scope.outdated = false;
-              });
-            })
-          }, false);
+        $scope.clearBattles();
+        ProfileService.getProfile(function(profiles) {
+          $scope.profile = profiles[MAZE_PROFILE];
+          $scope.outdated = false;
+          AssetsBot.getCardDefs(function(cardDefs) {
+            $scope.cardDefs = cardDefs;
+          });
         });
       }
-
       $scope.$on(HOME_SWITCH_USER, function() {
         $scope.outdated = true;
         if($scope.tabs.maze)
           reload();
       });
-
       $scope.$watch('tabs.maze', function(newValue) {
         if(newValue && $scope.outdated)
           reload();
