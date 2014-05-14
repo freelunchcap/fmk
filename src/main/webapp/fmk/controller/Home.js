@@ -7,7 +7,7 @@ fmk.controller('Home', ['$scope', '$rootScope', '$modal', 'CardApi', 'FenergyApi
       user: true,
       maze: false,
       friends: false,
-      counter_attacks: false,
+      counterAttacks: false,
       dungeon: false,
       arena: false
     };
