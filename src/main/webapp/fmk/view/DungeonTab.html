@@ -46,6 +46,7 @@
           <a class="btn btn-xs"
              ng-repeat="label in sublist"
              ng-class="{'btn-success': label.awarded, 'btn-primary': !label.finished, 'btn-warning': label.finished && !label.awarded}"
+             ng-click="fight(label.layer)"
             >{{label.text}}</a>
         </td>
       </tr>

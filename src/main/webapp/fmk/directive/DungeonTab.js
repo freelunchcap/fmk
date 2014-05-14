@@ -69,6 +69,13 @@ fmk.directive('dungeonTab', function (DungeonBot, NotificationService, ProfileSe
         });
       };
 
+      $scope.fight = function(layer, callback) {
+        DungeonBot.fight(layer, function() {
+          if(callback)
+            callback();
+        });
+      };
+
       $scope.outdated = true;
       $scope.refresh = function(callback) {
         DungeonBot.getDungeonStatus(function(dungeonStatus) {

@@ -1,4 +1,6 @@
 DUNGEON_PHP = 'dungeon.php';
+DUNGEON_MANUAL_BATTLE = 1;
+DUNGEON_AUTO_BATTLE = 0;
 
 fmk.factory('DungeonApi', function(GameApi) {
   return {
@@ -64,9 +66,10 @@ fmk.factory('DungeonApi', function(GameApi) {
       GameApi.post(DUNGEON_PHP, 'Sweep', params, success);
     },
 
-    fight: function(success) {
+    fight: function(layer, isManual, success) {
       var params = {
-
+        Layer: layer,
+        isManual: isManual
       };
       GameApi.post(DUNGEON_PHP, 'Fight', params, success);
     },

@@ -8,6 +8,10 @@ fmk.factory('DungeonBot', function(DungeonApi) {
     DungeonApi.sweep(callback);
   }
 
+  function fight(layer, callback) {
+    DungeonApi.fight(layer, DUNGEON_AUTO_BATTLE, callback);
+  }
+
   function clearAll(callback) {
 
   }
@@ -27,6 +31,10 @@ fmk.factory('DungeonBot', function(DungeonApi) {
 
     sweep: function(callback) {
       sweep(callback);
+    },
+
+    fight: function(layer, callback) {
+      fight(layer, callback);
     }
   }
 
