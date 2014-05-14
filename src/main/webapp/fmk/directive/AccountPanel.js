@@ -20,10 +20,10 @@ fmk.directive('accountPanel', function ($rootScope, $modal, LoginBot, MazeBot, U
         $scope.currentAccount = account;
         $scope.targetAccount = account;
         $scope.profile = ProfileService.getProfile();
-        UserBot.getUserinfo(function(userinfo) {
+        UserBot.startRegularUpdate(function(userinfo) {
           $scope.userinfo = userinfo;
           $rootScope.$broadcast(HOME_SWITCH_USER);
-        }, true);
+        });
       }
       function autoLogin() {
         var previousLoginAccount = null;

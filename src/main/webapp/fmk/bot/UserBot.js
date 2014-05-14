@@ -42,9 +42,8 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
     if(updatePromise) {
       $timeout.cancel(updatePromise);
       updatePromise = null;
-      if(callback)
-        callback();
-    } else if(callback)
+    }
+    if(callback)
       callback();
   }
 
@@ -72,14 +71,6 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
 
     getUserinfo: function(callback, refresh) {
       getUserinfo(callback, refresh)
-    },
-
-    cancelNextUpdate: function(callback) {
-      cancelNextUpdate(callback)
-    },
-
-    scheduleNextUpdate: function(callback) {
-      scheduleNextUpdate(callback);
     },
 
     stopRegularUpdate: function(callback) {

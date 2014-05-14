@@ -7,7 +7,6 @@ fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
     });
   }
 
-
   function findFriend(fid, friendList) {
     return $.grep(friendList, function(friend) {
       return friend.Uid == fid;
