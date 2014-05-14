@@ -40,9 +40,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="(index, stage) in dungeonStatus.DungeonConditions">
-        <td><= {{stage.Layer}}</td>
+      <tr ng-repeat="(index, sublist) in layerLables">
+        <td>{{sublist[0].layer}} ~ {{sublist[sublist.length - 1].layer}}</td>
         <td>
+          <a class="btn btn-xs"
+             ng-repeat="label in sublist"
+             ng-class="{'btn-success': label.awarded, 'btn-primary': !label.finished, 'btn-warning': label.finished && !label.awarded}"
+            >{{label.text}}</a>
         </td>
       </tr>
       </tbody>

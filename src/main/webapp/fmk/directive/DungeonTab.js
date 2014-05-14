@@ -2,6 +2,40 @@ DUNGEON_PROFILE = 'dungeon_profile';
 
 fmk.directive('dungeonTab', function (DungeonBot, NotificationService, ProfileService) {
 
+
+  function createDungeonLayerLabels(dungeonStatus) {
+    var labels = [];
+    $.each(dungeonStatus.DungeonConditions, function(index, bossLayer) {
+      var sublist = [];
+      var max = bossLayer.Layer;
+      var previousBossLayer = dungeonStatus.DungeonConditions[index - 1];
+      var min = previousBossLayer ? previousBossLayer.Layer : 0;
+      var finishedBosses = $.map(dungeonStatus.UserDungeon.FinishedBoss.split(','), function(value) {
+        return parseInt(value);
+      });
+      for(var i = min + 1; i <= max; i++) {
+        var finished = i <= dungeonStatus.UserDungeon.CurrentLayer;
+        var awarded;
+        var text;
+        if(i == max) {
+          awarded = $.inArray(i, finishedBosses) != -1;
+          text = i + ': ' + bossLayer.Content;
+        } else {
+          awarded = finished;
+          text = i;
+        }
+        sublist.push({
+          layer: i,
+          finished: finished,
+          awarded: awarded,
+          text: text
+        });
+      }
+      labels.push(sublist);
+    });
+    return labels;
+  }
+
   return {
     restrict: 'E',
     scope: {
@@ -39,6 +73,7 @@ fmk.directive('dungeonTab', function (DungeonBot, NotificationService, ProfileSe
       $scope.refresh = function(callback) {
         DungeonBot.getDungeonStatus(function(dungeonStatus) {
           $scope.dungeonStatus = dungeonStatus;
+          $scope.layerLables = createDungeonLayerLabels(dungeonStatus);
           if(callback)
             callback(dungeonStatus);
         });
