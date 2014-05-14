@@ -6,7 +6,7 @@ MAZE_BOT_UPSTATIR = 5;
 
 MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
 
-fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
+fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, StorageService) {
 
   var mazeRequirements = StorageService.getObject(MAZE_BOT_MAZE_REQUIREMENTS);
   function saveMazeRequirements() {
@@ -156,63 +156,67 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
       });
   }
 
-  function clearMazes(mazeProfile, battles, callback) {
-    var toAttack = [];
-    $.each(mazeProfile.attack, function(mapStageId, attack) {
-      if(attack)
-        toAttack.push(mapStageId);
+  function clearMazes(mazeStatuses, profile, callback, battles) {
+    var mazes = $.map(profile.attack, function(toAttack, maze) {
+      if(toAttack)
+        return maze;
+      return null;
     });
-    toAttack.sort();
-    toAttack.reverse();
-
-    var mazeStatuses = {};
+    mazes.sort();
+    mazes.reverse();
 
     function attackNext() {
-      if(toAttack.length == 0) {
+      if(mazes.length == 0) {
         if(callback)
           callback(mazeStatuses);
         return;
       }
 
-      var next = toAttack[0];
-      toAttack = toAttack.slice(1, toAttack.length);
+      var next = mazes[0];
+      mazes = mazes.slice(1, mazes.length);
       clearMaze(next, battles, function(mazeStatus) {
-        mazeStatuses[next] =  mazeStatus;
+        mazeStatuses[next] = $.extend(mazeStatuses[next], mazeStatus);
         attackNext();
-      });
+      }, mazeStatuses[next]);
     }
 
     attackNext();
   }
 
-  var mb = {
+  function getMazeRequirements(refresh, callback) {
+    if(refresh || !mazeRequirements) {
+      mazeRequirements = {};
+      AssetsBot.getMapstageDefs(function(mapstageDefs) {
+        $.each(mapstageDefs, function(mapstagePos, mapstage) {
+          if(mapstage.MazeCount > 0) {
+            mazeRequirements[mapstagePos] = $.grep(mapstage.MapStageDetails, function (mapstageDetail) {
+              return mapstageDetail.Type == 2;
+            })[0].MapStageDetailId;
+          }
+        });
+        saveMazeRequirements();
+        if(callback)
+          callback(mazeRequirements);
+      });
+    } else if(callback)
+      callback(mazeRequirements);
+  }
+
+  return {
+
+    run: function(callback, battles, mazeStatuses) {
+      ProfileService.getProfile(function(profile) {
+        clearMazes(mazeStatuses || {}, profile[MAZE_PROFILE], callback, battles)
+      });
+    },
 
     clearMazes: function(mazeProfile, battles, callback) {
       clearMazes(mazeProfile, battles, callback);
     },
 
-    getMazeRequirements: function(refresh, callback) {
-      if(refresh || !mazeRequirements) {
-        mazeRequirements = {};
-        AssetsBot.getMapstageDefs(function(mapstageDefs) {
-          $.each(mapstageDefs, function(mapstagePos, mapstage) {
-            if(mapstage.MazeCount > 0) {
-              mazeRequirements[mapstagePos] = $.grep(mapstage.MapStageDetails, function (mapstageDetail) {
-                return mapstageDetail.Type == 2;
-              })[0].MapStageDetailId;
-            }
-          });
-          saveMazeRequirements();
-          if(callback)
-            callback(mazeRequirements);
-        });
-      } else if(callback)
-        callback(mazeRequirements);
-    },
-
     getAvailableMazes: function(refresh, callback) {
       UserBot.getUserMapstages(refresh, function(userMapstages) {
-        mb.getMazeRequirements(function(mazeRequirements) {
+        getMazeRequirements(function(mazeRequirements) {
           var mazes = {};
           $.each(mazeRequirements, function(mapPos, bossMapstageId) {
             var userBossMapstage = userMapstages[bossMapstageId];
@@ -225,7 +229,5 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
     }
 
   };
-
-  return mb;
 
 });
