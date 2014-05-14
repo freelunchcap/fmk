@@ -1,5 +1,13 @@
 fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
 
+  function getFriends(callback) {
+    FriendApi.getFriends(function(response) {
+      if(callback)
+        callback(response.Friends);
+    });
+  }
+
+
   function findFriend(fid, friendList) {
     return $.grep(friendList, function(friend) {
       return friend.Uid == fid;
@@ -74,14 +82,17 @@ fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
 
   return {
 
-    run: function(friendList, callback) {
-      if(!friendList) {
-        FriendsApi.getFriends(function(friends) {
-          var friendList = friends.Friends;
-          claimAndSend(friendList, callback);
+    run: function(callback, friends) {
+      if(!friends) {
+        getFriends(function(friends) {
+          claimAndSend(friends, callback);
         });
       } else
-        claimAndSend(friendList, callback);
+        claimAndSend(friends, callback);
+    },
+
+    getFriends: function(callback) {
+      getFriends(callback);
     },
 
     claimEnergy: function(fid, friendList, success, failure) {

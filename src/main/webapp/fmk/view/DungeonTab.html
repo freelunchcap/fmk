@@ -1,3 +1,45 @@
 <div class="dungeon-tab">
 
+  <div class="config-panel">
+    <div class="toolbar">
+      <div class="config-button">
+        <a class="btn btn-primary" ng-click="showConfigOptions()" ng-show="configOptionsHidden">{{'SHOW_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="hideConfigOptions()" ng-hide="configOptionsHidden">{{'HIDE_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="saveSettings()" ng-hide="configOptionsHidden">{{'SAVE_SETTINGS' | translate}}</a>
+      </div>
+      <div class="start-button">
+        <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
+      </div>
+    </div>
+    <div class="config-options" collapse="configOptionsHidden">
+      <form>
+        <ul>
+          <li>
+            <label>
+              {{'EVERY' | translate}}<input ng-model="profile.interval" type="number" min="10" max="1440">{{'MINUTES' | translate}}
+            </label>
+            <label>
+              <input ng-model="profile.autoRun" type="checkbox">{{'RUN_AUTOMATICALLY' | translate}}
+            </label>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  <div class="status-panel">
+    <div class="toolbar">
+      <a class="btn btn-default" ng-click="refresh()">{{'REFRESH' | translate}}</a>
+    </div>
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+
+      </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
 </div>

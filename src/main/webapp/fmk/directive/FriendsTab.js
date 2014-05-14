@@ -1,6 +1,6 @@
 FRIENDS_PROFILE = 'friends_profile';
 
-fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, NotificationService, ProfileService) {
+fmk.directive('friendsTab', function (FriendsBot, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -13,7 +13,7 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, Notific
 
       $scope.saveSettings = function() {
         ProfileService.saveProfile(function() {
-          NotificationService.success($filter('translate')('MAZE'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+          NotificationService.success($filter('translate')('FRIENDS'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
         });
       };
 
@@ -25,17 +25,17 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, Notific
         $scope.configOptionsHidden = true;
       };
       $scope.start = function() {
-        FriendsBot.run($scope.friends, function() {
+        FriendsBot.run(function() {
           $scope.refresh();
-        });
+        }, $scope.friends);
       };
 
 
       $scope.friends = [];
       $scope.refresh = function(callback) {
         $scope.friends = [];
-        FriendApi.getFriends(function(response) {
-          $scope.friends = response.Friends;
+        FriendsBot.getFriends(function(friends) {
+          $scope.friends = friends;
           if(callback)
             callback($scope.friends);
         });
@@ -50,7 +50,6 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, Notific
 
 
       $scope.outdated = true;
-
       function reload() {
         $scope.refresh(function() {
           ProfileService.getProfile(function(profile) {
@@ -59,13 +58,11 @@ fmk.directive('friendsTab', function (FriendApi, FenergyApi, FriendsBot, Notific
           });
         });
       }
-
       $scope.$on(HOME_SWITCH_USER, function() {
         $scope.outdated = true;
         if($scope.tabs.friends)
           reload();
       });
-
       $scope.$watch('tabs.friends', function(newValue) {
         if(newValue && $scope.outdated)
           reload();
