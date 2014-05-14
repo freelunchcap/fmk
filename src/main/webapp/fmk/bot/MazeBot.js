@@ -81,20 +81,20 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
                 break;
             }
             if(userinfo.Exp > userinfo.NextExp)
-              UserBot.getUserinfo(true, function() {
+              UserBot.getUserinfo(function() {
                 if(callback)
                   callback(layerStatus);
-              });
+              }, true);
             else if(callback)
               callback(layerStatus);
           }
         });
       }
 
-      UserBot.getUserinfo(false, function(userinfo) {
+      UserBot.getUserinfo(function(userinfo) {
         if(userinfo.Energy >= 2)
           doBattle(userinfo);
-      });
+      }, false);
 
 
     },
@@ -213,7 +213,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
 
     getAvailableMazes: function(refresh, callback) {
       UserBot.getUserMapstages(refresh, function(userMapstages) {
-        mb.getMazeRequirements(false, function(mazeRequirements) {
+        mb.getMazeRequirements(function(mazeRequirements) {
           var mazes = {};
           $.each(mazeRequirements, function(mapPos, bossMapstageId) {
             var userBossMapstage = userMapstages[bossMapstageId];
@@ -221,7 +221,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, StorageService) {
           });
           if(callback)
             callback(mazes);
-        });
+        }, false);
       });
     }
 

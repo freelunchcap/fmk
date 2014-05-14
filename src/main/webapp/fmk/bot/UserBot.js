@@ -7,68 +7,89 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
     StorageService.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
   }
 
+  function getUserMapstages(callback, refresh) {
+    var token = GameApi.getToken();
+    if(refresh || !allUserMapstages[token.userName]) {
+      MapstageApi.getUserMapStages(function(userMapstages) {
+        allUserMapstages[token.userName] = userMapstages;
+        saveAllUserMapStages();
+        if(callback)
+          callback(userMapstages);
+      });
+    } else if(callback)
+      callback(allUserMapstages[token.userName]);
+  }
+
   var currentUserinfo;
   var updatePromise;
   var regularUpdate = true;
 
-  var ub = {
+  function getUserinfo(callback, refresh) {
+    if(!currentUserinfo || refresh) {
+      cancelNextUpdate();
+      UserApi.getUserinfo(function(userinfo) {
+        if(regularUpdate)
+          scheduleNextUpdate();
+        currentUserinfo = $.extend(currentUserinfo || {}, userinfo);
+        if(callback)
+          callback(currentUserinfo);
+      });
+    } else if(callback)
+      callback(currentUserinfo);
+  }
 
-    getUserMapstages: function(refresh, callback) {
-      var token = GameApi.getToken();
-      if(refresh || !allUserMapstages[token.userName]) {
-        MapstageApi.getUserMapStages(function(userMapstages) {
-          allUserMapstages[token.userName] = userMapstages;
-          saveAllUserMapStages();
-          if(callback)
-            callback(userMapstages);
-        });
-      } else if(callback)
-        callback(allUserMapstages[token.userName]);
+  function cancelNextUpdate(callback) {
+    if(updatePromise) {
+      $timeout.cancel(updatePromise);
+      updatePromise = null;
+      if(callback)
+        callback();
+    } else if(callback)
+      callback();
+  }
+
+  function scheduleNextUpdate(callback) {
+    updatePromise = $timeout(function() {
+      getUserinfo(callback, true);
+    }, 300000);
+  }
+
+  function stopRegularUpdate(callback) {
+    regularUpdate = false;
+    cancelNextUpdate(callback);
+  }
+
+  function startRegularUpdate(callback) {
+    regularUpdate = true;
+    getUserinfo(callback, true);
+  }
+
+  return {
+
+    getUserMapstages: function(callback, refresh) {
+      getUserMapstages(callback, refresh)
     },
 
-    getUserinfo: function(refresh, callback) {
-      if(!currentUserinfo || refresh) {
-        ub.cancelNextUpdate();
-        UserApi.getUserinfo(function(userinfo) {
-          if(regularUpdate)
-            ub.scheduleNextUpdate();
-          currentUserinfo = $.extend(currentUserinfo || {}, userinfo);
-          if(callback)
-            callback(currentUserinfo);
-        });
-      } else if(callback)
-        callback(currentUserinfo);
+    getUserinfo: function(callback, refresh) {
+      getUserinfo(callback, refresh)
     },
 
-    cancelNextUpdate: function() {
-      if(updatePromise) {
-        $timeout.cancel(updatePromise);
-        updatePromise = null;
-      }
+    cancelNextUpdate: function(callback) {
+      cancelNextUpdate(callback)
     },
 
-    scheduleNextUpdate: function() {
-      updatePromise = $timeout(function() {
-        ub.getUserinfo(true);
-      }, 300000);
+    scheduleNextUpdate: function(callback) {
+      scheduleNextUpdate(callback);
     },
 
-    stopRegularUpdate: function() {
-      regularUpdate = false;
-      ub.cancelNextUpdate();
+    stopRegularUpdate: function(callback) {
+      stopRegularUpdate(callback);
     },
 
-    startRegularUpdate: function() {
-      regularUpdate = true;
-      ub.getUserinfo(true);
-    },
-
-    clearSavedUserinfo: function() {
-      currentUserinfo = null;
+    startRegularUpdate: function(callback) {
+      startRegularUpdate(callback)
     }
 
   };
-
-  return ub;
 
 });

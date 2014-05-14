@@ -40,7 +40,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
         $scope.battles = [];
         AssetsBot.getCardDefs(function(cardDefs) {
           $scope.cardDefs = cardDefs;
-          UserBot.getUserinfo(false, function(userinfo) {
+          UserBot.getUserinfo(function(userinfo) {
             $scope.userinfo = userinfo;
             MazeBot.getAvailableMazes(false, function(mazes) {
               $scope.mazes = mazes;
@@ -49,7 +49,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
                 $scope.outdated = false;
               });
             })
-          });
+          }, false);
         });
       }
 
