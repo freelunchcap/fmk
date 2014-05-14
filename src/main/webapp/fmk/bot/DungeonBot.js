@@ -4,6 +4,10 @@ fmk.factory('DungeonBot', function(DungeonApi) {
     DungeonApi.getUserDungeon(callback)
   }
 
+  function sweep(callback) {
+    DungeonApi.sweep(callback);
+  }
+
   function clearAll(callback) {
 
   }
@@ -19,6 +23,10 @@ fmk.factory('DungeonBot', function(DungeonApi) {
 
     getDungeonStatus: function(callback) {
       getDungeonStatus(callback);
+    },
+
+    sweep: function(callback) {
+      sweep(callback);
     }
   }
 

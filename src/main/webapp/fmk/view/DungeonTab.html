@@ -30,15 +30,21 @@
   <div class="status-panel">
     <div class="toolbar">
       <a class="btn btn-default" ng-click="refresh()">{{'REFRESH' | translate}}</a>
+      <a class="btn btn-default" ng-click="sweep()" ng-disabled="dungeonStatus.UserDungeon.RaidsLayer == 0 || dungeonStatus.UserDungeon.RaidsStatus == 1">{{'SWEEP' | translate}}</a>
     </div>
     <table class="table table-condensed">
       <thead>
       <tr>
-
+        <th>#</th>
+        <th>{{'STAGE' | translate}}</th>
       </tr>
       </thead>
       <tbody>
-
+      <tr ng-repeat="(index, stage) in dungeonStatus.DungeonConditions">
+        <td><= {{stage.Layer}}</td>
+        <td>
+        </td>
+      </tr>
       </tbody>
     </table>
   </div>
