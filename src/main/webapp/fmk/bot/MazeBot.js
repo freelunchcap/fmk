@@ -119,9 +119,13 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
       });
   }
 
-  function resetMaze(mapStageId, callback) {
+  function resetMaze(mapStageId, callback, mazeStatus) {
     MazeApi.reset(mapStageId, function() {
-      MazeApi.show(mapStageId, callback);
+      MazeApi.show(mapStageId, function(newMazeStatus) {
+        mazeStatus = $.extend(mazeStatus, newMazeStatus);
+        if(callback)
+          callback(mazeStatus);
+      });
     });
   }
 
@@ -186,6 +190,14 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
 
     getMazeStatus: function(maze, callback) {
       MazeApi.show(maze, callback);
+    },
+
+    resetMaze: function(maze, callback, mazeStatus) {
+      resetMaze(maze, callback, mazeStatus);
+    },
+
+    clearMaze: function(maze, battles, callback, mazeStatus) {
+      clearMaze(maze, battles, callback, mazeStatus)
     }
 
   };

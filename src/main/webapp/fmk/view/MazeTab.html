@@ -51,6 +51,48 @@
   </div>
 
   <div class="status-panel">
+    <div class="toolbar">
+      <a class="btn btn-default" ng-click="refresh()">{{'REFRESH' | translate}}</a>
+    </div>
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th ng-repeat="(maze, toAttack) in profile.attack">{{maze}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{'STATUS' | translate}}</td>
+        <td ng-repeat="(maze, toAttack) in profile.attack">
+          <span class="label pointer"
+                ng-class="{'label-default': mazeStatuses[maze] == null, 'label-success': mazeStatuses[maze].Clear == 1, 'label-primary': mazeStatuses[maze].Clear == 0}"
+                ng-click="getMazeStatus(maze)">{{getMazeStatusLabel(maze)}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>{{'RESET' | translate}}</td>
+        <td ng-repeat="(maze, toAttack) in profile.attack">
+          <a class="btn btn-xs"
+             ng-class="{'btn-default': mazeStatuses[maze] == null, 'btn-success': mazeStatuses[maze].FreeReset == 1, 'btn-primary': mazeStatuses[maze].FreeReset == 0}"
+             ng-click="resetMaze(maze)">{{getMazeResetLabel(maze)}}</a>
+        </td>
+      </tr>
+      <tr>
+        <td>{{'ATTACK' | translate}}
+        </td>
+        <td ng-repeat="(maze, toAttack) in profile.attack">
+          <a class="btn btn-xs"
+             ng-class="{'btn-success': userinfo.Energy >= 2, 'btn-danger': userinfo.Energy < 2}"
+             ng-disabled="mazeStatuses[maze] == null || mazeStatuses[maze].Clear == 1 || userinfo.Energy < 2"
+             ng-click="attack(maze)">{{'ATTACK' | translate}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="status-panel">
     <table class="table">
       <thead>
       <tr>
