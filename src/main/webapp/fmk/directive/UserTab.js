@@ -1,27 +1,75 @@
-fmk.directive('userTab', function ($modal, NotificationService) {
+USER_PROFILE = "user_profile";
+
+fmk.directive('userTab', function (UserBot, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
     scope: {
+      tabs: '='
     },
     templateUrl: 'fmk/view/UserTab.html',
 
     controller: function($scope) {
-      $scope.info = function() {
-        NotificationService.info('TEST', 'this is test');
+
+      $scope.saveSettings = function() {
+        ProfileService.saveProfile(function() {
+          NotificationService.success($filter('translate')('FRIENDS'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+        });
       };
 
-      $scope.success = function() {
-        NotificationService.success('TEST', 'this is test');
+      $scope.showConfigOptions = function() {
+        $scope.configOptionsHidden = false;
       };
 
-      $scope.warn = function() {
-        NotificationService.warn('TEST', 'this is test');
+      $scope.hideConfigOptions = function() {
+        $scope.configOptionsHidden = true;
+      };
+      $scope.start = function() {
       };
 
-      $scope.error = function() {
-        NotificationService.error('TEST', 'this is test');
+      $scope.refresh = function(callback) {
+        UserBot.getUserinfo(function(userinfo) {
+          $scope.userinfo = userinfo;
+          if(callback)
+            callback(userinfo);
+        });
       };
+
+      $scope.openTreasureBox = function(callback) {
+        UserBot.collectSalary(callback);
+      };
+
+      $scope.bankDevoteAct = function(callback) {
+
+      };
+
+      $scope.outdated = true;
+      function reload() {
+        $scope.refresh(function() {
+          ProfileService.getProfile(function(profile) {
+            $scope.profile = profile[USER_PROFILE];
+            $scope.refresh(function() {
+              $scope.outdated = false;
+            });
+          });
+        });
+      }
+      $scope.$on(HOME_SWITCH_USER, function() {
+        $scope.outdated = true;
+        if($scope.tabs.user)
+          reload();
+      });
+      $scope.$watch('tabs.user', function(newValue) {
+        if(newValue && $scope.outdated)
+          reload();
+      });
+    },
+
+    link: function() {
+      ProfileService.setDefaultProfile(USER_PROFILE, {
+        interval: 360,
+        autoRun: true
+      });
     }
 
   }

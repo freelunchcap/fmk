@@ -1,6 +1,63 @@
 <div class="user-tab">
-  <a class="btn" ng-click="info()">info</a>
-  <a class="btn" ng-click="success()">success</a>
-  <a class="btn" ng-click="warn()">warning</a>
-  <a class="btn" ng-click="error()">error</a>
+
+  <div class="config-panel">
+    <div class="toolbar">
+      <div class="config-button">
+        <a class="btn btn-primary" ng-click="showConfigOptions()" ng-show="configOptionsHidden">{{'SHOW_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="hideConfigOptions()" ng-hide="configOptionsHidden">{{'HIDE_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="saveSettings()" ng-hide="configOptionsHidden">{{'SAVE_SETTINGS' | translate}}</a>
+      </div>
+      <div class="start-button">
+        <a class="btn btn-success" ng-click="start()">{{'START' | translate}}</a>
+      </div>
+    </div>
+    <div class="config-options" collapse="configOptionsHidden">
+      <form>
+        <ul>
+          <li>
+            <label>
+              {{'EVERY' | translate}}<input ng-model="profile.interval" type="number" min="10" max="1440">{{'MINUTES' | translate}}
+            </label>
+            <label>
+              <input ng-model="profile.autoRun" type="checkbox">{{'RUN_AUTOMATICALLY' | translate}}
+            </label>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+
+  <div class="status-panel">
+    <div class="toolbar">
+      <a class="btn btn-default" ng-click="refresh()">{{'REFRESH' | translate}}</a>
+    </div>
+    <table class="table table-condensed">
+      <thead>
+      <tr>
+        <th class="col-md-3">#</th>
+        <th class="col-md-9">{{'ACTION' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-class="{disabled: userinfo.SalaryCount == 0}">
+        <td>{{'TREASURE_BOX' | translate}}</td>
+        <td>
+          <a class="btn btn-xs"
+             ng-class="{'btn-success': userinfo.SalaryCount > 0, 'btn-danger': userinfo.SalaryCount == 0}"
+             ng-enabled="userinfo.SalaryCount > 0"
+             ng-click="openTreasureBox()">{{'COLLECT_AWARDS' | translate}}</a>
+        </td>
+      </tr>
+      <tr ng-class="{disabled: !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}">
+        <td>{{'DEVOTE_ACT' | translate}}</td>
+        <td>
+          <a class="btn btn-xs"
+             ng-class="{'btn-success': userinfo.DevoteActStatus.maze, 'btn-danger': !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}"
+             ng-enabled="userinfo.DevoteActStatus.maze"
+             ng-click="bankDevoteAct()">{{'COLLECT_AWARDS' | translate}}</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

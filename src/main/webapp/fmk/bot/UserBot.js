@@ -79,6 +79,10 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
 
     startRegularUpdate: function(callback) {
       startRegularUpdate(callback)
+    },
+
+    collectSalary: function(callback) {
+      UserApi.awardSalary(callback);
     }
 
   };

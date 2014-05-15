@@ -4,25 +4,30 @@ fmk.factory('DungeonBot', function(DungeonApi) {
     DungeonApi.getUserDungeon(callback)
   }
 
-  function sweep(callback) {
-    DungeonApi.sweep(callback);
+  function sweep(dungeonStatus, callback) {
+    DungeonApi.sweep(function(awards) {
+      if(callback)
+        callback(dungeonStatus);
+    });
   }
 
   function fight(layer, callback) {
     DungeonApi.fight(layer, DUNGEON_AUTO_BATTLE, callback);
   }
 
-  function clearAll(callback) {
+  function clearAll(dungeonStatus, callback) {
 
   }
 
   return {
 
-    run: function(callback, stageList) {
-      if(!stageList) {
-
+    run: function(callback, dungeonStatus) {
+      if(!dungeonStatus) {
+        getDungeonStatus(function(dungeonStatus) {
+          clearAll(dungeonStatus, callback);
+        });
       } else
-        clearAll(callback);
+        clearAll(dungeonStatus, callback);
     },
 
     getDungeonStatus: function(callback) {
