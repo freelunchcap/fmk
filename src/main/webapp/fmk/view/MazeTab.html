@@ -75,7 +75,7 @@
         <td ng-repeat="(maze, toAttack) in profile.attack">
           <a class="btn btn-xs"
              ng-class="{'btn-default': mazeStatuses[maze] == null, 'btn-success': mazeStatuses[maze].FreeReset == 1, 'btn-primary': mazeStatuses[maze].FreeReset == 0}"
-             ng-click="resetMaze(maze)">{{getMazeResetLabel(maze)}}</a>
+             ng-click="reset(maze)">{{getMazeResetLabel(maze)}}</a>
         </td>
       </tr>
       <tr>
