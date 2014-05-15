@@ -44,7 +44,7 @@
         <td>
           <a class="btn btn-xs"
              ng-class="{'btn-success': userinfo.SalaryCount > 0, 'btn-danger': userinfo.SalaryCount == 0}"
-             ng-enabled="userinfo.SalaryCount > 0"
+             ng-disabled="userinfo.SalaryCount == 0"
              ng-click="openTreasureBox()">{{'COLLECT_AWARDS' | translate}}</a>
         </td>
       </tr>
@@ -53,7 +53,7 @@
         <td>
           <a class="btn btn-xs"
              ng-class="{'btn-success': userinfo.DevoteActStatus.maze, 'btn-danger': !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}"
-             ng-enabled="userinfo.DevoteActStatus.maze"
+             ng-disabled="!userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze"
              ng-click="bankDevoteAct()">{{'COLLECT_AWARDS' | translate}}</a>
         </td>
       </tr>
