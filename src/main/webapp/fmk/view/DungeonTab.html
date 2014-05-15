@@ -43,11 +43,11 @@
       <tr ng-repeat="(index, sublist) in layerLables">
         <td>{{sublist[0].layer}} ~ {{sublist[sublist.length - 1].layer}}</td>
         <td>
-          <a class="btn btn-xs"
+          <span class="label"
              ng-repeat="label in sublist"
-             ng-class="{'btn-success': label.awarded, 'btn-primary': !label.finished, 'btn-warning': label.finished && !label.awarded}"
+             ng-class="{'label-success': label.awarded, 'label-primary': !label.finished, 'label-warning': label.finished && !label.awarded}"
              ng-click="fight(label.layer)"
-            >{{label.text}}</a>
+            >{{label.text}}</span>
         </td>
       </tr>
       </tbody>

@@ -4,14 +4,7 @@ MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
 MAZE_BOT_UPSTATIR = 5;
 
-MAZE_BOT_MAZE_REQUIREMENTS = 'maze_requirements';
-
 fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, StorageService) {
-
-  var mazeRequirements = StorageService.getObject(MAZE_BOT_MAZE_REQUIREMENTS);
-  function saveMazeRequirements() {
-    StorageService.setObject(MAZE_BOT_MAZE_REQUIREMENTS, mazeRequirements);
-  }
 
   function clearItem(mapStageId, layer, itemIndex, layerStatus, battles, callback) {
     function checkFinish() {
@@ -183,25 +176,6 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
     attackNext();
   }
 
-  function getMazeRequirements(refresh, callback) {
-    if(refresh || !mazeRequirements) {
-      mazeRequirements = {};
-      AssetsBot.getMapstageDefs(function(mapstageDefs) {
-        $.each(mapstageDefs, function(mapstagePos, mapstage) {
-          if(mapstage.MazeCount > 0) {
-            mazeRequirements[mapstagePos] = $.grep(mapstage.MapStageDetails, function (mapstageDetail) {
-              return mapstageDetail.Type == 2;
-            })[0].MapStageDetailId;
-          }
-        });
-        saveMazeRequirements();
-        if(callback)
-          callback(mazeRequirements);
-      });
-    } else if(callback)
-      callback(mazeRequirements);
-  }
-
   return {
 
     run: function(callback, battles, mazeStatuses) {
@@ -210,22 +184,8 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
       });
     },
 
-    clearMazes: function(mazeProfile, battles, callback) {
-      clearMazes(mazeProfile, battles, callback);
-    },
-
-    getAvailableMazes: function(refresh, callback) {
-      UserBot.getUserMapstages(refresh, function(userMapstages) {
-        getMazeRequirements(function(mazeRequirements) {
-          var mazes = {};
-          $.each(mazeRequirements, function(mapPos, bossMapstageId) {
-            var userBossMapstage = userMapstages[bossMapstageId];
-            mazes[mapPos] = userBossMapstage != null ? userBossMapstage.FinishedStage > 0 : false;
-          });
-          if(callback)
-            callback(mazes);
-        }, false);
-      });
+    getMazeStatus: function(maze, callback) {
+      MazeApi.show(maze, callback);
     }
 
   };

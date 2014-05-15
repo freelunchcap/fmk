@@ -16,15 +16,15 @@
         <table class="table table-bordered">
           <thead>
           <tr>
-            <th ng-repeat="(mapPos, available) in mazes">{{mapPos}}</th>
+            <th ng-repeat="(mapStageId, toAttack) in profile.attack">{{mapStageId}}</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td ng-repeat="(mapPos, available) in mazes">
+            <td ng-repeat="(mapStageId, toAttack) in profile.attack">
               <div>
                 <label>
-                  <input type="checkbox" ng-model="profile.attack[mapPos]">{{'ATTACK' | translate}}
+                  <input type="checkbox" ng-model="profile.attack[mapStageId]">{{'ATTACK' | translate}}
                 </label>
               </div>
             </td>
