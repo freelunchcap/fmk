@@ -1,22 +1,34 @@
-fmk.factory('WebApi', function(GameApi, LoginApi) {
+fmk.factory('WebApi', function($http) {
+
+  function postRequest(serviceName, callParam, callback) {
+    var param = {
+      serviceName: serviceName,
+      callPara: callParam
+    };
+
+    $http({
+      method: 'POST',
+      url: httpUrl,
+      data: param,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    }).success(callback);
+  }
+
   return {
 
-    login: function(username, password, success) {
+    login: function(username, password, success, failure) {
       var request = {
         userName: username,
         userPassword: password,
         gameName: game_name
       };
 
-      httpCall("checkUserActivedBase64Json", strEncode(jsonToString(request)), function(response){
-        var json = eval('(' + response + ')');
-        if(json.returnCode == '0') {
-          var token = $.parseJSON(response).returnObjs;
+      postRequest("checkUserActivedBase64Json", strEncode(jsonToString(request)), function(response){
+        if(response.returnCode == '0') {
           if(success)
-            success(token);
-        } else {
-          $log.error(LNG.ERROR_CODE[json.returnCode] || response);
-        }
+            success(response.returnObjs);
+        } else
+          failure(LNG.ERROR_CODE[response.returnCode] || response.returnMsg || response);
       });
 
     }

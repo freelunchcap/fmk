@@ -46,8 +46,7 @@ fmk.directive('accountPanel', function ($rootScope, $modal, LoginBot, MazeBot, U
         showLoginModal(setCurrentAccount);
       };
 
-      MaskService.mask('Test masking');
-      //autoLogin();
+      autoLogin();
 
     }
 

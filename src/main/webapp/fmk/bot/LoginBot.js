@@ -13,7 +13,7 @@ fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, StorageService) {
       return accounts;
     },
 
-    login: function(username, password, callback) {
+    login: function(username, password, success, failure) {
       WebApi.login(username, password, function(token) {
         GameApi.setToken(token);
         LoginApi.passportLogin(function() {
@@ -32,10 +32,10 @@ fmk.factory('LoginBot', function(GameApi, LoginApi, WebApi, StorageService) {
           else
             account = $.extend(previousRecord[0], account);
           saveAccounts();
-          if(callback)
-            callback(account);
+          if(success)
+            success(account);
         });
-      });
+      }, failure);
     }
   }
 });
