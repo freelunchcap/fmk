@@ -1,0 +1,39 @@
+<div class="maze-fight-modal">
+  <div class="modal-header">
+    {{'MAZE' | translate}}
+  </div>
+  <div class="modal-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="col-md-2">{{'MAZE' | translate}}</th>
+        <th class="col-md-2">{{'LAYER' | translate}}</th>
+        <th class="col-md-2">{{'EXP' | translate}}</th>
+        <th class="col-md-2">{{'COINS' | translate}}</th>
+        <th class="col-md-4">{{'AWARDS' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="battle in battles">
+        <td>{{battle.maze}}<span class="label label-success" ng-show="battle.clear">{{'CLEAR' | translate}}</span></td>
+        <td>{{battle.layer}}</td>
+        <td>{{battle.exp}}</td>
+        <td>{{battle.coins}}</td>
+        <td>
+        <span class="label"
+              ng-repeat="award in battle.awards track by $index"
+              ng-class="{'label-default': cardDefs[award].Color < 3, 'label-info': cardDefs[award].Color == 3, 'label-warning': cardDefs[award].Color == 4,  'label-danger': cardDefs[award].Color == 5}">
+          {{cardDefs[award].CardName}}
+        </span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal footer">
+    <div class="pull-right">
+      <a class="btn btn-success" ng-click="finish()">{{'FINISH' | translate}}</a>
+      <a class="btn btn-danger" ng-click="stop()">{{'STOP' | translate}}</a>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 FRIENDS_PROFILE = 'friends_profile';
 
-fmk.directive('friendsTab', function (FriendsBot, NotificationService, ProfileService) {
+fmk.directive('friendsTab', function ($filter, FriendsBot, MaskService, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -31,10 +31,11 @@ fmk.directive('friendsTab', function (FriendsBot, NotificationService, ProfileSe
       };
 
 
-      $scope.friends = [];
       $scope.refresh = function(callback) {
         $scope.friends = [];
+        var mask = MaskService.mask($filter('translate')('REFRESHING_FRIEND_LIST'));
         FriendsBot.getFriends(function(friends) {
+          MaskService.unmask(mask);
           $scope.friends = friends;
           if(callback)
             callback($scope.friends);

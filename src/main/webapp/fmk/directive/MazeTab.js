@@ -1,6 +1,6 @@
 MAZE_PROFILE = 'maze_profile';
 
-fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot, UserBot, NotificationService, ProfileService) {
+fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot, UserBot, MaskService, NotificationService, ProfileService) {
 
   return {
     restrict: 'E',
@@ -53,18 +53,25 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
           return null;
         });
 
-        function getNextMazeStatus() {
+        function getNextMazeStatus(callback) {
           if(toGetStatuses.length == 0) {
             if(callback)
               callback($scope.mazeStatuses);
           } else {
             var next = toGetStatuses[0];
             toGetStatuses = toGetStatuses.slice(1, toGetStatuses.length);
-            $scope.getMazeStatus(next, getNextMazeStatus);
+            $scope.getMazeStatus(next, function() {
+              getNextMazeStatus(callback);
+            });
           }
         }
 
-        getNextMazeStatus();
+        var mask = MaskService.mask($filter('translate')('REFRESHING_MAZE_STATUSES'));
+        getNextMazeStatus(function(mazeStatuses) {
+          MaskService.unmask(mask);
+          if(callback)
+            callback(mazeStatuses);
+        });
       };
 
       $scope.getMazeStatusLabel = function(maze) {
@@ -104,7 +111,9 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
             $scope.userinfo = userinfo;
             $scope.outdated = false;
             $scope.refresh(function() {
+              var mask = MaskService.mask($filter('translate')('LOADING_CARD_DEFINITIONS'));
               AssetsBot.getCardDefs(function(cardDefs) {
+                MaskService.unmask(mask);
                 $scope.cardDefs = cardDefs;
               });
             });
