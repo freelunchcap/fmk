@@ -12,7 +12,14 @@
         <label class="control-label" for="password">{{'PASSWORD' | translate}}</label>
         <input type="password" class="form-control" id="password" ng-model="$parent.password" placeholder="{{'ENTER_PASSWORD' | translate}}">
       </div>
-      <button type="submit" class="btn btn-primary btn-lg" ng-click="login()"  ng-disabled="loading">{{'LOGIN' | translate}}</button>
     </form>
+  </div>
+  <div class="modal-footer">
+    <div class="pull-right">
+      <span class="label label-success" ng-show="loading">{{'CONNECTING' | translate}}</span>
+      <span class="label label-danger" ng-show="error">{{error}}</span>
+      <button type="submit" class="btn btn-primary btn-lg" ng-click="login()"  ng-disabled="loading">{{'LOGIN' | translate}}</button>
+      <button type="submit" class="btn btn-primary btn-lg" ng-click="cancel()"  ng-disabled="loading" ng-show="allowDismiss">{{'CANCEL' | translate}}</button>
+    </div>
   </div>
 </div>
