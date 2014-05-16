@@ -1,4 +1,4 @@
-fmk.directive('accountPanel', function ($rootScope, $modal, LoginBot, MazeBot, UserBot, ProfileService) {
+fmk.directive('accountPanel', function ($rootScope, $modal, LoginBot, MazeBot, UserBot, MaskService, ProfileService) {
   return {
     restrict: 'E',
     scope: {
@@ -46,7 +46,8 @@ fmk.directive('accountPanel', function ($rootScope, $modal, LoginBot, MazeBot, U
         showLoginModal(setCurrentAccount);
       };
 
-      autoLogin();
+      MaskService.mask('Test masking');
+      //autoLogin();
 
     }
 

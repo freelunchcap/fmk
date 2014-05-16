@@ -59,8 +59,8 @@ fmk.directive('userTab', function (UserBot, NotificationService, ProfileService)
         if($scope.tabs.user)
           reload();
       });
-      $scope.$watch('tabs.user', function(newValue) {
-        if(newValue && $scope.outdated)
+      $scope.$watch('tabs.user', function(newValue, oldValue) {
+        if(newValue && newValue != oldValue && $scope.outdated)
           reload();
       });
     },
