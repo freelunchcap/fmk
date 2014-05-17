@@ -49,12 +49,12 @@
         </td>
       </tr>
       <tr ng-class="{disabled: !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}">
-        <td>{{'DEVOTE_ACT' | translate}}</td>
+        <td>{{'ORC_SHOP' | translate}}</td>
         <td>
           <a class="btn btn-xs"
              ng-class="{'btn-success': userinfo.DevoteActStatus.maze, 'btn-danger': !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}"
              ng-disabled="!userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze"
-             ng-click="bankDevoteAct()">{{'COLLECT_AWARDS' | translate}}</a>
+             ng-click="bankOrcShopScores()">{{'COLLECT_AWARDS' | translate}}</a>
         </td>
       </tr>
       </tbody>

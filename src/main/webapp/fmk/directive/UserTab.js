@@ -39,7 +39,7 @@ fmk.directive('userTab', function (UserBot, NotificationService, ProfileService)
         UserBot.collectSalary(callback);
       };
 
-      $scope.bankDevoteAct = function(callback) {
+      $scope.bankOrcShopScores = function(callback) {
 
       };
 
