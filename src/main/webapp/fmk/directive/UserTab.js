@@ -13,7 +13,7 @@ fmk.directive('userTab', function (UserBot, NotificationService, ProfileService)
 
       $scope.saveSettings = function() {
         ProfileService.saveProfile(function() {
-          NotificationService.success($filter('translate')('FRIENDS'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+          NotificationService.success($filter('translate')('FRIENDS'), $filter('translate')('SETTINGS_SAVED_SUCCESSFULLY'))
         });
       };
 

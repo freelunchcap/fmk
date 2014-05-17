@@ -13,7 +13,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
 
       $scope.saveSettings = function() {
         ProfileService.saveProfile(function() {
-          NotificationService.success($filter('translate')('MAZE'), $filter('translate')('SETTING_SAVED_SUCCESSFULLY'))
+          NotificationService.success($filter('translate')('MAZE'), $filter('translate')('SETTINGS_SAVED_SUCCESSFULLY'))
         });
       };
 
@@ -91,7 +91,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
         if(status.FreeReset)
           return $filter('translate')('FREE');
         else
-          return status.ResetCash;
+          return status.ResetCash + ' ' + $filter('translate')('CRYSTALS');
       };
 
       $scope.reset = function(maze, callback) {

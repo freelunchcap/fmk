@@ -43,8 +43,8 @@
         <td>{{'TREASURE_BOX' | translate}}</td>
         <td>
           <a class="btn btn-xs"
-             ng-class="{'btn-success': userinfo.SalaryCount > 0, 'btn-danger': userinfo.SalaryCount == 0}"
-             ng-disabled="userinfo.SalaryCount == 0"
+             ng-class="{'btn-success': userinfo.SalaryCount > 0, 'btn-danger': !userinfo || userinfo.SalaryCount == 0}"
+             ng-disabled="!userinfo || userinfo.SalaryCount == 0"
              ng-click="openTreasureBox()">{{'COLLECT_AWARDS' | translate}}</a>
         </td>
       </tr>
