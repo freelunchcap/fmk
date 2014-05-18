@@ -4,7 +4,7 @@ MAZE_BOT_MONSTER = 3;
 MAZE_BOT_DOWNSTATIR = 4;
 MAZE_BOT_UPSTATIR = 5;
 
-fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, StorageService) {
+fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService) {
 
   function clearItem(mapStageId, layer, itemIndex, layerStatus, battles, callback) {
     function checkFinish() {
@@ -80,8 +80,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
       });
     }
     UserBot.getUserinfo(function(userinfo) {
-      if(userinfo.Energy >= 2)
-        doBattle(userinfo);
+      doBattle(userinfo);
     }, false);
   }
 
@@ -106,6 +105,7 @@ fmk.factory('MazeBot', function(MazeApi, UserBot, AssetsBot, ProfileService, Sto
           }
         });
         clearItem(mapStageId, layer, nextItemIndex, layerStatus, battles, function(layerStatus) {
+
           clearLayer(mapStageId, layer, mazeStatus, battles, callback, layerStatus);
         });
       }
