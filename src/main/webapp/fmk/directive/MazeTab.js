@@ -25,12 +25,18 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
         $scope.configOptionsHidden = true;
       };
 
-      $scope.clearBattles = function() {
-        $scope.battles = [];
-      };
-
       $scope.start = function() {
-        $scope.clearBattles();
+        $scope.battles = [];
+        $modal.open({
+          templateUrl: 'fmk/view/MazeAttackModal.html',
+          controller: 'LoginModal',
+          backdrop: 'static',
+          resolve: {
+            allowDismiss: function() {
+              return $scope.currentAccount != null;
+            }
+          }
+        });
         MazeBot.run(function() {
         }, $scope.battles, $scope.mazeStatuses);
       };
@@ -104,7 +110,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
 
       $scope.outdated = true;
       function reload() {
-        $scope.clearBattles();
+        $scope.battles = [];
         ProfileService.getProfile(function(profiles) {
           $scope.profile = profiles[MAZE_PROFILE];
           UserBot.getUserinfo(function(userinfo) {

@@ -1,6 +1,6 @@
-fmk.factory('WebApi', function($http) {
+fmk.factory('WebApi', function($http, $modal) {
 
-  function postRequest(serviceName, callParam, callback) {
+  function postRequest(serviceName, callParam, success) {
     var param = {
       serviceName: serviceName,
       callPara: callParam
@@ -11,7 +11,14 @@ fmk.factory('WebApi', function($http) {
       url: httpUrl,
       data: param,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).success(callback);
+    }).success(success)
+      .error(function() {
+        $modal.open({
+          templateUrl: 'fmk/view/WebSecuritySettingModal.html',
+          backdrop: 'static',
+          windowClass:'large'
+        });
+      });
   }
 
   return {

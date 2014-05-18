@@ -65,6 +65,10 @@ span.delete {
   cursor: default;
 }
 
+div.large > div.modal-dialog {
+  width: 1000px;
+}
+
 
 
 

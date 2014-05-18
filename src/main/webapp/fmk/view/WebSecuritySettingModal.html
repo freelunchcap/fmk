@@ -1,0 +1,61 @@
+<div class="web-security-setting-modal">
+  <div class="modal-header">
+    <h2>{{'CROSS_DOMAIN_ACCESS_IS_DISABLED' | translate}}</h2>
+  </div>
+  <div class="modal-body">
+    <p>{{'REQUIRE_CROSS_DOMAIN_ACCESS' | translate}}</p>
+    <p>{{'HOW_TO_ENABLE_CROSS_DOMAIN_ACCESS' | translate}}</p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="col-md-4">{{'CHROME' | translate}}</th>
+        <th class="col-md-4">{{'FIREFOX' | translate}}</th>
+        <th class="col-md-4">{{'IE' | translate}}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <span class="label label-info">{{'FOR_WINDOWS_USER' | translate}}</span>
+          <ul>
+            <li>{{'RIGHT_CLICK_CHROME_ICON_ON_YOUR_DESKTOP' | translate}}</li>
+            <li>{{'LEFT_CLICK_PROPERTIES' | translate}}</li>
+            <li>{{'AT_THE_END_OF_THE_TARGET_FIELD_ADD' | translate}} '--args -disable-web-security'</li>
+            <li>{{'CLICK_OK_TO_SAVE_YOUR_CHANGES' | translate}}</li>
+            <li>{{'RESTART_YOUR_BROWSER' | translate}}</li>
+          </ul>
+          <span class="label label-default">{{'FOR_MAC_USER' | translate}}</span>
+          <ul>
+            <li>{{'CLOSE_BROWSER' | translate}}</li>
+            <li>{{'OPEN_TERMINAL' | translate}}</li>
+            <li>{{'ENTER_COMMAND' | translate}} 'open -a "/Applications/Google Chrome.app" --args --disable-web-security'</li>
+          </ul>
+        </td>
+        <td>
+          <span class="label label-info">{{'FOR_WINDOWS_USER' | translate}}</span>
+          <span class="label label-default">{{'FOR_MAC_USER' | translate}}</span>
+          <ul>
+            <li>{{'OPEN_ANOTHER_TAB' | translate}}</li>
+            <li>{{'ENTER_URL' | translate}} 'about:config'</li>
+            <li>{{'FIND_SETTING' | translate}} 'security.fileuri.strict_origin_policy'</li>
+            <li>{{'CHANGE_VALUE_TO' | translate}} 'true'</li>
+            <li>{{'RESTART_YOUR_BROWSER' | translate}}</li>
+          </ul>
+        </td>
+        <td>
+          <span class="label label-info">{{'FOR_WINDOWS_USER' | translate}}</span>
+          <ul>
+            <li>{{'OPEN_INTERNET_OPTIONS' | translate}}</li>
+            <li>{{'SWITCH_TO_SECURITY_TAB' | translate}}</li>
+            <li>{{'OPEN_CUSTOM_LEVEL' | translate}}</li>
+            <li>{{'FIND_ACCESS_DATA_SOURCES_ACROSS_DOMAINS' | translate}}</li>
+            <li>{{'CHECK_ENABLED' | translate}}</li>
+            <li>{{'RESTART_YOUR_BROWSER' | translate}}</li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p>{{'OTHER_WEBKIT_BROWSER_USERS_PLEASE_REFER_TO_THE_SETTINGS_FOR_CHROME' | translate}}</p>
+  </div>
+</div>
