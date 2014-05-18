@@ -36,7 +36,7 @@
       <thead>
       <tr>
         <th class="col-md-3">#</th>
-        <th class="col-md-9">{{'STAGE' | translate}}</th>
+        <th class="col-md-9">{{'STAGES' | translate}}</th>
       </tr>
       </thead>
       <tbody>
@@ -46,8 +46,7 @@
           <span class="label"
              ng-repeat="label in sublist"
              ng-class="{'label-success': label.awarded, 'label-primary': !label.finished, 'label-warning': label.finished && !label.awarded}"
-             ng-click="fight(label.layer)"
-            >{{label.text}}</span>
+             ng-click="fight(label.layer)">{{label.text}}</span>
         </td>
       </tr>
       </tbody>

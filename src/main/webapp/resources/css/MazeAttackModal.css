@@ -1,0 +1,4 @@
+div.maze-attack-modal div.modal-body {
+  height: 600px;
+  overflow: auto;
+}

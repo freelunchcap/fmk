@@ -1,7 +1,7 @@
 HOME_SWITCH_USER = 'switch_user';
 
-fmk.controller('Home', ['$scope', '$rootScope', '$modal', 'CardApi', 'FenergyApi', 'FriendApi', 'MapstageApi', 'LoginBot', 'MazeBot', 'UserBot', 'LogService', 'ProfileService',
-  function($scope, $rootScope, $modal, CardApi, FenergyApi, FriendApi, MapstageApi, LoginBot, MazeBot, UserBot, LogService) {
+fmk.controller('Home', ['$scope', '$window',
+  function($scope, $window) {
 
     $scope.tabs = {
       user: true,
@@ -11,6 +11,25 @@ fmk.controller('Home', ['$scope', '$rootScope', '$modal', 'CardApi', 'FenergyApi
       dungeon: false,
       arena: false
     };
+
+    function setStatusPanelMaxHeight() {
+      var window = $($window);
+      var statusPanels = $('.status-panel');
+      $.each(statusPanels, function(index, element) {
+        var statusPanel = $(element);
+        var top = statusPanel.offset().top;
+        statusPanel.css('max-height', window.height() - top - 20 + 'px');
+      });
+    }
+
+    $scope.$watch('tabs', function(newValue, oldValue) {
+      if(newValue == oldValue) {
+        angular.element($window).bind('resize', function() {
+          setStatusPanelMaxHeight();
+        });
+      }
+      setStatusPanelMaxHeight();
+    }, true);
 
   }
 ]);

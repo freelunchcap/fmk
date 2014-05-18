@@ -25,20 +25,31 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
         $scope.configOptionsHidden = true;
       };
 
-      $scope.start = function() {
-        $scope.battles = [];
+      function openMazeAttackModal(progress) {
         $modal.open({
           templateUrl: 'fmk/view/MazeAttackModal.html',
-          controller: 'LoginModal',
+          controller: 'MazeAttackModal',
           backdrop: 'static',
           resolve: {
-            allowDismiss: function() {
-              return $scope.currentAccount != null;
+            cardDefs: function() {
+              return $scope.cardDefs;
+            },
+            progress: function() {
+              return progress;
             }
           }
         });
+      }
+
+      $scope.start = function() {
+        var progress = {
+          battles: [],
+          finish: false
+        };
+        openMazeAttackModal(progress);
         MazeBot.run(function() {
-        }, $scope.battles, $scope.mazeStatuses);
+          progress.finish = true;
+        }, progress.battles, $scope.mazeStatuses);
       };
 
       $scope.getMazeStatus = function(maze, callback) {
@@ -104,13 +115,19 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
         MazeBot.resetMaze(maze, callback, $scope.mazeStatuses[maze]);
       };
 
-      $scope.attack = function(maze, callback) {
-        MazeBot.clearMaze(maze, [], callback, $scope.mazeStatuses[maze]);
+      $scope.attack = function(maze) {
+        var progress = {
+          battles: [],
+          finish: false
+        };
+        openMazeAttackModal(progress);
+        MazeBot.clearMaze(maze, progress.battles, function() {
+          progress.finish = true;
+        }, $scope.mazeStatuses[maze]);
       };
 
       $scope.outdated = true;
       function reload() {
-        $scope.battles = [];
         ProfileService.getProfile(function(profiles) {
           $scope.profile = profiles[MAZE_PROFILE];
           UserBot.getUserinfo(function(userinfo) {

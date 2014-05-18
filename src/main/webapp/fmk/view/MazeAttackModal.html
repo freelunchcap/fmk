@@ -1,6 +1,6 @@
-<div class="maze-fight-modal">
+<div class="maze-attack-modal">
   <div class="modal-header">
-    {{'MAZE' | translate}}
+    <h2>{{'MAZE' | translate}}</h2>
   </div>
   <div class="modal-body">
     <table class="table">
@@ -14,7 +14,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-repeat="battle in battles">
+      <tr ng-repeat="battle in progress.battles">
         <td>{{battle.maze}}<span class="label label-success" ng-show="battle.clear">{{'CLEAR' | translate}}</span></td>
         <td>{{battle.layer}}</td>
         <td>{{battle.exp}}</td>
@@ -30,10 +30,9 @@
       </tbody>
     </table>
   </div>
-  <div class="modal footer">
+  <div class="modal-footer">
     <div class="pull-right">
-      <a class="btn btn-success" ng-click="finish()">{{'FINISH' | translate}}</a>
-      <a class="btn btn-danger" ng-click="stop()">{{'STOP' | translate}}</a>
+      <a class="btn btn-success" ng-click="finish()" ng-disabled="!progress.finish">{{'FINISH' | translate}}</a>
     </div>
   </div>
 </div>
