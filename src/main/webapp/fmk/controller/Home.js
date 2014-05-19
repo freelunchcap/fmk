@@ -18,7 +18,7 @@ fmk.controller('Home', ['$scope', '$window',
       $.each(statusPanels, function(index, element) {
         var statusPanel = $(element);
         var top = statusPanel.offset().top;
-        statusPanel.css('max-height', window.height() - top - 20 + 'px');
+        statusPanel.css('max-height', window.height() - top - 10 + 'px');
       });
     }
 

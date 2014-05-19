@@ -30,6 +30,7 @@ fmk.directive('mazeTab', function ($modal, $filter, MazeApi, AssetsBot, MazeBot,
           templateUrl: 'fmk/view/MazeAttackModal.html',
           controller: 'MazeAttackModal',
           backdrop: 'static',
+          windowClass: 'maze-attack',
           resolve: {
             cardDefs: function() {
               return $scope.cardDefs;

@@ -1,4 +1,8 @@
+div.maze-attack > div.modal-dialog {
+  width: 800px;
+}
+
 div.maze-attack-modal div.modal-body {
-  height: 600px;
+  height: 500px;
   overflow: auto;
 }
