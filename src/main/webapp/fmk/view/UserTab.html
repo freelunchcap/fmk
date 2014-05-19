@@ -45,7 +45,7 @@
           <a class="btn btn-xs"
              ng-class="{'btn-success': userinfo.SalaryCount > 0, 'btn-danger': !userinfo || userinfo.SalaryCount == 0}"
              ng-disabled="!userinfo || userinfo.SalaryCount == 0"
-             ng-click="openTreasureBox()">{{'COLLECT_AWARDS' | translate}}</a>
+             ng-click="openTreasureBox()">{{'CLAIM_AWARDS' | translate}}</a>
         </td>
       </tr>
       <tr ng-class="{disabled: !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}">
@@ -54,7 +54,7 @@
           <a class="btn btn-xs"
              ng-class="{'btn-success': userinfo.DevoteActStatus.maze, 'btn-danger': !userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze}"
              ng-disabled="!userinfo.DevoteActStatus || !userinfo.DevoteActStatus.maze"
-             ng-click="bankOrcShopScores()">{{'COLLECT_AWARDS' | translate}}</a>
+             ng-click="bankOrcShopScores()">{{'CLAIM_AWARDS' | translate}}</a>
         </td>
       </tr>
       </tbody>
