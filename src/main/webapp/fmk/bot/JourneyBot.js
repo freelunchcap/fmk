@@ -1,16 +1,20 @@
-fmk.factory('JourneyBot', function(JourneyApi, UserBot, $timeout) {
+fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
 
-  function findMapstage(callback) {
-    UserBot.getUserMapstages(function(userMapstages) {
-      var stage = null;
-      $.each(userMapstages, function(index, userMapstage) {
-        if(stage == null || userMapstage.FinishedStage >= stage.FinishedStage)
-          stage = userMapstage;
-      });
-      if(callback)
-        callback(stage);
+  function exploreForBoss(success, failure) {
+    MapBot.explore(function(resultWithJourney) {
+      getFightStatus(function(fightStatus) {
+
+      }, {
+        userJourneyInfo: {
+          userJourneyInfo: resultWithJourney.JourneyInfo
+        }
+      })
+    }, function(exploreResult) {
+      return exploreResult.JourneyInfo == null;
     });
   }
+
+
 
   function getJourneyPointReward(userJourneyId, success, failure) {
     JourneyApi.getJourneyPointReward(userJourneyId, success, failure);
@@ -68,48 +72,81 @@ fmk.factory('JourneyBot', function(JourneyApi, UserBot, $timeout) {
   }
 
   var currentFightStatus;
-  function getFightStatus(callback, userJourneyId) {
-    if(userJourneyId == null && currentFightStatus) {
+  var countdownPromise;
+  function getFightStatus(callback, userJourneyInfo) {
+    if(userJourneyInfo == null && currentFightStatus != null) {
       if(callback)
         callback(currentFightStatus);
       return;
     }
 
-    var fightStatus = {
-
-    };
+    var fightStatus = {};
     getUserJourneysStatus(function(journeyStatus) {
       fightStatus.userPointRank = journeyStatus.journeyList.userPointRank;
       fightStatus.userPoints = journeyStatus.journeyList.userPointRank;
-      if(userJourneyId == null) {
+
+      function setCDTime(userJourneyInfo) {
+        fightStatus.CDTime = userJourneyInfo.userJourneyInfo.CDTime;
+        fightStatus.CDTimeStatus = userJourneyInfo.userJourneyInfo.CDTimeStatus;
+        currentFightStatus = $.extend(currentFightStatus, fightStatus);
+        if(currentFightStatus.CDTime > 0)
+          startCountdown();
+        else
+          currentFightStatus.CDTime = 0;
+      }
+
+      if(userJourneyInfo != null) {
+        setCDTime(userJourneyInfo);
+        callback(currentFightStatus);
+      } else {
+        var userJourneyId;
         if(journeyStatus.journeyList.journeyList.length != 0) {
           userJourneyId = journeyStatus.journeyList.journeyList[0].UserJourneyId;
         }
-      }
-      if(userJourneyId == null)
-        fightStatus.cd = 0;
-      else {
-        getUserJourneyInfo(userJourneyId, function(userJourneyInfo) {
-
-        })
+        if(userJourneyId == null) {
+          fightStatus.CDTime = 0;
+          fightStatus.CDTimeStatus = 1;
+          currentFightStatus = $.extend(currentFightStatus, fightStatus);
+          callback(currentFightStatus);
+        } else {
+          getUserJourneyInfo(userJourneyId, function(userJourneyInfo) {
+            setCDTime(userJourneyInfo);
+            callback(currentFightStatus);
+          })
+        }
       }
 
     });
-    /*
-     "userPointRank": 107,
-     "userPoints": 16663,
-     */
   }
 
+  function startCountdown() {
+    countdownPromise = $timeout(function() {
+      if(currentFightStatus) {
+        currentFightStatus.CDTime -= 1;
+        if(currentFightStatus.CDTime <= 0) {
+          if(currentFightStatus.CDTimeStatus != 1)
+            currentFightStatus.CDTimeStatus = 1;
+        } else {
+          startCountdown();
+        }
+      }
+    }, 1000);
+  }
 
-
+  function stopCountdown(callback) {
+    currentFightStatus = null;
+    if(countdownPromise) {
+      $timeout.cancel(countdownPromise);
+      countdownPromise = null;
+    }
+    if(callback)
+      callback();
+  }
 
   return {
 
     exploreForBoss: function(success, failure) {
-      findMapstage(function(mapStage) {
-
-      });
+      exploreForBoss(success, failure);
     },
 
     getJourneyPointReward: function(userJourneyId, success, failure) {
@@ -124,10 +161,6 @@ fmk.factory('JourneyBot', function(JourneyApi, UserBot, $timeout) {
       getUserJourneysStatus(callback, refresh);
     },
 
-    getFightStatus: function(callback) {
-      getFightStatus(callback);
-    },
-
     stopRegularUpdate: function(callback) {
       stopRegularUpdate(callback);
     },
@@ -136,8 +169,12 @@ fmk.factory('JourneyBot', function(JourneyApi, UserBot, $timeout) {
       startRegularUpdate(callback);
     },
 
-    getUserFightStatus: function(callback) {
+    getFightStatus: function(callback) {
       getFightStatus(callback);
+    },
+
+    loseFightStatus: function(callback) {
+      stopCountdown(callback);
     }
 
   };

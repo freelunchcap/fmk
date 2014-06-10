@@ -1,24 +1,4 @@
-USER_BOT_USER_MAPSTAGES = 'user_mapstages';
-
-fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageService, $timeout) {
-
-  var allUserMapstages = StorageService.getObject(USER_BOT_USER_MAPSTAGES) || {};
-  function saveAllUserMapStages() {
-    StorageService.setObject(USER_BOT_USER_MAPSTAGES, allUserMapstages);
-  }
-
-  function getUserMapstages(callback, refresh) {
-    var token = GameApi.getToken();
-    if(refresh || !allUserMapstages[token.userName]) {
-      MapstageApi.getUserMapStages(function(userMapstages) {
-        allUserMapstages[token.userName] = userMapstages;
-        saveAllUserMapStages();
-        if(callback)
-          callback(userMapstages);
-      });
-    } else if(callback)
-      callback(allUserMapstages[token.userName]);
-  }
+fmk.factory('UserBot', function(GameApi, UserApi, StorageService, $timeout) {
 
   var currentUserinfo;
   var updatePromise;
@@ -64,10 +44,6 @@ fmk.factory('UserBot', function(CardApi, GameApi, MapstageApi, UserApi, StorageS
   }
 
   return {
-
-    getUserMapstages: function(callback, refresh) {
-      getUserMapstages(callback, refresh)
-    },
 
     getUserinfo: function(callback, refresh) {
       getUserinfo(callback, refresh)

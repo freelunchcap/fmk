@@ -118,15 +118,22 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
         });
       }
       $scope.$on(HOME_SWITCH_USER, function() {
+        delete $scope.userJourneysStatus;
+        delete $scope.fightStatus;
         JourneyBot.stopRegularUpdate();
+        JourneyBot.loseFightStatus();
         if($scope.tabs.journey)
           reload();
       });
       $scope.$watch('tabs.journey', function(newValue) {
         if(newValue)
           reload();
-        else
+        else {
+          delete $scope.userJourneysStatus;
+          delete $scope.fightStatus;
           JourneyBot.stopRegularUpdate();
+          JourneyBot.loseFightStatus();
+        }
       });
     },
 

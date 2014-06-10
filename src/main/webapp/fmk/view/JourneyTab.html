@@ -4,20 +4,11 @@
       <a class="btn btn-primary" ng-click="refreshUserJourneysStatus()">
         {{'REFRESH' | translate}}
       </a>
-
       <a class="btn btn-primary" ng-click="exploreForBoss()">
         {{'EXPLORE_FOR_BOSS' | translate}}
       </a>
-    </div>
-    <div>
-      <span></span>
-      "userPointRank": 107,
-      "userPoints": 16663,
-      "nextPoint": 23000,
-      "nextPointAward": {
-      "type": 2,
-      "value": "300"
-      }
+
+      <span>{{'COOLDOWN' | translate}}: {{fightStatus.CDTime}}</span>
     </div>
     <table class="table table-condensed">
       <thead>
