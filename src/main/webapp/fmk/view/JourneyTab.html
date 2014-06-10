@@ -7,7 +7,18 @@
 
       <a class="btn btn-primary" ng-click="exploreForBoss()">
         {{'EXPLORE_FOR_BOSS' | translate}}
-      </a>    </div>
+      </a>
+    </div>
+    <div>
+      <span></span>
+      "userPointRank": 107,
+      "userPoints": 16663,
+      "nextPoint": 23000,
+      "nextPointAward": {
+      "type": 2,
+      "value": "300"
+      }
+    </div>
     <table class="table table-condensed">
       <thead>
       <tr>
@@ -37,10 +48,10 @@
             {{journey.Round}}
           </td>
           <td>
-            <a class="btn btn-xs btn-success" ng-disabled="!journey.enableAward">
+            <a class="btn btn-xs btn-success" ng-disabled="!journey.enableAward" ng-click="getJourneyPointReward(journey)">
               {{'CLAIM_AWARDS' | translate}}
             </a>
-            <a class="btn btn-xs btn-danger" ng-disabled="journey.FleeTime == 0">
+            <a class="btn btn-xs btn-danger" ng-disabled="journey.FleeTime == 0" ng-click="fightJourney(journey)">
               {{'FIGHT' | translate}}
             </a>
           </td>

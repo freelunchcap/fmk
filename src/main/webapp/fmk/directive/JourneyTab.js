@@ -25,6 +25,14 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
         })
       };
 
+      $scope.getJourneyPointReward = function(journey) {
+        JourneyBot.getJourneyPointReward(journey.UserJourneyId);
+      };
+
+      $scope.fightJourney = function(journey) {
+        JourneyBot.fightJourney(journey.UserJourneyId);
+      };
+
 
       function reload() {
         ProfileService.getProfile(function(profile) {
@@ -55,6 +63,55 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
                  enableAward: 0
                  */
                 $scope.userJourneysStatus = userJourneysStatus;
+                JourneyBot.getFightStatus(function(fightStatus) {
+                  /*
+                   {
+                   "userJourneyInfo": {
+                   "UserJourneyId": 23118,
+                   "Uid": 355441,
+                   "JourneyId": "9",
+                   "NickName": "随意猫少",
+                   "Avatar": "203",
+                   "Sex": "1",
+                   "Status": 2,
+                   "LastAttackerName": "李里克",
+                   "LastAttackerUid": 110827,
+                   "HPCount": 61830,
+                   "HPCurrent": 0,
+                   "Round": 2,
+                   "Grade": 2,
+                   "Level": 11,
+                   "JourneyName": "普通·莉莉丝",
+                   "JourneyAvatar": "9102",
+                   "JourneyBigAvatar": "http://s6.mysticalcard.com/public/swf/journey/img_maxCard_9102.jpg",
+                   "Time": 1402415427,
+                   "FleeTime": 0,
+                   "CDTime": -8297,
+                   "CDTimeStatus": 1,
+                   "HpRankList": [
+                   {
+                   "Uid": 110827,
+                   "NickName": "李里克",
+                   "HP": "38189",
+                   "Round": "1"
+                   },
+                   {
+                   "Uid": 355441,
+                   "NickName": "随意猫少",
+                   "HP": "23641",
+                   "Round": "1"
+                   }
+                   ],
+                   "clear_cd_time": {
+                   "time": 60,
+                   "cash": 1
+                   },
+                   "max_cd_time": 3600
+                   }
+                   }
+                   */
+                  $scope.fightStatus = fightStatus;
+                });
               })
             }
           });

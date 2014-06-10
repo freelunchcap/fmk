@@ -9,14 +9,16 @@ fmk.factory('JourneyApi', function(GameApi) {
       GameApi.post(JOURNEY_PHP, 'GetUserJourneysStatus', params, success, failure);
     },
 
-    journeyFight: function(success, failure) {
+    journeyFight: function(userJourneyId, success, failure) {
       var params = {
+        userJourneyId: userJourneyId
       };
       GameApi.post(JOURNEY_PHP, 'JourneyFight', params, success, failure);
     },
 
-    getUserJourneyInfo: function(success, failure) {
+    getUserJourneyInfo: function(userJourneyId, success, failure) {
       var params = {
+        userJourneyId: userJourneyId
       };
       GameApi.post(JOURNEY_PHP, 'GetUserJourneyInfo', params, success, failure);
     },
@@ -69,8 +71,9 @@ fmk.factory('JourneyApi', function(GameApi) {
       GameApi.post(JOURNEY_PHP, 'GetLegionRankRewardList', params, success, failure);
     },
 
-    getJourneyPointReward: function(success, failure) {
+    getJourneyPointReward: function(userJourneyId, success, failure) {
       var params = {
+        userJourneyId: userJourneyId
       };
       GameApi.post(JOURNEY_PHP, 'GetJourneyPointReward', params, success, failure);
     },
