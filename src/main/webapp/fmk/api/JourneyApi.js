@@ -3,94 +3,94 @@ JOURNEY_PHP = 'Journey.php';
 fmk.factory('JourneyApiApi', function(GameApi) {
   return {
 
-    getUserJourneysStatus: function(success) {
+    getUserJourneysStatus: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetUserJourneysStatus', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetUserJourneysStatus', params, success, failure);
     },
 
-    journeyFight: function(success) {
+    journeyFight: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'JourneyFight', params, success);
+      GameApi.post(JOURNEY_PHP, 'JourneyFight', params, success, failure);
     },
 
-    getUserJourneyInfo: function(success) {
+    getUserJourneyInfo: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetUserJourneyInfo', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetUserJourneyInfo', params, success, failure);
     },
 
-    getFriendContributeList: function(success) {
+    getFriendContributeList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetFriendContributeList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetFriendContributeList', params, success, failure);
     },
 
-    getContributePoints: function(success) {
+    getContributePoints: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetContributePoints', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetContributePoints', params, success, failure);
     },
 
-    getRandList: function(success) {
+    getRandList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetRandList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetRandList', params, success, failure);
     },
 
-    getMyRandList: function(success) {
+    getMyRandList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetMyRandList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetMyRandList', params, success, failure);
     },
 
-    getRankRewardList: function(success) {
+    getRankRewardList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetRankRewardList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetRankRewardList', params, success, failure);
     },
 
-    getLegionRankList: function(success) {
+    getLegionRankList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetLegionRankList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetLegionRankList', params, success, failure);
     },
 
-    getMyLegionRankList: function(success) {
+    getMyLegionRankList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetMyLegionRankList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetMyLegionRankList', params, success, failure);
     },
 
-    getLegionRankRewardList: function(success) {
+    getLegionRankRewardList: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetLegionRankRewardList', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetLegionRankRewardList', params, success, failure);
     },
 
-    getJourneyPointReward: function(success) {
+    getJourneyPointReward: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetJourneyPointReward', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetJourneyPointReward', params, success, failure);
     },
 
-    clearCDTime: function(success) {
+    clearCDTime: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'ClearCDTime', params, success);
+      GameApi.post(JOURNEY_PHP, 'ClearCDTime', params, success, failure);
     },
 
-    getPointsAchievedStatus: function(success) {
+    getPointsAchievedStatus: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetPointsAchievedStatus', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetPointsAchievedStatus', params, success, failure);
     },
 
-    getRules: function(success) {
+    getRules: function(success, failure) {
       var params = {
       };
-      GameApi.post(JOURNEY_PHP, 'GetRules', params, success);
+      GameApi.post(JOURNEY_PHP, 'GetRules', params, success, failure);
     }
 
   }
