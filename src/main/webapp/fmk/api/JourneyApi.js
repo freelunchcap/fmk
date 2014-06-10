@@ -1,6 +1,6 @@
 JOURNEY_PHP = 'Journey.php';
 
-fmk.factory('JourneyApiApi', function(GameApi) {
+fmk.factory('JourneyApi', function(GameApi) {
   return {
 
     getUserJourneysStatus: function(success, failure) {

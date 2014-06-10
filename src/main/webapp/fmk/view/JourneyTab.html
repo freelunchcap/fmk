@@ -11,11 +11,40 @@
     <table class="table table-condensed">
       <thead>
       <tr>
-
+        <th>#</th>
+        <th>{{'DIFFICULTY' | translate}}</th>
+        <th>{{'HEALTH_POINT' | translate}}</th>
+        <th>{{'FROM' | translate}}</th>
+        <th>{{'ROUND' | translate}}</th>
+        <th>{{'ACTION' | translate}}</th>
       </tr>
       </thead>
       <tbody>
-
+        <tr ng-repeat="journey in userJourneysStatus.journeyList.journeyList">
+          <td>
+            {{$index}}
+          </td>
+          <td>
+            {{journey.Grade}}-{{journey.JourneyName}} LV: {{journey.Level}}
+          </td>
+          <td>
+            {{journey.HPCurrent}}/{{journey.HPCount}}
+          </td>
+          <td>
+            {{journey.NickName}}
+          </td>
+          <td>
+            {{journey.Round}}
+          </td>
+          <td>
+            <a class="btn btn-xs btn-success" ng-disabled="!journey.enableAward">
+              {{'CLAIM_AWARDS' | translate}}
+            </a>
+            <a class="btn btn-xs btn-danger" ng-disabled="journey.FleeTime == 0">
+              {{'FIGHT' | translate}}
+            </a>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
