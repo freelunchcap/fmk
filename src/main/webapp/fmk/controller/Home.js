@@ -9,7 +9,8 @@ fmk.controller('Home', ['$scope', '$window',
       friends: false,
       counterAttacks: false,
       dungeon: false,
-      arena: false
+      arena: false,
+      journey: false
     };
 
     function setStatusPanelMaxHeight() {
