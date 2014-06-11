@@ -33,6 +33,10 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
         JourneyBot.fightJourney(journey.UserJourneyId);
       };
 
+      $scope.clearCDTime = function() {
+        JourneyBot.clearCDTime();
+      };
+
 
       function reload() {
         ProfileService.getProfile(function(profile) {

@@ -8,7 +8,13 @@
         {{'EXPLORE_FOR_BOSS' | translate}}
       </a>
 
-      <span>{{'COOLDOWN' | translate}}: {{fightStatus.CDTime}}</span>
+      <span class="label" ng-class="{'label-info': fightStatus.CDTimeStatus == 1, 'label-default': fightStatus.CDTimeStatus != 1}">
+        {{'COOLDOWN' | translate}}: {{fightStatus.CDTime / 60 | number : 0}} {{'MINUTES' | translate}} {{fightStatus.CDTime % 60}} {{'SECONDS' | translate}}
+      </span>
+
+      <a class="btn btn-primary" ng-click="clearCDTime()">
+        {{'CLEAR_COOLDOWN' | translate}}
+      </a>
     </div>
     <table class="table table-condensed">
       <thead>

@@ -2,13 +2,15 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
 
   function exploreForBoss(success, failure) {
     MapBot.explore(function(resultWithJourney) {
-      getFightStatus(function(fightStatus) {
-
-      }, {
-        userJourneyInfo: {
-          userJourneyInfo: resultWithJourney.JourneyInfo
-        }
-      })
+      var userJourneyInfo = {
+        userJourneyInfo: resultWithJourney.JourneyInfo
+      };
+      getFightStatus(function() {
+        getUserJourneysStatus(function() {
+          if(success)
+            success(userJourneyInfo);
+        }, true);
+      }, userJourneyInfo);
     }, function(exploreResult) {
       return exploreResult.JourneyInfo == null;
     });
@@ -17,7 +19,12 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
 
 
   function getJourneyPointReward(userJourneyId, success, failure) {
-    JourneyApi.getJourneyPointReward(userJourneyId, success, failure);
+    JourneyApi.getJourneyPointReward(userJourneyId, function(journeyPointReward) {
+      getUserJourneysStatus(function() {
+        if(success)
+          success(journeyPointReward);
+      }, true)
+    }, failure);
   }
 
   function getUserJourneyInfo(userJourneyId, success, failure) {
@@ -25,7 +32,19 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
   }
 
   function fightJourney(userJourneyId, success, failure) {
-    JourneyApi.journeyFight(userJourneyId, success, failure);
+    JourneyApi.journeyFight(userJourneyId, function(battle) {
+      getUserJourneyInfo(userJourneyId, function(userJourneyInfo) {
+        getFightStatus(function() {
+          if(battle.Win) {
+            getUserJourneysStatus(function() {
+              if(success)
+                success(userJourneyInfo);
+            }, true)
+          } else if(success)
+            success(userJourneyInfo);
+        }, userJourneyInfo);
+      });
+    }, failure);
   }
 
   var currentUserJourneysStatus;
@@ -81,24 +100,23 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
     }
 
     var fightStatus = {};
-    getUserJourneysStatus(function(journeyStatus) {
-      fightStatus.userPointRank = journeyStatus.journeyList.userPointRank;
-      fightStatus.userPoints = journeyStatus.journeyList.userPointRank;
-
-      function setCDTime(userJourneyInfo) {
-        fightStatus.CDTime = userJourneyInfo.userJourneyInfo.CDTime;
-        fightStatus.CDTimeStatus = userJourneyInfo.userJourneyInfo.CDTimeStatus;
-        currentFightStatus = $.extend(currentFightStatus, fightStatus);
-        if(currentFightStatus.CDTime > 0)
-          startCountdown();
-        else
-          currentFightStatus.CDTime = 0;
-      }
-
-      if(userJourneyInfo != null) {
-        setCDTime(userJourneyInfo);
-        callback(currentFightStatus);
-      } else {
+    function setCDTime(userJourneyInfo) {
+      stopCountdown(false);
+      fightStatus.CDTime = userJourneyInfo.userJourneyInfo.CDTime;
+      fightStatus.CDTimeStatus = userJourneyInfo.userJourneyInfo.CDTimeStatus;
+      currentFightStatus = $.extend(currentFightStatus, fightStatus);
+      if(currentFightStatus.CDTime > 0)
+        startCountdown();
+      else
+        currentFightStatus.CDTime = 0;
+    }
+    if(userJourneyInfo != null) {
+      setCDTime(userJourneyInfo);
+      callback(currentFightStatus);
+    } else {
+      getUserJourneysStatus(function(journeyStatus) {
+        fightStatus.userPointRank = journeyStatus.journeyList.userPointRank;
+        fightStatus.userPoints = journeyStatus.journeyList.userPointRank;
         var userJourneyId;
         if(journeyStatus.journeyList.journeyList.length != 0) {
           userJourneyId = journeyStatus.journeyList.journeyList[0].UserJourneyId;
@@ -114,33 +132,42 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
             callback(currentFightStatus);
           })
         }
-      }
 
-    });
+      });
+    }
   }
 
   function startCountdown() {
     countdownPromise = $timeout(function() {
       if(currentFightStatus) {
-        currentFightStatus.CDTime -= 1;
         if(currentFightStatus.CDTime <= 0) {
           if(currentFightStatus.CDTimeStatus != 1)
             currentFightStatus.CDTimeStatus = 1;
         } else {
+          currentFightStatus.CDTime -= 1;
           startCountdown();
         }
       }
     }, 1000);
   }
 
-  function stopCountdown(callback) {
-    currentFightStatus = null;
+  function stopCountdown(loseStatus, callback) {
+    if(loseStatus)
+      currentFightStatus = null;
     if(countdownPromise) {
       $timeout.cancel(countdownPromise);
       countdownPromise = null;
     }
     if(callback)
       callback();
+  }
+
+  function clearCDTime(success, failure) {
+    JourneyApi.clearCDTime(function() {
+      if(currentFightStatus)
+        currentFightStatus.CDTime = 0;
+        currentFightStatus.CDTimeStatus = 1;
+    }, failure)
   }
 
   return {
@@ -174,7 +201,11 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
     },
 
     loseFightStatus: function(callback) {
-      stopCountdown(callback);
+      stopCountdown(true, callback);
+    },
+
+    clearCDTime: function(success, failure) {
+      clearCDTime(success, failure);
     }
 
   };
