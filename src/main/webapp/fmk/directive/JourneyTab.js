@@ -37,6 +37,10 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
         JourneyBot.clearCDTime();
       };
 
+      $scope.buyEnergy = function() {
+        UserBot.buyEnergy();
+      };
+
 
       function reload() {
         ProfileService.getProfile(function(profile) {

@@ -43,6 +43,15 @@ fmk.factory('UserBot', function(GameApi, UserApi, StorageService, $timeout) {
     getUserinfo(callback, true);
   }
 
+  function buyEnergy(callback) {
+    UserApi.editEnergy(function() {
+      getUserinfo(function(userinfo) {
+        if(callback)
+          callback(userinfo);
+      }, true)
+    });
+  }
+
   return {
 
     getUserinfo: function(callback, refresh) {
@@ -59,6 +68,10 @@ fmk.factory('UserBot', function(GameApi, UserApi, StorageService, $timeout) {
 
     collectSalary: function(callback) {
       UserApi.awardSalary(callback);
+    },
+
+    buyEnergy: function(callback) {
+      buyEnergy(callback);
     }
 
   };

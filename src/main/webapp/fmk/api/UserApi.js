@@ -19,6 +19,12 @@ fmk.factory('UserApi', function(GameApi) {
       GameApi.post(USER_PHP, 'EditFresh', params, success);
     },
 
+    editEnergy: function(success, failure) {
+      var params = {
+      };
+      GameApi.post(USER_PHP, 'EditEnergy', params, success, failure);
+    },
+
     getUserSalary: function(success) {
       var params = {
       };
