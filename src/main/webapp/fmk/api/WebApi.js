@@ -16,7 +16,12 @@ fmk.factory('WebApi', function($http, $modal) {
         $modal.open({
           templateUrl: 'fmk/view/WebSecuritySettingModal.html',
           backdrop: 'static',
-          windowClass:'large'
+          windowClass:'large',
+          controller: function($scope) {
+            $scope.retry = function() {
+              location.reload();
+            }
+          }
         });
       });
   }

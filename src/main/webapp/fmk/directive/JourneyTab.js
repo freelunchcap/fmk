@@ -175,7 +175,23 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, NotificationService, 
       ];
 
       ProfileService.setDefaultProfile(JOURNEY_PROFILE, {
-
+        autoAttack: false,
+        maxCooldown: 50,
+        easy: false,
+        easyComparison: 'lt',
+        easyThreshold: 50,
+        normal: false,
+        normalComparison: 'lt',
+        normalThreshold: 50,
+        hard: false,
+        hardComparison: 'lt',
+        hardThreshold: 50,
+        nightmare: false,
+        nightmareComparison: 'lt',
+        nightmareThreshold: 50,
+        infernal: false,
+        infernalComparison: 'lt',
+        infernalThreshold: 50
       });
     }
 
