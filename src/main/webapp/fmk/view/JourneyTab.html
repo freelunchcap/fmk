@@ -23,7 +23,6 @@
     <table class="table table-condensed">
       <thead>
       <tr>
-        <th>#</th>
         <th>{{'DIFFICULTY' | translate}}</th>
         <th>{{'HEALTH_POINT' | translate}}</th>
         <th>{{'FROM' | translate}}</th>
@@ -34,10 +33,7 @@
       <tbody>
         <tr ng-repeat="journey in userJourneysStatus.journeyList.journeyList">
           <td>
-            {{$index}}
-          </td>
-          <td>
-            {{journey.Grade}}-{{journey.JourneyName}} LV: {{journey.Level}}
+            {{journey.JourneyName}} LV: {{journey.Level}}
           </td>
           <td>
             {{journey.HPCurrent}}/{{journey.HPCount}}
