@@ -1,6 +1,6 @@
 JOURNEY_PROFILE = 'journey_profile';
 
-fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
+fmk.directive('journeyTab', function (JourneyBot, UserBot, NotificationService, ProfileService, $filter) {
 
   return {
     restrict: 'E',
@@ -10,6 +10,23 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
     templateUrl: 'fmk/view/JourneyTab.html',
 
     controller: function($scope) {
+
+      $scope.saveSettings = function() {
+        ProfileService.saveProfile(function() {
+          NotificationService.success($filter('translate')('JOURNEY'), $filter('translate')('SETTINGS_SAVED_SUCCESSFULLY'))
+        });
+      };
+
+      $scope.showConfigOptions = function() {
+        $scope.configOptionsHidden = false;
+      };
+
+      $scope.hideConfigOptions = function() {
+        $scope.configOptionsHidden = true;
+      };
+      $scope.start = function() {
+      };
+
 
       $scope.refreshUserJourneysStatus = function() {
         JourneyBot.getUserJourneysStatus(function(userJourneysStatus) {
@@ -145,7 +162,18 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, ProfileService) {
       });
     },
 
-    link: function() {
+    link: function($scope) {
+
+      $scope.comparisons = [
+        {
+          type: 'lt',
+          name: $filter('translate')('LESS_THAN')
+        }, {
+          type: 'gte',
+          name: $filter('translate')('GREATER_THAN_EQUAL')
+        }
+      ];
+
       ProfileService.setDefaultProfile(JOURNEY_PROFILE, {
 
       });

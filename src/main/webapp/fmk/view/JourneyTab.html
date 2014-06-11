@@ -1,4 +1,99 @@
 <div class="journey">
+  <div class="config-panel">
+    <div class="toolbar">
+      <div class="config-button">
+        <a class="btn btn-primary" ng-click="showConfigOptions()" ng-show="configOptionsHidden">{{'SHOW_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="hideConfigOptions()" ng-hide="configOptionsHidden">{{'HIDE_OPTIONS' | translate}}</a>
+        <a class="btn btn-primary" ng-click="saveSettings()" ng-hide="configOptionsHidden">{{'SAVE_SETTINGS' | translate}}</a>
+      </div>
+    </div>
+    <div class="config-options" collapse="configOptionsHidden">
+      <form>
+        <ul>
+          <li>
+            {{'AUTO_ATTACK' | translate}}: <input type="checkbox" ng-model="profile.autoAttack">
+          </li>
+          <li>
+            {{'MAX_COOLDOWN' | translate}}: <input type="number" ng-model="profile.maxCooldown">
+          </li>
+          <li>
+            <table>
+              <thead>
+              <tr>
+                <th>
+                  {{'DIFFICULTY' | translate}}
+                </th>
+                <th>
+                  {{'ENABLED' | translate}}
+                </th>
+                <th>
+                  {{'CONDITIONS' | translate}}
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  {{'EASY' | translate}}
+                </td>
+                <td>
+                  <input type="checkbox" ng-model="profile.easy">
+                </td>
+                <td>
+                  {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.easyComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.easyThreshold" min="0" max="100"> %
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{'NORMAL' | translate}}
+                </td>
+                <td>
+                  <input type="checkbox" ng-model="profile.normal">
+                </td>
+                <td>
+                  {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.normalComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.normalThreshold" min="0" max="100"> %
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{'HARD' | translate}}
+                </td>
+                <td>
+                  <input type="checkbox" ng-model="profile.hard">
+                </td>
+                <td>
+                  {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.hardComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.hardThreshold" min="0" max="100"> %
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{'NIGHTMARE' | translate}}
+                </td>
+                <td>
+                  <input type="checkbox" ng-model="profile.nightmare">
+                </td>
+                <td>
+                  {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.nightmareComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.nightmareThreshold" min="0" max="100"> %
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{'INFERNAL' | translate}}
+                </td>
+                <td>
+                  <input type="checkbox" ng-model="profile.infernal">
+                </td>
+                <td>
+                  {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.infernalComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.infernalThreshold" min="0" max="100"> %
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
   <div class="status-panel">
     <div class="toolbar">
       <a class="btn btn-primary" ng-click="refreshUserJourneysStatus()">
