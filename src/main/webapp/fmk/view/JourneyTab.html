@@ -17,14 +17,11 @@
             {{'MAX_COOLDOWN' | translate}}: <input type="number" ng-model="profile.maxCooldown"> {{'MINUTES' | translate}}
           </li>
           <li>
-            <table>
+            <table class="table table-bordered">
               <thead>
               <tr>
                 <th>
                   {{'DIFFICULTY' | translate}}
-                </th>
-                <th>
-                  {{'ENABLED' | translate}}
                 </th>
                 <th>
                   {{'CONDITIONS' | translate}}
@@ -34,10 +31,7 @@
               <tbody>
               <tr>
                 <td>
-                  {{'EASY' | translate}}
-                </td>
-                <td>
-                  <input type="checkbox" ng-model="profile.easy">
+                  <input type="checkbox" ng-model="profile.easy">{{'EASY' | translate}}
                 </td>
                 <td>
                   {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.easyComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.easyThreshold" min="0" max="100"> %
@@ -45,10 +39,7 @@
               </tr>
               <tr>
                 <td>
-                  {{'NORMAL' | translate}}
-                </td>
-                <td>
-                  <input type="checkbox" ng-model="profile.normal">
+                  <input type="checkbox" ng-model="profile.normal">{{'NORMAL' | translate}}
                 </td>
                 <td>
                   {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.normalComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.normalThreshold" min="0" max="100"> %
@@ -56,10 +47,7 @@
               </tr>
               <tr>
                 <td>
-                  {{'HARD' | translate}}
-                </td>
-                <td>
-                  <input type="checkbox" ng-model="profile.hard">
+                  <input type="checkbox" ng-model="profile.hard">{{'HARD' | translate}}
                 </td>
                 <td>
                   {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.hardComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.hardThreshold" min="0" max="100"> %
@@ -67,10 +55,7 @@
               </tr>
               <tr>
                 <td>
-                  {{'NIGHTMARE' | translate}}
-                </td>
-                <td>
-                  <input type="checkbox" ng-model="profile.nightmare">
+                  <input type="checkbox" ng-model="profile.nightmare">{{'NIGHTMARE' | translate}}
                 </td>
                 <td>
                   {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.nightmareComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.nightmareThreshold" min="0" max="100"> %
@@ -78,10 +63,7 @@
               </tr>
               <tr>
                 <td>
-                  {{'INFERNAL' | translate}}
-                </td>
-                <td>
-                  <input type="checkbox" ng-model="profile.infernal">
+                  <input type="checkbox" ng-model="profile.infernal">{{'INFERNAL' | translate}}
                 </td>
                 <td>
                   {{'WHEN' | translate}} {{'HEALTH_POINT' | translate}} <select ng-model="profile.infernalComparison" ng-options="c.type as c.name for c in comparisons"></select><input type="number" ng-model="profile.infernalThreshold" min="0" max="100"> %
@@ -115,7 +97,7 @@
         {{'BUY_ENERGY' | translate}}
       </a>
     </div>
-    <table class="table table-condensed">
+    <table class="table table-bordered table-condensed">
       <thead>
       <tr>
         <th>{{'DIFFICULTY' | translate}}</th>

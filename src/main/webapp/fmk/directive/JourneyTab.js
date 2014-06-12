@@ -1,6 +1,6 @@
 JOURNEY_PROFILE = 'journey_profile';
 
-fmk.directive('journeyTab', function (JourneyBot, UserBot, NotificationService, ProfileService, $filter) {
+fmk.directive('journeyTab', function (CardBot, JourneyBot, UserBot, NotificationService, ProfileService, $filter) {
 
   return {
     restrict: 'E',
@@ -136,6 +136,9 @@ fmk.directive('journeyTab', function (JourneyBot, UserBot, NotificationService, 
                    }
                    */
                   $scope.fightStatus = fightStatus;
+                  CardBot.getCurrentCardGroup(function(currentCardGroup) {
+
+                  });
                 });
               })
             }

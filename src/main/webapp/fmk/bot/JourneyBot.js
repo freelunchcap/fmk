@@ -1,4 +1,4 @@
-fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
+fmk.factory('JourneyBot', function(JourneyApi, AssetsBot, MapBot, UserBot, $timeout) {
 
   function exploreForBoss(success, failure) {
     MapBot.explore(function(resultWithJourney) {
@@ -33,6 +33,7 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
 
   function fightJourney(userJourneyId, success, failure) {
     JourneyApi.journeyFight(userJourneyId, function(battle) {
+      setEnemy(userJourneyId, battle);
       getUserJourneyInfo(userJourneyId, function(userJourneyInfo) {
         getFightStatus(function() {
           if(battle.Win) {
@@ -55,6 +56,7 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
     if(!currentUserJourneysStatus || refresh) {
       cancelNextUpdate();
       JourneyApi.getUserJourneysStatus(function(userJourneysStatus) {
+        pruneEnemies(userJourneysStatus);
         if(regularUpdate)
           scheduleNextUpdate();
         currentUserJourneysStatus = $.extend(currentUserJourneysStatus, userJourneysStatus);
@@ -162,11 +164,32 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
       callback();
   }
 
+  var journeyEnemies = {};
+  function setEnemy(userJourneyId, battle) {
+    journeyEnemies[userJourneyId] = battle.DefendPlayer;
+    var defender = battle.DefendPlayer;
+  }
+  function pruneEnemies(userJourneyStatus) {
+    //userJourneyId = journeyStatus.journeyList.journeyList[0].UserJourneyId
+    var recentJourneys = [];
+    $.each(userJourneyStatus.journeyList.journeyList, function(index, journey) {
+      recentJourneys.push(journey.UserJourneyId);
+    });
+    $.each(journeyEnemies, function(userJourneyId) {
+      if($.inArray(userJourneyId, recentJourneys) == -1)
+        delete journeyEnemies[userJourneyId];
+    });
+
+  }
+
   function clearCDTime(success, failure) {
     JourneyApi.clearCDTime(function() {
-      if(currentFightStatus)
+      if(currentFightStatus) {
         currentFightStatus.CDTime = 0;
         currentFightStatus.CDTimeStatus = 1;
+      }
+      if(success)
+        success();
     }, failure)
   }
 
@@ -202,6 +225,10 @@ fmk.factory('JourneyBot', function(JourneyApi, MapBot, UserBot, $timeout) {
 
     loseFightStatus: function(callback) {
       stopCountdown(true, callback);
+    },
+
+    getJourneyEnemies: function(callback) {
+      return journeyEnemies;
     },
 
     clearCDTime: function(success, failure) {
