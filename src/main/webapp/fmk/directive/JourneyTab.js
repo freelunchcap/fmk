@@ -27,6 +27,12 @@ fmk.directive('journeyTab', function (CardBot, JourneyBot, UserBot, Notification
       $scope.start = function() {
       };
 
+      $scope.switchCardGroup = function() {
+        CardBot.setCurrentCardGroup($scope.cardGroupInfo.target, function() {
+          $scope.cardGroupInfo.current = $scope.cardGroupInfo.target;
+        })
+      };
+
 
       $scope.refreshUserJourneysStatus = function() {
         JourneyBot.getUserJourneysStatus(function(userJourneysStatus) {
@@ -136,8 +142,9 @@ fmk.directive('journeyTab', function (CardBot, JourneyBot, UserBot, Notification
                    }
                    */
                   $scope.fightStatus = fightStatus;
-                  CardBot.getCurrentCardGroup(function(currentCardGroup) {
-
+                  CardBot.getCurrentCardGroup(function(pos) {
+                    $scope.cardGroupInfo.target = pos;
+                    $scope.cardGroupInfo.current = pos;
                   });
                 });
               })
@@ -176,6 +183,41 @@ fmk.directive('journeyTab', function (CardBot, JourneyBot, UserBot, Notification
           name: $filter('translate')('GREATER_THAN_EQUAL')
         }
       ];
+
+      $scope.cardGroups = [
+        {
+          name: $filter('translate')('DEF_CARD_GROUP'),
+          pos: 'def'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 1',
+          pos: '1'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 2',
+          pos: '2'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 3',
+          pos: '3'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 4',
+          pos: '4'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 5',
+          pos: '5'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 6',
+          pos: '6'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 7',
+          pos: '7'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 8',
+          pos: '8'
+        }, {
+          name: $filter('translate')('CARD_GROUP') + ' 9',
+          pos: '9'
+        }
+      ];
+      $scope.cardGroupInfo = {};
 
       ProfileService.setDefaultProfile(JOURNEY_PROFILE, {
         autoAttack: false,

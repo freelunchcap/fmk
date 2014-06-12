@@ -96,6 +96,11 @@
       <a class="btn btn-primary" ng-click="buyEnergy()">
         {{'BUY_ENERGY' | translate}}
       </a>
+
+      <select ng-model="cardGroupInfo.target" ng-options="cg.pos as cg.name for cg in cardGroups"></select>
+      <a class="btn btn-primary" ng-click="switchCardGroup()" ng-disabled="cardGroupInfo.target == cardGroupInfo.current">
+        {{'SWITCH_CARD_GROUP' | translate}}
+      </a>
     </div>
     <table class="table table-bordered table-condensed">
       <thead>

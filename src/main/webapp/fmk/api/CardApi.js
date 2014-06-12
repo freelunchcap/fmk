@@ -24,11 +24,11 @@ fmk.factory('CardApi', function(GameApi) {
       GameApi.post(CARD_PHP, 'SetCardGroup', params, success);
     },
 
-    setDefaultGroup: function(groupId, success) {
+    setDefaultGroup: function(groupId, success, failure) {
       var params = {
         GroupId: groupId
       };
-      GameApi.post(CARD_PHP, 'SetDefalutGroup', params, success);
+      GameApi.post(CARD_PHP, 'SetDefalutGroup', params, success, failure);
     },
 
     getAllSkill: function(success) {

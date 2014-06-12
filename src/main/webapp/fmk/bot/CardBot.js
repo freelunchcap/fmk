@@ -1,4 +1,4 @@
-fmk.factory('CardBot', function(CardApi, GameApi) {
+fmk.factory('CardBot', function(CardApi, GameApi, UserBot) {
 
   var cardGroups = {};
 
@@ -17,13 +17,41 @@ fmk.factory('CardBot', function(CardApi, GameApi) {
     }
   }
 
-  function setCurrentCardGroup(pos, success, failure) {
+  function sortCardGroupByPos(allCardGroups) {
+    var groups = allCardGroups.Groups;
+    var result = {};
+    var count = 1;
+    $.each(groups, function(index, group) {
+      if(group.Type == 1)
+        result.def = group;
+      else
+        result[count++] = group;
+    });
+    return result;
+  }
 
+  function setCurrentCardGroup(pos, success, failure) {
+    getAllCardGroups(function(allCardGroups) {
+      var targetCardGroup = sortCardGroupByPos(allCardGroups)[pos];
+      if(targetCardGroup != null)
+        CardApi.setDefaultGroup(targetCardGroup.GroupId, success, failure);
+    });
   }
 
   function getCurrentCardGroup(success, failure) {
-    getAllCardGroups(function(allCardGroups) {
-      var groups = allCardGroups.Groups;
+    UserBot.getUserinfo(function(userinfo) {
+      var currentCardGroup = userinfo.DefaultGroupId;
+      getAllCardGroups(function(allCardGroups) {
+        var sortedGroups = sortCardGroupByPos(allCardGroups);
+        $.each(sortedGroups, function(pos, group) {
+          if(group.GroupId == currentCardGroup) {
+            if(success)
+              success(pos);
+            return false;
+          }
+          return true;
+        });
+      });
     });
   }
 
