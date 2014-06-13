@@ -78,10 +78,10 @@
   </div>
   <div class="status-panel">
     <div class="toolbar">
-      <a class="btn btn-primary" ng-click="refreshUserJourneysStatus()">
+      <a class="btn btn-primary btn-sm" ng-click="refreshUserJourneysStatus()">
         {{'REFRESH' | translate}}
       </a>
-      <a class="btn btn-primary" ng-click="exploreForBoss()">
+      <a class="btn btn-primary btn-sm" ng-click="exploreForBoss()">
         {{'EXPLORE_FOR_BOSS' | translate}}
       </a>
 
@@ -89,16 +89,16 @@
         {{'COOLDOWN' | translate}}: {{fightStatus.CDTime / 60 | number : 0}} {{'MINUTES' | translate}} {{fightStatus.CDTime % 60}} {{'SECONDS' | translate}}
       </span>
 
-      <a class="btn btn-primary" ng-click="clearCDTime()">
+      <a class="btn btn-primary btn-sm" ng-click="clearCDTime()">
         {{'CLEAR_COOLDOWN' | translate}}
       </a>
 
-      <a class="btn btn-primary" ng-click="buyEnergy()">
+      <a class="btn btn-primary btn-sm" ng-click="buyEnergy()">
         {{'BUY_ENERGY' | translate}}
       </a>
 
       <select ng-model="cardGroupInfo.target" ng-options="cg.pos as cg.name for cg in cardGroups"></select>
-      <a class="btn btn-primary" ng-click="switchCardGroup()" ng-disabled="cardGroupInfo.target == cardGroupInfo.current">
+      <a class="btn btn-primary btn-sm" ng-click="switchCardGroup()" ng-disabled="cardGroupInfo.target == cardGroupInfo.current">
         {{'SWITCH_CARD_GROUP' | translate}}
       </a>
     </div>
