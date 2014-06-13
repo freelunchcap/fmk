@@ -23,6 +23,13 @@ fmk.factory('FriendApi', function(GameApi) {
         Fid: fid
       };
       GameApi.post(FRIEND_PHP, 'DisposeFriendApply', params, success);
+    },
+
+    delFriend: function(fid, success) {
+      var params = {
+        Fid: fid
+      };
+      GameApi.post(FRIEND_PHP, 'DelFriend', params, success);
     }
 
   }

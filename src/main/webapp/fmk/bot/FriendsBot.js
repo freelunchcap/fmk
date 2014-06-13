@@ -7,6 +7,10 @@ fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
     });
   }
 
+  function delFriend(fid, callback) {
+    FriendApi.delFriend(fid, callback);
+  }
+
   function findFriend(fid, friendList) {
     return $.grep(friendList, function(friend) {
       return friend.Uid == fid;
@@ -91,6 +95,10 @@ fmk.factory('FriendsBot', function(FriendApi, FenergyApi, ProfileService) {
 
     getFriends: function(callback) {
       getFriends(callback);
+    },
+
+    delFriend: function(fid, callback) {
+      delFriend(fid, callback);
     },
 
     claimEnergy: function(fid, friendList, success, failure) {

@@ -42,6 +42,10 @@ fmk.directive('friendsTab', function ($filter, FriendsBot, MaskService, Notifica
         });
       };
 
+      $scope.delFriend = function(fid) {
+        FriendsBot.delFriend(fid);
+      };
+
       $scope.claimEnergy = function(fid) {
         FriendsBot.claimEnergy(fid, $scope.friends);
       };
