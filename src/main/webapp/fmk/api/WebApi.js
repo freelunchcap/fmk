@@ -1,5 +1,7 @@
 fmk.factory('WebApi', function($http, $modal) {
 
+  var retryCount = 0;
+
   function postRequest(serviceName, callParam, success) {
     var param = {
       serviceName: serviceName,
@@ -11,18 +13,26 @@ fmk.factory('WebApi', function($http, $modal) {
       url: httpUrl,
       data: param,
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    }).success(success)
-      .error(function() {
-        $modal.open({
-          templateUrl: 'fmk/view/WebSecuritySettingModal.html',
-          backdrop: 'static',
-          windowClass:'large',
-          controller: function($scope) {
-            $scope.retry = function() {
-              location.reload();
+    }).success(function(response) {
+      retryCount = 0;
+      if(success)
+        success(response);
+    }) .error(function() {
+        retryCount++;
+        if(retryCount > 2) {
+          $modal.open({
+            templateUrl: 'fmk/view/WebSecuritySettingModal.html',
+            backdrop: 'static',
+            windowClass:'large',
+            controller: function($scope) {
+              $scope.retry = function() {
+                location.reload();
+              }
             }
-          }
-        });
+          });
+        } else {
+          postRequest(serviceName, callParam, success);
+        }
       });
   }
 
