@@ -1,6 +1,7 @@
 fmk
 ===
 An AngularJS based bot for mobile game Lies Of Astaroth (v1.4.3 onward).
+Live on http://beijunyi.github.io
 
 Completed features:
 ---
