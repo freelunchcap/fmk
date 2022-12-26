@@ -14,3 +14,5 @@ Requirements:
 1. Game account (android / ios)
 
 2. Modern browser with Cross-origin resource sharing enabled
+
+全前端的魔卡幻想外挂。
